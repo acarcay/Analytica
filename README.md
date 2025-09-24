@@ -1,4 +1,4 @@
-# myapp
+# Analytica
 
 A new Flutter project.
 

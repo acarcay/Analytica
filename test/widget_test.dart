@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:myapp/main.dart';
+import 'package:analytica/main.dart';
 
 void main() {
   testWidgets('HomeScreen smoke test', (WidgetTester tester) async {
     // Uygulamamızı build edip bir frame çizdiriyoruz.
-    await tester.pumpWidget(const AnalyticaApp());
+    await tester.pumpWidget(const MyApp());
 
     // AppBar'da 'Analytica' başlığının olduğunu doğruluyoruz.
     expect(find.text('Analytica'), findsOneWidget);
@@ -24,4 +24,4 @@ void main() {
     // Artık var olmayan '0' sayısını arıyoruz ve bulamadığımızı doğruluyoruz.
     expect(find.text('0'), findsNothing);
   });
-}
+} 
