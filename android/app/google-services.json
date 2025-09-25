@@ -7,17 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:374105398036:android:126324eb35bc88fe900001",
+        "mobilesdk_app_id": "1:374105398036:android:1afe383482e388c1900001",
         "android_client_info": {
-          "package_name": "com.example.myapp"
+          "package_name": "com.analytica.news"
         }
       },
       "oauth_client": [
         {
-          "client_id": "374105398036-j7h6sepg0bod3a13thsc6ih68dtb0efj.apps.googleusercontent.com",
+          "client_id": "374105398036-0o7cn3m57va5jt4qkuavi710l7tklhi5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.myapp",
+            "package_name": "com.analytica.news",
+            "certificate_hash": "be1776d4af03fce130efc275abb1c5160b7dd794"
+          }
+        },
+        {
+          "client_id": "374105398036-e0e9312s3bp3afonugj79mlk73u2kb54.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.analytica.news",
             "certificate_hash": "76103e63a9b8d812671b70959e902dc3a1175609"
           }
         },

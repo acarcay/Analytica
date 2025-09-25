@@ -13,7 +13,7 @@ class AuthService {
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn(
       scopes: ['email'],
-      serverClientId: '374105398036-jq56psub2vc0tdh7kgnilr1d4pllpm01.apps.googleusercontent.com',
+      serverClientId: '374105398036-16a44huph7pgqf6vt7gn40hhb2he8com.apps.googleusercontent.com',
     );
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     if (googleUser == null) {

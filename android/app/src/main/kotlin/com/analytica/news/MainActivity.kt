@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.analytica.news
 
 import io.flutter.embedding.android.FlutterActivity
 
