@@ -1,18 +1,23 @@
 // lib/screens/home_screen.dart
 
 import 'package:flutter/material.dart';
+import '../widgets/loading_animation.dart';
 import 'package:http/http.dart' as http;
 import 'package:webfeed_plus/webfeed_plus.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
+import '../utils/logging.dart';
 
 import '../services/financial_data_service.dart';
 import '../models/article.dart';
+import '../services/image_extractor.dart';
 import '../widgets/category_selector.dart';
 import 'news_detail_screen.dart';
 import 'profile_screen.dart';
+import '../auth/login_screen.dart';
+import 'quiz_screen.dart';
 
 // FeedSource sınıfı
 class FeedSource {
@@ -29,19 +34,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  // drawer expansion is now controlled by ExpansionTile; helper below used for small summaries
   late TabController _tabController;
   final List<FeedSource> _allFeeds = [
     // Gündem Kategorisi - Çalışan RSS'ler
     FeedSource(category: "gundem", url: "https://www.haberturk.com/rss/gundem.xml"),
     FeedSource(category: "gundem", url: "https://www.cumhuriyet.com.tr/rss/1.xml"),
     FeedSource(category: "gundem", url: "https://www.aa.com.tr/tr/rss/default?cat=guncel"),
-    FeedSource(category: "gundem", url: "https://www.trthaber.com/rss/gundem.rss"),
+    FeedSource(category: "gundem", url: "https://www.elipshaber.com/rss"),
+    FeedSource(category: "gundem", url: "https://feeds.bbci.co.uk/turkce/rss.xml"),
     
     // Ekonomi Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "ekonomi", url: "https://www.haberturk.com/rss/ekonomi.xml"),
     FeedSource(category: "ekonomi", url: "https://www.aa.com.tr/tr/rss/default?cat=ekonomi"),
     FeedSource(category: "ekonomi", url: "https://www.cumhuriyet.com.tr/rss/2.xml"),
-    FeedSource(category: "ekonomi", url: "https://www.trthaber.com/rss/ekonomi.rss"),
+    FeedSource(category: "ekonomi", url: "https://www.elipshaber.com/rss/ekonomi"),
+    FeedSource(category: "ekonomi", url: "https://ninjanews.io/feed/"),
 
     // Teknoloji Kategorisi - Çalışan RSS'ler
     FeedSource(category: "teknoloji", url: "https://www.webtekno.com/rss.xml"),
@@ -49,28 +56,38 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     
     // Spor Kategorisi - Çalışan RSS'ler
     FeedSource(category: "spor", url: "https://www.haberturk.com/rss/spor.xml"),
-    FeedSource(category: "spor", url: "https://www.trthaber.com/rss/spor.rss"),
     FeedSource(category: "spor", url: "https://www.cumhuriyet.com.tr/rss/4.xml"),
     FeedSource(category: "spor", url: "https://www.aa.com.tr/tr/rss/default?cat=spor"),
     
     // Politika Kategorisi - Çalışan RSS'ler
     FeedSource(category: "politika", url: "https://www.cumhuriyet.com.tr/rss/3.xml"),
     FeedSource(category: "politika", url: "https://www.trthaber.com/rss/politika.rss"),
-    FeedSource(category: "politika", url: "https://www.aa.com.tr/tr/rss/default?cat=politika"),
+    FeedSource(category: "politika", url: "https://www.elipshaber.com/rss/politika"),
     
     // Sağlık Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "saglik", url: "https://www.trthaber.com/rss/saglik.rss"),
+    FeedSource(category: "saglik", url: "https://www.elipshaber.com/rss/saglik"),
     
     // Eğitim Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "egitim", url: "https://www.haberturk.com/rss/egitim.xml"),
+    FeedSource(category: "egitim", url: "https://www.elipshaber.com/rss/egitim"),
     
     // Dünya Kategorisi - Çalışan RSS'ler
     FeedSource(category: "dunya", url: "https://www.haberturk.com/rss/dunya.xml"),
     FeedSource(category: "dunya", url: "https://www.trthaber.com/rss/dunya.rss"),
     FeedSource(category: "dunya", url: "https://www.aa.com.tr/tr/rss/default?cat=dunya"),
+    FeedSource(category: "dunya", url: "https://www.elipshaber.com/rss/dunya"),
+    FeedSource(category: "dunya", url: "https://feeds.bbci.co.uk/turkce/rss.xml"),
     
     // Kültür Kategorisi - Çalışan RSS'ler
     FeedSource(category: "kultur", url: "https://www.haberturk.com/rss/kultur-sanat.xml"),
+    FeedSource(category: "kultur", url: "https://www.elipshaber.com/rss/kultur-sanat"),
+
+    // Özel Dosyalar Kategorisi - Çalışan RSS'ler
+    FeedSource(category: "özel dosyalar", url: "https://feeds.bbci.co.uk/turkce/rss.xml"),
+    
+    // Köşe Yazıları Kategorisi - Çalışan RSS'ler
+    FeedSource(category: "kose yazilari", url: "https://www.sozcu.com.tr/rss/yazarlar.xml"),
+    FeedSource(category: "kose yazilari", url: "https://www.elipshaber.com/rss/makaleler"),
+
   ];
 
   late final List<String> _categories;
@@ -93,10 +110,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       "saglik",
       "egitim",
       "dunya",
-      "kultur"
+      "kultur",
+      "özel dosyalar",
+      "kose yazilari",
     ];
     _tabController = TabController(length: _categories.length, vsync: this);
-    _refreshData();
+    _initialLoad();
+  }
+
+  Future<void> _initialLoad() async {
+    // On first load, fetch only feeds for the visible tab so UI appears fast.
+    await Future.wait([
+      _fetchAllNews(initialOnly: true),
+      _fetchFinancialData(),
+    ]);
   }
 
   @override
@@ -112,12 +139,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     ]);
   }
 
-  Future<void> _fetchAllNews() async {
-     List<Article> fetchedArticles = [];
+  Future<void> _fetchAllNews({bool initialOnly = false}) async {
+    List<Article> fetchedArticles = [];
      Set<String> seenArticles = {}; // Duplicate kontrolü için
      Map<String, int> categoryCounts = {}; // Kategori sayacı
     
-    await Future.wait(_allFeeds.map((feedSource) async {
+  final feedsToProcess = initialOnly
+    ? _allFeeds.where((f) => f.category == _categories[_tabController.index]).toList()
+    : _allFeeds;
+
+  await Future.wait(feedsToProcess.map((feedSource) async {
       try {
         final response = await http.get(
           Uri.parse(feedSource.url),
@@ -156,33 +187,91 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   
                   final titleForPrint = article.title ?? '';
                   final shortTitle = titleForPrint.length > 30 ? titleForPrint.substring(0, 30) : titleForPrint;
-                  print('Haber [${actualCategory}]: $shortTitle...');
+                  AppLog.d('Haber [$actualCategory]: $shortTitle...');
                   
                   fetchedArticles.add(article);
                 }
               }
             }
           }
-        } else {
-          print("HTTP Hatası: ${response.statusCode} - ${feedSource.url}");
+          } else {
+          AppLog.d("HTTP Hatası: ${response.statusCode} - ${feedSource.url}");
         }
       } catch (e) {
-        print("RSS Hatası: ${feedSource.url} - $e");
+        AppLog.d("RSS Hatası: ${feedSource.url} - $e");
       }
     }));
     
-    // Tarihe göre sırala (en yeni önce)
+    // Tarihe göre sırala (en yeni önce) ve önce içerikleri göster; görseller
+    // arka planda çıkarılıp geldikçe UI güncellenecek. Bu, başlangıç yüklenmesini
+    // hızlandırır çünkü tüm sayfaların taranması beklenmez.
     fetchedArticles.sort((a, b) => b.pubDate?.compareTo(a.pubDate ?? DateTime(0)) ?? 0);
-    
-    print('Toplam ${fetchedArticles.length} haber yüklendi');
-    print('Kategori dağılımı: $categoryCounts');
-    
+
     if (mounted) {
       setState(() {
         _allArticles = fetchedArticles;
         _isLoading = false;
       });
     }
+
+    // Eğer sadece initial load yapıldıysa, arka planda kalan feed'leri çek ve mevcut listeye ekle
+    if (initialOnly) {
+      // fire-and-forget background merge
+      Future(() async {
+        await _fetchAllNews(initialOnly: false);
+        // dedup ve sort zaten fetchAllNews içinde yapılacak; burada ek işleme gerek yok
+      });
+    }
+
+    // Arka plan görsel çıkarma - non-blocking. Görseller bulunduğunda tek tek
+    // ilgili öğeyi güncelle ve UI'ı yeniden render et.
+    (() async {
+      const int concurrency = 4; // daha düşük concurrency başlangıç için safer
+      final List<Article> queue = List<Article>.from(fetchedArticles);
+
+      Future<void> worker() async {
+        while (true) {
+          Article? current;
+          // pop
+          if (queue.isEmpty) break;
+          current = queue.removeLast();
+
+          if ((current.imageUrl == null || current.imageUrl!.isEmpty) && current.link != null) {
+            try {
+              final extracted = await ImageExtractor.extractImage(current.link!);
+                if (extracted != null && mounted) {
+                // güncelle: orijinal listede aynı link'i bulup değiştir
+                final idx = _allArticles.indexWhere((a) => a.link == current!.link);
+                if (idx != -1) {
+                  final updated = _allArticles[idx].copyWith(imageUrl: extracted);
+                  // small optimization: only setState when changed
+                    if (updated.imageUrl != _allArticles[idx].imageUrl) {
+                    setState(() {
+                      _allArticles[idx] = updated;
+                    });
+                    AppLog.d('ImageExtractor: updated article image for ${current.link}');
+                  }
+                }
+              }
+            } catch (e) {
+              // ignore per-article errors but log for debug
+              AppLog.d('ImageExtractor: error for ${current.link} -> $e');
+            }
+          }
+        }
+      }
+
+      // start workers without awaiting them here (fire-and-forget)
+      final workers = <Future>[];
+      for (int i = 0; i < concurrency; i++) {
+        workers.add(worker());
+      }
+      await Future.wait(workers);
+      AppLog.d('ImageExtractor: background extraction finished');
+    })();
+
+    AppLog.d('Toplam ${fetchedArticles.length} haber yüklendi');
+    AppLog.d('Kategori dağılımı: $categoryCounts');
   }
 
   // XML içeriğini temizle
@@ -262,6 +351,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     if (egitimKeywords.any((keyword) => content.contains(keyword))) {
       return 'egitim';
     }
+
     
     // Eğer hiçbiri eşleşmezse, feed kategorisini kullan
     return feedCategory;
@@ -370,40 +460,49 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         return 'Dünya';
       case 'kultur':
         return 'Kültür';
+      case 'özel dosyalar':
+        return 'Özel Dosyalar';  
+      case 'kose yazilari':
+        return 'kose yazilari';  
       default:
         return categoryName.toUpperCase();
     }
   }
 
-  Widget _buildTicker() {
-    if (_isFinancialDataLoading) {
-      return const SizedBox(height: 40, child: Center(child: LinearProgressIndicator()));
-    }
-    if (_financialData == null) {
-      return Container(
-        height: 40,
-        color: Theme.of(context).colorScheme.errorContainer,
-        child: Center(
-          child: Text(
-            "Finansal veriler yüklenemedi.",
-            style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
-          ),
-        ),
-      );
-    }
-    
-    final items = [
-      ..._financialData!.currencies.map((c) => ' ${c.code}: ₺${c.selling} '),
-      ' BTC: ₺${NumberFormat("#,##0", "tr_TR").format(_financialData!.btcPrice)} '
-    ];
+  // removed ticker (show currencies inside Drawer instead)
 
-    return _AutoScrollTicker(items: items);
+  Widget _smallCurrencySummary(ThemeData theme, List<dynamic> currencies, String code) {
+    try {
+      final c = currencies.firstWhere((e) => e.code == code);
+      final raw = c.selling;
+      double? value;
+      try { value = double.parse(raw.replaceAll(',', '.')); } catch (_) { value = null; }
+      final formatter = NumberFormat.currency(locale: 'tr_TR', symbol: '₺', decimalDigits: 2);
+      final display = value != null ? formatter.format(value) : '₺$raw';
+      return Row(
+        children: [
+          Text('$code:', style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700)),
+          const SizedBox(width: 6),
+          Text(display, style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primary)),
+        ],
+      );
+    } catch (_) {
+      return Text(code, style: theme.textTheme.bodySmall);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: _buildSidePanel(context),
       appBar: AppBar(
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu_rounded),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            tooltip: 'Menü',
+          ),
+        ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -461,12 +560,25 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         ),
       ),
       body: SafeArea(
-        child: Column(
+        child: Container(
+          // modern subtle gradient background for the entire screen
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF0F172A), // slate-900 like deep tone
+                Color(0xFF0B1220).withOpacity(0.9),
+                Theme.of(context).colorScheme.surface.withOpacity(0.02),
+              ],
+              stops: const [0.0, 0.35, 1.0],
+            ),
+          ),
+          child: Column(
           children: [
-            _buildTicker(),
             Expanded(
               child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(child: LoadingAnimation())
                   : TabBarView(
                       controller: _tabController,
                       children: _categories.map((String categoryName) {
@@ -486,24 +598,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                               return Container(
                                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Colors.white,
-                                      Colors.grey.shade50,
-                                    ],
-                                  ),
+                                  color: Theme.of(context).colorScheme.surface,
                                   borderRadius: BorderRadius.circular(16),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withOpacity(0.05),
-                                      blurRadius: 10,
-                                      offset: const Offset(0, 4),
+                                      color: Colors.black.withOpacity(0.45),
+                                      blurRadius: 18,
+                                      offset: const Offset(0, 6),
                                     ),
                                   ],
                                   border: Border.all(
-                                    color: Colors.grey.shade200,
+                                    color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.6),
                                     width: 1,
                                   ),
                                 ),
@@ -557,13 +662,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                               Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                                 decoration: BoxDecoration(
-                                                  color: Colors.grey.shade100,
+                                                  color: Theme.of(context).colorScheme.surface.withOpacity(0.04),
                                                   borderRadius: BorderRadius.circular(8),
                                                 ),
                                                 child: Text(
                                                   article.sourceName ?? 'Bilinmeyen',
                                                   style: TextStyle(
-                                                    color: Colors.grey.shade700,
+                                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 11,
                                                   ),
@@ -576,8 +681,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           // Haber Başlığı
                                           Text(
                                             article.title ?? 'Başlık bulunamadı',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold, 
+                                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                              color: Theme.of(context).colorScheme.onSurface,
+                                              fontWeight: FontWeight.bold,
                                               fontSize: 16,
                                               height: 1.3,
                                             ),
@@ -591,7 +697,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                             Text(
                                               article.description!,
                                               style: TextStyle(
-                                                color: Colors.grey.shade700, 
+                                                color: Theme.of(context).colorScheme.onSurfaceVariant,
                                                 fontSize: 14,
                                                 height: 1.4,
                                               ),
@@ -599,6 +705,36 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           
+                                          const SizedBox(height: 8),
+                                          // Haber görseli (eğer varsa)
+                                          if (article.imageUrl != null && article.imageUrl!.isNotEmpty)
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(12),
+                                              child: SizedBox(
+                                                width: double.infinity,
+                                                height: 160,
+                                                child: Image.network(
+                                                  article.imageUrl!,
+                                                  fit: BoxFit.cover,
+                                                  loadingBuilder: (context, child, progress) {
+                                                    if (progress == null) return child;
+                                                    return Container(
+                                                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                                      child: const Center(child: CircularProgressIndicator()),
+                                                    );
+                                                  },
+                                                  errorBuilder: (context, error, stack) {
+                                                    return Container(
+                                                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                                      child: Center(
+                                                        child: Icon(Icons.broken_image, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+
                                           const SizedBox(height: 12),
                                           
                                           // Tarih ve Analiz Butonu
@@ -607,14 +743,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                               Icon(
                                                 Icons.access_time,
                                                 size: 14,
-                                                color: Colors.grey.shade500,
+                                                color: Theme.of(context).colorScheme.onSurfaceVariant,
                                               ),
                                               const SizedBox(width: 4),
                                               if (formattedDate.isNotEmpty)
                                                 Text(
                                                   formattedDate,
                                                   style: TextStyle(
-                                                    color: Colors.grey.shade500, 
+                                                    color: Theme.of(context).colorScheme.onSurfaceVariant, 
                                                     fontSize: 12,
                                                   ),
                                                 ),
@@ -660,6 +796,295 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     ),
             ),
           ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Drawer / Side panel that opens from left
+  Widget _buildSidePanel(BuildContext context) {
+    final theme = Theme.of(context);
+    final currencyWidgets = <Widget>[];
+    if (_isFinancialDataLoading) {
+      currencyWidgets.add(const Padding(
+        padding: EdgeInsets.symmetric(vertical: 12),
+  child: Center(child: LoadingAnimation(width: 48, height: 48)),
+      ));
+    } else if (_financialData == null) {
+      currencyWidgets.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Text('Finansal veriler alınamadı', style: theme.textTheme.bodySmall),
+      ));
+    } else {
+      for (var c in _financialData!.currencies) {
+        currencyWidgets.add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 12,
+                      backgroundColor: theme.colorScheme.primary.withOpacity(0.12),
+                      child: Text(c.code.substring(0, c.code.length > 2 ? 2 : c.code.length), style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.w700)),
+                    ),
+                    const SizedBox(width: 8),
+                    // make sure long names don't push the price out
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(c.code, style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          Text(c.name, style: theme.textTheme.bodySmall, overflow: TextOverflow.ellipsis, maxLines: 1),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 80, maxWidth: 140),
+                child: Builder(builder: (_) {
+                  final raw = c.selling;
+                  double? value;
+                  try {
+                    value = double.parse(raw.replaceAll(',', '.'));
+                  } catch (_) {
+                    value = null;
+                  }
+                  final display = value != null ? '₺${value.toStringAsFixed(3)}' : '₺$raw';
+                  return Text(
+                    display,
+                    style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.right,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  );
+                }),
+              ),
+            ],
+          ),
+        ));
+      }
+      // BTC (USDT) display
+      if (_financialData!.btcUsdtPrice != null) {
+        currencyWidgets.add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 12,
+                      backgroundColor: theme.colorScheme.primary.withOpacity(0.12),
+                      child: Text('BTC', style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.w700)),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('BTC/USDT', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          Text('Kripto', style: theme.textTheme.bodySmall, overflow: TextOverflow.ellipsis, maxLines: 1),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 80, maxWidth: 140),
+                child: Text(
+                  _financialData!.btcUsdtPrice!.toStringAsFixed(2),
+                  style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
+        ));
+      }
+
+      // Gram altın gösterimi
+      if (_financialData!.goldGramPrice != null) {
+        currencyWidgets.add(Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6),
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 12,
+                      backgroundColor: theme.colorScheme.secondary.withOpacity(0.12),
+                      child: Text('₺', style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.secondary, fontWeight: FontWeight.w700)),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Gram Altın', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
+                          Text('Altın', style: theme.textTheme.bodySmall, overflow: TextOverflow.ellipsis, maxLines: 1),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              ConstrainedBox(
+                constraints: const BoxConstraints(minWidth: 80, maxWidth: 140),
+                child: Text(
+                  '₺${_financialData!.goldGramPrice!.toStringAsFixed(2)}',
+                  style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
+        ));
+      }
+    }
+
+    // categories list
+
+    return Drawer(
+      child: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Giriş Yap header (tappable)
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                        child: Icon(Icons.login, color: theme.colorScheme.onSurface),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Giriş Yap', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 2),
+                            Text('Hesabına giriş yap veya kayıt ol', style: theme.textTheme.bodySmall),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // Quiz link
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(Icons.quiz, color: theme.colorScheme.primary),
+                title: Text('İnteraktif Quizler', style: theme.textTheme.titleMedium),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const QuizScreen()));
+                },
+              ),
+
+
+              // Currencies (ExpansionTile: title shows USD & EUR; expand to show all)
+              Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.1),
+                child: ExpansionTile(
+                  tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  collapsedBackgroundColor: Colors.transparent,
+                  collapsedIconColor: theme.colorScheme.onSurfaceVariant,
+                  iconColor: theme.colorScheme.onSurface,
+                  title: Row(
+                    children: [
+                      if (_financialData != null && _financialData!.currencies.isNotEmpty) ...[
+                        _smallCurrencySummary(theme, _financialData!.currencies, 'USD'),
+                        const SizedBox(width: 12),
+                        _smallCurrencySummary(theme, _financialData!.currencies, 'EUR'),
+                      ] else ...[
+                        Text('Kurlar', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+                      ]
+                    ],
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                      child: Column(
+                        children: currencyWidgets,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // Categories list (Haber Başlıkları)
+              Text('Haber Başlıkları', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 8),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: _categories.length,
+                  separatorBuilder: (_, __) => const Divider(height: 8),
+                  itemBuilder: (context, index) {
+                    final cat = _categories[index];
+                    final display = _getCategoryDisplayName(cat);
+                    final count = _getArticlesForCategory(cat).length;
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        // switch to the corresponding tab
+                        try { _tabController.animateTo(index); } catch (_) {}
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  margin: const EdgeInsets.only(right: 12),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.primary,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                ),
+                                Text(display, style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                            Text('$count', style: theme.textTheme.bodySmall),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

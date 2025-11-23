@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
 
   # FIREBASE PAKETLERİ
-  firebase_core: ^4.1.0
+  firebase_core: ^3.8.1
 
   # RSS
   webfeed_plus: ^1.1.2 
@@ -42,11 +42,11 @@ dependencies:
   url_launcher: ^6.3.1
 
   # AUTHENTICATION
-  firebase_auth: ^6.0.2
-  cloud_firestore: ^6.0.1
-  firebase_storage: ^13.0.1
-  google_sign_in: 6.2.1
-  sign_in_with_apple: ^7.0.1
+  firebase_auth: ^5.3.3
+  cloud_firestore: ^5.5.2
+  firebase_storage: ^12.3.7
+  google_sign_in: ^6.2.2
+  sign_in_with_apple: ^6.1.3
   image_picker: ^1.1.2
 
   # AI 
@@ -58,6 +58,7 @@ dependencies:
   html: ^0.15.6
   xml: ^6.6.1
   flutter_launcher_icons: ^0.14.4
+  lottie: ^2.4.0
   google_fonts: ^6.3.1
   provider: ^6.1.5+1
   flutter_dotenv: ^6.0.0
@@ -88,6 +89,10 @@ flutter:
   assets:
     - .env
     - web/analyticaicon.png
+    - assets/icons/analytica_launcher.png
+    - assets/animations/loading_circle.lottie
+    - assets/animations/loading_circle.json
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -97,7 +102,7 @@ flutter:
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
+  # "family" key with the font family name, and a "fonts" key with ac
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/loading_animation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore'u import ediyoruz
 import '../screens/home_screen.dart';
@@ -97,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         child: SafeArea(
           child: _isLoading 
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(child: LoadingAnimation())
           : SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
               child: Column(

@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'dart:convert';
+import '../utils/logging.dart';
 
 class AIService {
   String? get _apiKey => dotenv.maybeGet('GEMINI_API_KEY');
@@ -20,6 +21,9 @@ class AIService {
         return "Analiz yapılamıyor: API anahtarı yapılandırılmadı (GEMINI_API_KEY).";
       }
 
+  // Debug: anahtarın varlığını güvenli şekilde logla (anahtarı yazdırma!)
+  AppLog.d('AIService: GEMINI_API_KEY present=${_apiKey != null && _apiKey!.isNotEmpty}');
+
       // 1) Önbellekten dene
       if (cacheKey != null && cacheKey.isNotEmpty) {
         final cached = await _getCached(cacheKey);
@@ -28,16 +32,61 @@ class AIService {
         }
       }
       // Modeli ve API anahtarını kullanarak servisi başlat
-      final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: _apiKey!);
+      final model = GenerativeModel(model: 'gemini-2.5-flash-lite', apiKey: _apiKey!);
+  // Yapay zekaya göndereceğimiz komut (prompt) - detaylı, yapılandırılmış versiyon (Seçenek 1)
+  final prompt = '''
+Rol ve Hedef Kitle:
+Sen, uluslararası yatırımcılara ve diplomatik misyonlara danışmanlık yapan, Türkiye siyaseti ve ekonomisi üzerine uzmanlaşmış kıdemli bir risk analistisin. Hazırlayacağın analiz, karmaşık durumları netleştirmeyi ve stratejik karar alma süreçlerine ışık tutmayı amaçlamaktadır.
 
-      // Yapay zekaya göndereceğimiz komut (prompt)
-      final prompt =
-        'Sen Türkiye siyaseti ve ekonomisi üzerine uzmanlaşmış bir siyasi analistsin. Şu anki tarih Eylül 2025. Türkiye\'nin, son seçimlerin ardından oluşan yeni siyasi dengeler, yüksek enflasyonla mücadele ve bölgesel dış politika gelişmeleri gibi güncel dinamiklerini göz önünde bulundurarak, aşağıda verilen haber metnini analiz et. Bu haberin; temel aktörler için ne anlama geldiğini, olası kısa ve orta vadeli sonuçlarını ve satır aralarında yatan önemli detayları tarafsız bir şekilde, 3-4 maddelik bir özet halinde sun.\n\n---\n\nHaber Metni:\n$newsText';
-      
-      final content = [Content.text(prompt)];
+Zaman Çerçevesi ve Bağlam:
+Tarih: Eylül 2025. Analizini, Türkiye'nin son genel seçimler sonrası oluşan hassas siyasi dengeleri, kronikleşmiş yüksek enflasyonla mücadelesi ve bölgesel dış politika hamleleri ekseninde şekillenen güncel atmosferi temel alarak yap.
+
+Ana Görev:
+Aşağıda sunulan haber metnini ($newsText) analiz ederek kapsamlı bir stratejik değerlendirme raporu hazırla. Raporun aşağıdaki yapıya sadık kalmalıdır:
+
+1) Yönetici Özeti (Executive Summary):
+Haberin en kritik çıkarımını ve en olası sonucunu 2-3 cümleyle özetle.
+
+2) Kilit Paydaş Analizi (Stakeholder Analysis):
+- Hükümet ve İktidar Bloğu: Bu gelişmeyi neden şimdi gündeme getiriyorlar? Amaçları ne? Olası sonraki adımlar ne olabilir?
+- Muhalefet: Bu hamle karşısında nasıl bir strateji izleyebilirler? Bu durum onlar için tehdit mi yoksa fırsat mı?
+- Yargı Sistemi: Haberde yargının tutumu nasıl yansıtılıyor? Bu, yargı bağımsızlığı tartışmalarını nasıl etkiler?
+- Kamuoyu ve Seçmen Davranışı: Farklı seçmen grupları bu haberi nasıl yorumlayabilir? Algıyı şekillendirme potansiyeli nedir?
+
+3) Senaryo Analizi ve Olası Sonuçlar:
+- Kısa Vade (1-6 ay): Siyasi gerilim, piyasa tepkileri, hukuki süreçteki muhtemel gelişmeler.
+- Orta Vade (6-24 ay): Bu olayın siyasi dengeler, ittifaklar ve lider pozisyonları üzerindeki potansiyel etkileri.
+
+4) Makro Etkiler ve "Satır Arası" Okuması:
+- Ekonomik Yansımalar: Yabancı yatırım, kredi risk primi (CDS), döviz kuru ve enflasyon beklentilerine muhtemel etkiler.
+- Sistemsel Anlamı: Güçler ayrılığı, hukukun üstünlüğü ve demokratik normlar çerçevesinde bu haberin ne ifade ettiğine dair değerlendirme.
+
+Analiz İlkeleri:
+Analizini tamamen tarafsız, objektif bir dille ve kanıtlara dayalı bir akıl yürütmeyle yap. Spekülatif ifadelerden kaçın; olası sonuçları gerekçelendirerek sun.
+
+Haber Metni:
+$newsText
+''';
+
+  // Maksimum karakter sınırlaması (uygulama tarafında garanti)
+  const int maxResponseChars = 3500;
+  final limitedPrompt = '$prompt\n\nLütfen çıktıyı en fazla $maxResponseChars karakter ile sınırla.';
+  final content = [Content.text(limitedPrompt)];
 
       // İsteği gönder ve cevabı bekle (retry/backoff ve timeout ile)
       final response = await _generateWithRetry(model, content);
+      // Debug: response hakkında kısa bilgi
+      if (response == null) {
+        AppLog.d('AIService: generateWithRetry returned NULL response');
+      } else {
+        try {
+          final len = response.text?.length ?? 0;
+          AppLog.d('AIService: response received, text length=$len');
+        } catch (e) {
+          AppLog.d('AIService: error while inspecting response: $e');
+        }
+      }
+
       final text = response?.text ?? "Analiz şu anda üretilemiyor. Lütfen daha sonra tekrar deneyin.";
 
       // 2) Önbelleğe yaz
@@ -47,7 +96,7 @@ class AIService {
       return text;
     } catch (e) {
       // Hata olursa konsola yazdır ve null döndür
-      print("Yapay zeka analizi sırasında hata oluştu: $e");
+      AppLog.e("Yapay zeka analizi sırasında hata oluştu: $e");
       return "Analiz sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
     }
   }
@@ -59,19 +108,27 @@ class AIService {
         final resp = await model.generateContent(content).timeout(const Duration(seconds: 25));
         return resp;
       } on TimeoutException {
+  AppLog.d('AIService: generateContent attempt $attempt timed out');
         if (attempt == maxAttempts) {
+    AppLog.d('AIService: generateWithRetry giving up after timeout attempts');
           return null;
         }
       } on NotInitializedError {
         // Paket tarafında zaman zaman bu hata gelebilir: API anahtarı veya istemci hazır değil
-        if (attempt == maxAttempts) return null;
+  AppLog.d('AIService: NotInitializedError on attempt $attempt');
+        if (attempt == maxAttempts) {
+          AppLog.d('AIService: generateWithRetry giving up after NotInitializedError');
+          return null;
+        }
       } catch (e) {
+  AppLog.d('AIService: generateContent attempt $attempt error: $e');
         final message = e.toString().toLowerCase();
         final isOverloaded = message.contains('503') || message.contains('unavailable') || message.contains('overloaded');
         if (!isOverloaded && attempt == 1) {
           // 503 dışındaki hatalarda tek deneme daha yapalım
         }
         if (attempt == maxAttempts) {
+          AppLog.d('AIService: generateWithRetry giving up after error: $e');
           return null;
         }
       }
@@ -80,6 +137,7 @@ class AIService {
       final waitMs = 500 * attempt;
       await Future.delayed(Duration(milliseconds: waitMs));
     }
+  AppLog.d('AIService: generateWithRetry finished without success (all attempts exhausted)');
     return null;
   }
 

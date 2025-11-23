@@ -1,0 +1,40 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users collection: kullanıcılar yalnızca kendi dokümanlarını okuyup yazabilsin
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Kaydedilen haberler: yalnızca ilgili kullanıcı kendi kayıtlarını oluşturup okuyup güncelleyebilsin
+    match /saved_articles/{docId} {
+      allow create: if request.auth != null
+                    && request.resource.data.keys().hasAll(['userId','link','savedAt'])
+                    && request.resource.data.userId == request.auth.uid;
+
+      allow read, update, delete: if request.auth != null
+                                   && resource.data.userId == request.auth.uid;
+    }
+
+    // Analiz önbelleği (analyses) - eğer analizler kullanıcıya özelse, sadece sahibi okuyup yazabilsin.
+    // Sunucu (admin SDK) kullanıyorsanız admin SDK kuralları atlar; istemciden yazma gerekiyorsa burada kısıtlayın.
+    match /analyses/{docId} {
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+
+    // Quizzes: eğer quizler herkese açıksa sadece read izni verin; yazma yetkisi admin'e ait olsun.
+    // Admin yetkisi için custom claims (request.auth.token.admin == true) kullanabilirsiniz.
+    match /quizzes/{quizId} {
+      allow read: if true; // herkese açık okuma
+      allow create, update, delete: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Default: diğer tüm koleksiyonlar için erişimi reddet
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/article.dart';
+import '../utils/logging.dart';
 
 class SavedArticlesService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -22,7 +23,7 @@ class SavedArticlesService {
           .map((doc) => Article.fromFirestore(doc))
           .toList();
     } catch (e) {
-      print('Kaydedilen haberler alınırken hata: $e');
+      AppLog.e('Kaydedilen haberler alınırken hata: $e');
       return [];
     }
   }
@@ -44,7 +45,7 @@ class SavedArticlesService {
           .map((doc) => Article.fromFirestore(doc))
           .toList();
     } catch (e) {
-      print('Kategoriye göre kaydedilen haberler alınırken hata: $e');
+      AppLog.e('Kategoriye göre kaydedilen haberler alınırken hata: $e');
       return [];
     }
   }
@@ -84,7 +85,7 @@ class SavedArticlesService {
 
       return true;
     } catch (e) {
-      print('Haber kaydedilirken hata: $e');
+      AppLog.e('Haber kaydedilirken hata: $e');
       return false;
     }
   }
@@ -101,7 +102,7 @@ class SavedArticlesService {
           .delete();
       return true;
     } catch (e) {
-      print('Haber silinirken hata: $e');
+      AppLog.e('Haber silinirken hata: $e');
       return false;
     }
   }
@@ -120,7 +121,7 @@ class SavedArticlesService {
 
       return querySnapshot.docs.isNotEmpty;
     } catch (e) {
-      print('Haber kayıt durumu kontrol edilirken hata: $e');
+      AppLog.e('Haber kayıt durumu kontrol edilirken hata: $e');
       return false;
     }
   }
@@ -138,7 +139,7 @@ class SavedArticlesService {
 
       return querySnapshot.docs.length;
     } catch (e) {
-      print('Kayıtlı haber sayısı alınırken hata: $e');
+      AppLog.e('Kayıtlı haber sayısı alınırken hata: $e');
       return 0;
     }
   }
@@ -162,7 +163,7 @@ class SavedArticlesService {
 
       return stats;
     } catch (e) {
-      print('Kategori istatistikleri alınırken hata: $e');
+      AppLog.e('Kategori istatistikleri alınırken hata: $e');
       return {};
     }
   }

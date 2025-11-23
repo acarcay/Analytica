@@ -2,6 +2,7 @@
 
 import 'package:webfeed_plus/webfeed_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:html/parser.dart' as html_parser;
 
 enum ArticleCategory {
   ekonomi,
@@ -43,10 +44,73 @@ class Article {
   });
 
   factory Article.fromRssItem(RssItem item, String sourceName, {String? category}) {
+    // Bazı RSS kaynakları (ör. ElipsHaber) <description> alanını boş bırakıp
+    // içeriği <content:encoded> içinde veriyor. Bu durumda öncelikle
+    // description'ı kontrol et, boşsa content alanını kullan.
+    String? desc = item.description;
+    if (desc == null || desc.trim().isEmpty) {
+      // webfeed_plus içinde content alanı farklı şekilde expose edilebilir;
+      // genel olarak item.content?.value veya item.content?.encoded denemesi yapılır.
+      try {
+        // ignore: avoid_dynamic_calls
+        final dynamic content = (item as dynamic).content;
+        if (content != null) {
+          // common fields
+          desc = content.value ?? content.encoded ?? content.toString();
+        }
+      } catch (_) {
+        // fallback - hiçbir şey yapma
+      }
+    }
+
+    // Görsel çıkarma: önce RSS içindeki enclosure/media alanlarına bak, yoksa
+    // description veya content içindeki ilk <img> etiketinin src'sini al.
+    String? imageUrl;
+    try {
+      // webfeed_plus RssItem genellikle 'enclosure' alanını expose eder
+      // ignore: avoid_dynamic_calls
+      final dynamic it = item as dynamic;
+      try {
+        imageUrl = it.enclosure?.url as String?;
+      } catch (_) {
+        // ignore
+      }
+
+      // Bazı beslemelerde media:content/media:thumbnail veya benzeri extension'lar olabilir
+      if (imageUrl == null) {
+        try {
+          imageUrl = it.media?.thumbnails != null && it.media.thumbnails.isNotEmpty
+              ? (it.media.thumbnails[0].url as String?)
+              : null;
+        } catch (_) {
+          // ignore
+        }
+      }
+    } catch (_) {
+      // ignore dynamic errors
+    }
+
+    // HTML etiketlerini ve HTML entity'lerini temizle (ayrıca img src yakalamaya çalış)
+    if (desc != null) {
+      // İlk olarak description/content içinden <img> src yakalamaya çalış
+      try {
+        final fragment = html_parser.parseFragment(desc);
+        final img = fragment.querySelector('img');
+        if (img != null && imageUrl == null) {
+          imageUrl = img.attributes['src'];
+        }
+      } catch (_) {}
+
+      desc = desc.replaceAll(RegExp(r'<[^>]*>'), ' ');
+      desc = desc.replaceAll(RegExp(r'&[^;]+;'), ' ');
+      desc = desc.replaceAll(RegExp(r'\s+'), ' ').trim();
+    }
+
     return Article(
       title: item.title,
-      description: item.description,
+      description: desc,
       link: item.link,
+      imageUrl: imageUrl,
       pubDate: item.pubDate,
       sourceName: sourceName,
       category: category,

@@ -23,20 +23,11 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -60,9 +51,41 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD4OlYkR2Ynx5RfeUirC9BcyqXnjb_e2D8',
-    appId: '1:374105398036:android:126324eb35bc88fe900001',
+    appId: '1:374105398036:android:1afe383482e388c1900001',
     messagingSenderId: '374105398036',
     projectId: 'analytica-4932f',
     storageBucket: 'analytica-4932f.firebasestorage.app',
   );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCUkjA1n76BZ978TXIVT2dKfaSeD_Uw_AU',
+    appId: '1:374105398036:ios:bd5fc92410d3bbe1900001',
+    messagingSenderId: '374105398036',
+    projectId: 'analytica-4932f',
+    storageBucket: 'analytica-4932f.firebasestorage.app',
+    androidClientId: '374105398036-0o7cn3m57va5jt4qkuavi710l7tklhi5.apps.googleusercontent.com',
+    iosClientId: '374105398036-ohnhadn6lbdmvbll1foun407s9ost7sq.apps.googleusercontent.com',
+    iosBundleId: 'com.analytica.analytica',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCUkjA1n76BZ978TXIVT2dKfaSeD_Uw_AU',
+    appId: '1:374105398036:ios:bd5fc92410d3bbe1900001',
+    messagingSenderId: '374105398036',
+    projectId: 'analytica-4932f',
+    storageBucket: 'analytica-4932f.firebasestorage.app',
+    androidClientId: '374105398036-0o7cn3m57va5jt4qkuavi710l7tklhi5.apps.googleusercontent.com',
+    iosClientId: '374105398036-ohnhadn6lbdmvbll1foun407s9ost7sq.apps.googleusercontent.com',
+    iosBundleId: 'com.analytica.analytica',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyCuv2I6wTSTaVqyKi5vGRdqmlNKBf_cVNg',
+    appId: '1:374105398036:web:d9efacbfd06457ef900001',
+    messagingSenderId: '374105398036',
+    projectId: 'analytica-4932f',
+    authDomain: 'analytica-4932f.firebaseapp.com',
+    storageBucket: 'analytica-4932f.firebasestorage.app',
+  );
+
 }

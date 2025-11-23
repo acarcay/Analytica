@@ -8,6 +8,7 @@ import '../services/ai_service.dart';
 import '../services/saved_articles_service.dart';
 import '../models/article.dart';
 import '../widgets/category_selector.dart';
+import '../widgets/loading_animation.dart';
 
 class NewsDetailScreen extends StatefulWidget {
   final Article rssArticle;
@@ -176,13 +177,19 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             children: [
               Text(
                 widget.rssArticle.title ?? 'Başlık bulunamadı',
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 10),
               if (widget.rssArticle.description != null)
                 Text(
                   widget.rssArticle.description!,
-                  style: const TextStyle(fontSize: 16, color: Colors.black87),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 16,
+                  ),
                 ),
               const SizedBox(height: 20),
               
@@ -216,10 +223,10 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                 child: _isArticleSaved
                     ? ElevatedButton.icon(
                         icon: _isSaving 
-                            ? const SizedBox(
+                            ? SizedBox(
                                 width: 16,
                                 height: 16,
-                                child: CircularProgressIndicator(strokeWidth: 2),
+                                child: LoadingAnimation(width: 16, height: 16),
                               )
                             : const Icon(Icons.bookmark_remove),
                         label: Text(_isSaving ? "Çıkarılıyor..." : "Kaydedilenlerden Çıkar"),
@@ -231,10 +238,10 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                       )
                     : ElevatedButton.icon(
                         icon: _isSaving 
-                            ? const SizedBox(
+                            ? SizedBox(
                                 width: 16,
                                 height: 16,
-                                child: CircularProgressIndicator(strokeWidth: 2),
+                                child: LoadingAnimation(width: 16, height: 16),
                               )
                             : const Icon(Icons.bookmark_add),
                         label: Text(_isSaving ? "Kaydediliyor..." : "Kaydet"),
@@ -248,27 +255,30 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
               const SizedBox(height: 20),
 
               if (_isLoading)
-                const Center(child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: CircularProgressIndicator(),
+                Center(child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: LoadingAnimation(width: 60, height: 60),
                 )),
               
               if (_analysisResult != null)
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Yapay Zeka Analizi:",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                       ),
                       const Divider(),
-                      Text(_analysisResult!),
+                      Text(
+                        _analysisResult!,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+                      ),
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/loading_animation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'register_screen.dart';
 import '../services/auth_service.dart';
@@ -129,7 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: SafeArea(
           child: _isLoading 
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: SizedBox(width: 120, height: 120, child: LoadingAnimation()),
+            )
           : SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
               child: Column(

@@ -4,12 +4,14 @@ import '../auth/login_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../services/auth_service.dart';
+import '../utils/logging.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
 import '../services/saved_articles_service.dart';
 import '../models/article.dart';
 import '../widgets/category_selector.dart';
 import 'news_detail_screen.dart';
+import '../widgets/loading_animation.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -90,8 +92,23 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
       final url = await _authService.uploadProfilePhoto(uid, file);
-      if (mounted && url != null) {
+      if (!mounted) return;
+      if (url != null) {
         setState(() {});
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profil fotoğrafı başarıyla yüklendi.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else {
+        AppLog.e('Profile photo upload failed for uid: $uid');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profil fotoğrafı yüklenemedi. Lütfen daha sonra tekrar deneyin.'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }
@@ -263,7 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   Widget _buildSavedArticlesTab() {
     if (_isLoading) {
-      return const Center(child: CircularProgressIndicator());
+  return Center(child: LoadingAnimation(width: 48, height: 48));
     }
 
     if (_savedArticles.isEmpty) {
