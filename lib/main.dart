@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
+import 'auth/login_screen.dart';
 import 'firebase_options.dart';
 import 'providers/theme_provider.dart';
 
@@ -70,9 +72,37 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeProvider.themeMode,
-          // Uygulama direkt ana sayfa ile başlasın (Bundle benzeri davranış).
-          home: const HomeScreen(),
+          // Check authentication state and route accordingly
+          home: const AuthWrapper(),
         );
+      },
+    );
+  }
+}
+
+// Auth wrapper that checks authentication state
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        // Show loading while checking auth state
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        
+        // If user is authenticated, show HomeScreen
+        if (snapshot.hasData && snapshot.data != null) {
+          return const HomeScreen();
+        }
+        
+        // If user is not authenticated, show LoginScreen
+        return const LoginScreen();
       },
     );
   }

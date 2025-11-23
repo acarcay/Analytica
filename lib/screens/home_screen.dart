@@ -96,6 +96,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   
   FinancialData? _financialData;
   bool _isFinancialDataLoading = true;
+  
+  // Generation counter to track fetch operations and prevent race conditions
+  // Image extraction workers check this to ensure they're working on current data
+  int _fetchGeneration = 0;
 
   @override
   void initState() {
@@ -140,6 +144,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Future<void> _fetchAllNews({bool initialOnly = false}) async {
+    // Increment generation counter for this fetch operation
+    // This ensures image extraction workers can detect if their data is stale
+    final currentGeneration = ++_fetchGeneration;
+    
     List<Article> fetchedArticles = [];
      Set<String> seenArticles = {}; // Duplicate kontrolü için
      Map<String, int> categoryCounts = {}; // Kategori sayacı
@@ -207,11 +215,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     // hızlandırır çünkü tüm sayfaların taranması beklenmez.
     fetchedArticles.sort((a, b) => b.pubDate?.compareTo(a.pubDate ?? DateTime(0)) ?? 0);
 
-    if (mounted) {
+    // Only update state if this is still the current generation (not superseded by a newer fetch)
+    if (mounted && currentGeneration == _fetchGeneration) {
       setState(() {
         _allArticles = fetchedArticles;
         _isLoading = false;
       });
+    } else {
+      // This fetch was superseded, skip updating state
+      AppLog.d('_fetchAllNews: skipping state update (generation $currentGeneration < current $_fetchGeneration)');
+      return;
     }
 
     // Eğer sadece initial load yapıldıysa, arka planda kalan feed'leri çek ve mevcut listeye ekle
@@ -225,15 +238,23 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     // Arka plan görsel çıkarma - non-blocking. Görseller bulunduğunda tek tek
     // ilgili öğeyi güncelle ve UI'ı yeniden render et.
-    // Note: Uses link-based lookup to avoid race conditions when _allArticles is replaced
+    // Uses generation counter to ensure workers only update if their fetch is still current
+    _startImageExtraction(fetchedArticles, currentGeneration);
+
+    AppLog.d('Toplam ${fetchedArticles.length} haber yüklendi');
+    AppLog.d('Kategori dağılımı: $categoryCounts');
+  }
+
+  // Start image extraction workers with generation tracking
+  // Workers only update articles if their generation is still current
+  void _startImageExtraction(List<Article> articles, int generation) {
     (() async {
-      const int concurrency = 4; // daha düşük concurrency başlangıç için safer
-      final List<Article> queue = List<Article>.from(fetchedArticles);
+      const int concurrency = 4;
+      final List<Article> queue = List<Article>.from(articles);
 
       Future<void> worker() async {
         while (true) {
           Article? current;
-          // pop
           if (queue.isEmpty) break;
           current = queue.removeLast();
 
@@ -241,23 +262,31 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             try {
               final extracted = await ImageExtractor.extractImage(current.link!);
               if (extracted != null && mounted) {
-                // Re-find the article by link right before updating to avoid race conditions
-                // This ensures we're working with the current state of _allArticles,
-                // even if it was replaced by a background refresh
+                // Check if this generation is still current before updating
+                if (generation != _fetchGeneration) {
+                  AppLog.d('ImageExtractor: skipping update (generation $generation < current $_fetchGeneration)');
+                  continue;
+                }
+                
                 final linkToFind = current.link!;
                 final idx = _allArticles.indexWhere((a) => a.link == linkToFind);
                 if (idx != -1) {
-                  // Double-check: verify the article at this index still matches
-                  // (defense against concurrent list replacement)
+                  // Double-check generation again before setState
+                  if (generation != _fetchGeneration) {
+                    AppLog.d('ImageExtractor: generation changed, skipping update');
+                    continue;
+                  }
+                  
                   final existingArticle = _allArticles[idx];
                   if (existingArticle.link == linkToFind) {
-                    // Only update if the image actually changed
                     if (existingArticle.imageUrl != extracted) {
                       setState(() {
-                        // Re-find index again inside setState to ensure it's still valid
-                        final currentIdx = _allArticles.indexWhere((a) => a.link == linkToFind);
-                        if (currentIdx != -1 && _allArticles[currentIdx].link == linkToFind) {
-                          _allArticles[currentIdx] = _allArticles[currentIdx].copyWith(imageUrl: extracted);
+                        // Final check: ensure generation is still current and article exists
+                        if (generation == _fetchGeneration) {
+                          final currentIdx = _allArticles.indexWhere((a) => a.link == linkToFind);
+                          if (currentIdx != -1 && _allArticles[currentIdx].link == linkToFind) {
+                            _allArticles[currentIdx] = _allArticles[currentIdx].copyWith(imageUrl: extracted);
+                          }
                         }
                       });
                       AppLog.d('ImageExtractor: updated article image for $linkToFind');
@@ -266,24 +295,19 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 }
               }
             } catch (e) {
-              // ignore per-article errors but log for debug
               AppLog.d('ImageExtractor: error for ${current.link} -> $e');
             }
           }
         }
       }
 
-      // start workers without awaiting them here (fire-and-forget)
       final workers = <Future>[];
       for (int i = 0; i < concurrency; i++) {
         workers.add(worker());
       }
       await Future.wait(workers);
-      AppLog.d('ImageExtractor: background extraction finished');
+      AppLog.d('ImageExtractor: background extraction finished (generation $generation)');
     })();
-
-    AppLog.d('Toplam ${fetchedArticles.length} haber yüklendi');
-    AppLog.d('Kategori dağılımı: $categoryCounts');
   }
 
   // XML içeriğini temizle
