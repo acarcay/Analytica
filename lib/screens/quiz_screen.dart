@@ -57,7 +57,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _shuffle() {
     setState(() {
-      _questions = List.from(sampleQuizQuestions);
+      // Shuffle the current questions list instead of resetting to sample
+      _questions = List.from(_questions);
       _questions.shuffle(Random());
       _answers.clear();
       _current = 0;
