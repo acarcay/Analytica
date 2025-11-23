@@ -225,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     // Arka plan görsel çıkarma - non-blocking. Görseller bulunduğunda tek tek
     // ilgili öğeyi güncelle ve UI'ı yeniden render et.
+    // Note: Uses link-based lookup to avoid race conditions when _allArticles is replaced
     (() async {
       const int concurrency = 4; // daha düşük concurrency başlangıç için safer
       final List<Article> queue = List<Article>.from(fetchedArticles);
@@ -239,17 +240,28 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           if ((current.imageUrl == null || current.imageUrl!.isEmpty) && current.link != null) {
             try {
               final extracted = await ImageExtractor.extractImage(current.link!);
-                if (extracted != null && mounted) {
-                // güncelle: orijinal listede aynı link'i bulup değiştir
-                final idx = _allArticles.indexWhere((a) => a.link == current!.link);
+              if (extracted != null && mounted) {
+                // Re-find the article by link right before updating to avoid race conditions
+                // This ensures we're working with the current state of _allArticles,
+                // even if it was replaced by a background refresh
+                final linkToFind = current.link!;
+                final idx = _allArticles.indexWhere((a) => a.link == linkToFind);
                 if (idx != -1) {
-                  final updated = _allArticles[idx].copyWith(imageUrl: extracted);
-                  // small optimization: only setState when changed
-                    if (updated.imageUrl != _allArticles[idx].imageUrl) {
-                    setState(() {
-                      _allArticles[idx] = updated;
-                    });
-                    AppLog.d('ImageExtractor: updated article image for ${current.link}');
+                  // Double-check: verify the article at this index still matches
+                  // (defense against concurrent list replacement)
+                  final existingArticle = _allArticles[idx];
+                  if (existingArticle.link == linkToFind) {
+                    // Only update if the image actually changed
+                    if (existingArticle.imageUrl != extracted) {
+                      setState(() {
+                        // Re-find index again inside setState to ensure it's still valid
+                        final currentIdx = _allArticles.indexWhere((a) => a.link == linkToFind);
+                        if (currentIdx != -1 && _allArticles[currentIdx].link == linkToFind) {
+                          _allArticles[currentIdx] = _allArticles[currentIdx].copyWith(imageUrl: extracted);
+                        }
+                      });
+                      AppLog.d('ImageExtractor: updated article image for $linkToFind');
+                    }
                   }
                 }
               }
