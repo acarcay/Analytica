@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
+import 'dart:async';
 import '../providers/theme_provider.dart';
 import '../services/ai_service.dart';
 import '../services/saved_articles_service.dart';
@@ -26,11 +27,18 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
   bool _isLoading = false;
   bool _isSaving = false;
   bool _isArticleSaved = false;
+  StreamSubscription<String>? _analysisSubscription;
 
   @override
   void initState() {
     super.initState();
     _checkIfArticleSaved();
+  }
+
+  @override
+  void dispose() {
+    _analysisSubscription?.cancel();
+    super.dispose();
   }
 
   void _checkIfArticleSaved() async {
@@ -42,7 +50,10 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
     }
   }
 
-  void _getAnalysis() async {
+  void _getAnalysis() {
+    // Cancel any existing subscription
+    _analysisSubscription?.cancel();
+
     setState(() {
       _isLoading = true;
       _analysisResult = null;
@@ -50,12 +61,44 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
 
     final textToAnalyze = "${widget.rssArticle.title}\n\n${widget.rssArticle.description ?? ''}";
     final cacheKey = widget.rssArticle.link ?? widget.rssArticle.title ?? '';
-    final result = await _aiService.getAnalysis(textToAnalyze, cacheKey: cacheKey);
-
-    setState(() {
-      _analysisResult = result;
-      _isLoading = false;
-    });
+    
+    // Listen to the stream and update UI as chunks arrive
+    _analysisSubscription = _aiService.getAnalysisStream(textToAnalyze, cacheKey: cacheKey).listen(
+      (chunk) {
+        // Update the analysis result with the accumulated text (typewriter effect)
+        if (mounted) {
+          setState(() {
+            _analysisResult = chunk;
+          });
+        }
+      },
+      onError: (error) {
+        // Handle errors
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+            _analysisResult = "Analiz sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+          });
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Analiz hatası: $error'),
+              backgroundColor: Colors.red,
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      },
+      onDone: () {
+        // Stream completed
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      },
+      cancelOnError: false,
+    );
   }
 
   Future<void> _launchURL(String? urlString) async {

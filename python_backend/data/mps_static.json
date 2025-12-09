@@ -1,0 +1,2537 @@
+{
+    "description": "28. Dönem TBMM Milletvekilleri - Güncel Liste",
+    "updated_at": "2025-12-08",
+    "total_count": 600,
+    "cities": {
+        "ADANA": [
+            {
+                "name": "Abdullah DOĞRU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ahmet ZENBİLCİ",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Ayhan BARUT",
+                "party": "CHP"
+            },
+            {
+                "name": "Ayşe Sibel ERSOY",
+                "party": "MHP"
+            },
+            {
+                "name": "Ayyüce TÜRKEŞ TAŞ",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Bilal BİLİCİ",
+                "party": "CHP"
+            },
+            {
+                "name": "Burhanettin BULUT",
+                "party": "CHP"
+            },
+            {
+                "name": "Faruk AYTEK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Muharrem VARLI",
+                "party": "MHP"
+            },
+            {
+                "name": "Müzeyyen ŞEVKİN",
+                "party": "CHP"
+            },
+            {
+                "name": "Orhan SÜMER",
+                "party": "CHP"
+            },
+            {
+                "name": "Ömer ÇELİK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sadullah KISACIK",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Sunay KARAMIK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Tulay HATIMOĞULLARI ORUÇ",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "ADIYAMAN": [
+            {
+                "name": "Hüseyin ÖZHAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İshak ŞAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa ALKAYIŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Resul KURT",
+                "party": "AK Parti"
+            }
+        ],
+        "AFYONKARAHİSAR": [
+            {
+                "name": "Ali ÖZKAYA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Hakan Şeref OLGUN",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Hasan ARSLAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İbrahim YURDUNUSEVEN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet TAYTAK",
+                "party": "MHP"
+            }
+        ],
+        "AĞRI": [
+            {
+                "name": "Heval BOZDAĞ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Nejla DEMİR",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Ruken KİLERCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sırrı SAKİK",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "AKSARAY": [
+            {
+                "name": "Cengiz AYDOĞDU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Hüseyin ALTINSOY",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ramazan KAŞLI",
+                "party": "MHP"
+            },
+            {
+                "name": "Turan YALDIR",
+                "party": "İYİ Parti"
+            }
+        ],
+        "AMASYA": [
+            {
+                "name": "Haluk İPEK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Hasan ÇİLEZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Reşat KARAGÖZ",
+                "party": "CHP"
+            }
+        ],
+        "ANKARA": [
+            {
+                "name": "Adnan BEKER",
+                "party": "CHP"
+            },
+            {
+                "name": "Ahmet Eşref FAKIBABA",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Ahmet Fethan BAYKOÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Aliye TİMİSİ ERSEVER",
+                "party": "CHP"
+            },
+            {
+                "name": "Asuman ERDOĞAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Aylin YAMAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Deniz DEMİR",
+                "party": "CHP"
+            },
+            {
+                "name": "Fuat OKTAY",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Gamze TAŞCIER",
+                "party": "CHP"
+            },
+            {
+                "name": "İdris ŞAHİN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Jülide SARIEROĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Koray AYDIN",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Kurtcan ÇELEBİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Kürşad ZORLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Leyla ŞAHİN USTA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Lütfiye Selva ÇAM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mesut DOĞAN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Mevlüt KARAKAYA",
+                "party": "MHP"
+            },
+            {
+                "name": "Murat ALPARSLAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Murat EMİR",
+                "party": "CHP"
+            },
+            {
+                "name": "Mustafa Nedim YAMALI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Okan KONURALP",
+                "party": "CHP"
+            },
+            {
+                "name": "Orhan YEGİN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Osman GÖKÇEK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ömer İLERİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sadir DURMAZ",
+                "party": "MHP"
+            },
+            {
+                "name": "Sadullah ERGİN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Semra DİNÇER",
+                "party": "CHP"
+            },
+            {
+                "name": "Tekin BİNGÖL",
+                "party": "CHP"
+            },
+            {
+                "name": "Umut AKDOĞAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Vedat BİLGİN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yaşar YILDIRIM",
+                "party": "MHP"
+            },
+            {
+                "name": "Yıldırım Tuğrul TÜRKEŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yüksel ARSLAN",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Zehranur AYDEMİR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Zeynep YILDIZ",
+                "party": "AK Parti"
+            }
+        ],
+        "ANTALYA": [
+            {
+                "name": "Abdurrahman BAŞKAN",
+                "party": "MHP"
+            },
+            {
+                "name": "Aliye COŞAR",
+                "party": "CHP"
+            },
+            {
+                "name": "Atay USLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Aykut KAYA",
+                "party": "CHP"
+            },
+            {
+                "name": "Cavit ARI",
+                "party": "CHP"
+            },
+            {
+                "name": "Hakkı Saruhan OLUÇ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Hilmi DURGUN",
+                "party": "MHP"
+            },
+            {
+                "name": "İbrahim Ethem TAŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Kemal ÇELİK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mevlüt ÇAVUŞOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa ERDEM",
+                "party": "CHP"
+            },
+            {
+                "name": "Mustafa KÖSE",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Serap YAZICI ÖZBUDUN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sururi ÇORABATIR",
+                "party": "CHP"
+            },
+            {
+                "name": "Şerafettin KILIÇ",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Tuba VURAL ÇOKAL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Uğur POYRAZ",
+                "party": "İYİ Parti"
+            }
+        ],
+        "ARDAHAN": [
+            {
+                "name": "Kaan KOÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Özgür Erdem İNCESU",
+                "party": "CHP"
+            }
+        ],
+        "ARTVİN": [
+            {
+                "name": "Faruk ÇELİK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Uğur BAYRAKTUTAN",
+                "party": "CHP"
+            }
+        ],
+        "AYDIN": [
+            {
+                "name": "Bülent TEZCAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Evrim KARAKOZ",
+                "party": "CHP"
+            },
+            {
+                "name": "Hüseyin YILDIZ",
+                "party": "CHP"
+            },
+            {
+                "name": "Mustafa SAVAŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ömer KARAKAŞ",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Ömer ÖZMEN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Seda SARIBAŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Süleyman BÜLBÜL",
+                "party": "CHP"
+            }
+        ],
+        "BALIKESİR": [
+            {
+                "name": "Ali Taylan ÖZTAYLAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Belgin UYGUR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Burak DALGIN",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Ekrem Gökay YÜKSEL",
+                "party": "MHP"
+            },
+            {
+                "name": "Ensar AYTEKİN",
+                "party": "CHP"
+            },
+            {
+                "name": "İsmail OK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa CANBEY",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Serkan SARI",
+                "party": "CHP"
+            },
+            {
+                "name": "Turhan ÇÖMEZ",
+                "party": "İYİ Parti"
+            }
+        ],
+        "BARTIN": [
+            {
+                "name": "Aysu BANKOĞLU",
+                "party": "CHP"
+            },
+            {
+                "name": "Yusuf Ziya ALDATMAZ",
+                "party": "AK Parti"
+            }
+        ],
+        "BATMAN": [
+            {
+                "name": "Ferhat NASIROĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Keskin BAYINDIR",
+                "party": "DBP"
+            },
+            {
+                "name": "Mehmet Rüştü TİRYAKİ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Serkan RAMANLI",
+                "party": "HÜDA PAR"
+            },
+            {
+                "name": "Zeynep ODUNCU KUTEVİ",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "BAYBURT": [
+            {
+                "name": "Orhan ATEŞ",
+                "party": "AK Parti"
+            }
+        ],
+        "BİLECİK": [
+            {
+                "name": "Halil ELDEMİR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yaşar TÜZÜN",
+                "party": "CHP"
+            }
+        ],
+        "BİNGÖL": [
+            {
+                "name": "Feyzi BERDİBEK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ömer Faruk HÜLAKÜ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Zeki KORKUTATA",
+                "party": "AK Parti"
+            }
+        ],
+        "BİTLİS": [
+            {
+                "name": "Hüseyin OLAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Semra ÇAĞLAR GÖKALP",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Turan BEDİRHANOĞLU",
+                "party": "AK Parti"
+            }
+        ],
+        "BOLU": [
+            {
+                "name": "İsmail AKGÜL",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Türker ATEŞ",
+                "party": "CHP"
+            },
+            {
+                "name": "Yüksel COŞKUNYÜREK",
+                "party": "AK Parti"
+            }
+        ],
+        "BURDUR": [
+            {
+                "name": "Adem KORKMAZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İzzet AKBULUT",
+                "party": "CHP"
+            },
+            {
+                "name": "Mustafa OĞUZ",
+                "party": "AK Parti"
+            }
+        ],
+        "BURSA": [
+            {
+                "name": "Ahmet KILIÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ayhan SALMAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Cemalettin Kani TORUN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Efkan ALA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Emel GÖZÜKARA DURMAZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Emine YAVUZ GÖZGEÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Fevzi ZIRHLIOĞLU",
+                "party": "MHP"
+            },
+            {
+                "name": "Hasan ÖZTÜRK",
+                "party": "CHP"
+            },
+            {
+                "name": "Hasan TOKTAŞ",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "İsmet BÜYÜKATAMAN",
+                "party": "MHP"
+            },
+            {
+                "name": "Kayıhan PALA",
+                "party": "CHP"
+            },
+            {
+                "name": "Mehmet ATMACA",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Muhammet Müfit AYDIN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa VARANK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa YAVUZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Nurhayat ALTACA KAYIŞOĞLU",
+                "party": "CHP"
+            },
+            {
+                "name": "Orhan SARIBAL",
+                "party": "CHP"
+            },
+            {
+                "name": "Osman MESTEN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Refik ÖZEN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yüksel Selçuk TÜRKOĞLU",
+                "party": "İYİ Parti"
+            }
+        ],
+        "ÇANAKKALE": [
+            {
+                "name": "Ayhan GİDER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İsmet GÜNEŞHAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Özgür CEYLAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Rıdvan UZ",
+                "party": "İYİ Parti"
+            }
+        ],
+        "ÇANKIRI": [
+            {
+                "name": "Muhammet Emin AKBAŞOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Pelin YILIK",
+                "party": "MHP"
+            }
+        ],
+        "ÇORUM": [
+            {
+                "name": "Mehmet TAHTASIZ",
+                "party": "CHP"
+            },
+            {
+                "name": "Oğuzhan KAYA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Vahit KAYRICI",
+                "party": "MHP"
+            },
+            {
+                "name": "Yusuf AHLATCI",
+                "party": "AK Parti"
+            }
+        ],
+        "DENİZLİ": [
+            {
+                "name": "Cahit ÖZKAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Gülizar BİÇER KARACA",
+                "party": "CHP"
+            },
+            {
+                "name": "Nilgün ÖK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sema SİLKİN ÜN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Şahin TİN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Şeref ARPACI",
+                "party": "CHP"
+            },
+            {
+                "name": "Yasin ÖZTÜRK",
+                "party": "İYİ Parti"
+            }
+        ],
+        "DİYARBAKIR": [
+            {
+                "name": "Adalet KAYA",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Berdan ÖZTÜRK",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Ceylan AKÇA CUPOLO",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Halide TÜRKOĞLU",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Mehmet KAMAÇ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Mehmet Galip ENSARİOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Sait YAZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa Sezgin TANRIKULU",
+                "party": "CHP"
+            },
+            {
+                "name": "Osman Cengiz ÇANDAR",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Serhat EREN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Sevilay ÇELENK ÖZEN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Suna KEPOLU ATAMAN",
+                "party": "AK Parti"
+            }
+        ],
+        "DÜZCE": [
+            {
+                "name": "Ayşe KEŞİR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ercan ÖZTÜRK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Talih ÖZCAN",
+                "party": "CHP"
+            }
+        ],
+        "EDİRNE": [
+            {
+                "name": "Ahmet Baran YAZGAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Ediz ÜN",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Fatma AKSAL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet AKALIN",
+                "party": "İYİ Parti"
+            }
+        ],
+        "ELAZIĞ": [
+            {
+                "name": "Ejder AÇIKKAPI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Erol KELEŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Gürsel EROL",
+                "party": "CHP"
+            },
+            {
+                "name": "Mahmut Rıdvan NAZIRLI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Semih IŞIKVER",
+                "party": "MHP"
+            }
+        ],
+        "ERZİNCAN": [
+            {
+                "name": "Mustafa SARIGÜL",
+                "party": "CHP"
+            },
+            {
+                "name": "Süleyman KARAMAN",
+                "party": "AK Parti"
+            }
+        ],
+        "ERZURUM": [
+            {
+                "name": "Abdurrahim FIRAT",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Fatma ÖNCÜ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Kamil AYDIN",
+                "party": "MHP"
+            },
+            {
+                "name": "Mehmet Emin ÖZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Meral DANIŞ BEŞTAŞ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Selami ALTINOK",
+                "party": "AK Parti"
+            }
+        ],
+        "ESKİŞEHİR": [
+            {
+                "name": "Ayşen GÜRCAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Fatih DÖNMEZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İbrahim ARSLAN",
+                "party": "CHP"
+            },
+            {
+                "name": "İdris Nebi HATİPOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Jale Nur SÜLLÜ",
+                "party": "CHP"
+            },
+            {
+                "name": "Utku ÇAKIRÖZER",
+                "party": "CHP"
+            }
+        ],
+        "GAZİANTEP": [
+            {
+                "name": "Abdulhamit GÜL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ali ŞAHİN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Bünyamin BOZGEYİK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Derya BAKBAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ertuğrul KAYA",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Hasan ÖZTÜRKMEN",
+                "party": "CHP"
+            },
+            {
+                "name": "İrfan ÇELİKASLAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Eyup ÖZKEÇECİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Mustafa GÜRBAN",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Melih MERİÇ",
+                "party": "CHP"
+            },
+            {
+                "name": "Mesut BOZATLI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sermet ATAY",
+                "party": "MHP"
+            },
+            {
+                "name": "Sevda KARACA DEMİR",
+                "party": "EMEP"
+            },
+            {
+                "name": "Şahzade DEMİR",
+                "party": "HÜDA PAR"
+            }
+        ],
+        "GİRESUN": [
+            {
+                "name": "Ali TEMÜR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Elvan IŞIK GEZMİŞ",
+                "party": "CHP"
+            },
+            {
+                "name": "Ertuğrul Gazi KONAL",
+                "party": "MHP"
+            },
+            {
+                "name": "Nazım ELMAS",
+                "party": "AK Parti"
+            }
+        ],
+        "GÜMÜŞHANE": [
+            {
+                "name": "Celalettin KÖSE",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Musa KÜÇÜK",
+                "party": "MHP"
+            }
+        ],
+        "HAKKARİ": [
+            {
+                "name": "Onur DÜŞÜNMEZ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Öznur BARTİN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Vezir Coşkun PARLAK",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "HATAY": [
+            {
+                "name": "Abdulkadir ÖZEL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Adem YEŞİLDAL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Adnan Şefik ÇİRKİN",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Hüseyin YAYMAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Kemal KARAHAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Lütfi KAŞIKÇI",
+                "party": "MHP"
+            },
+            {
+                "name": "Mehmet GÜZELMANSUR",
+                "party": "CHP"
+            },
+            {
+                "name": "Necmettin ÇALIŞKAN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Nermin YILDIRIM KARA",
+                "party": "CHP"
+            },
+            {
+                "name": "Servet MULLAOĞLU",
+                "party": "CHP"
+            }
+        ],
+        "IĞDIR": [
+            {
+                "name": "Cantürk ALAGÖZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yılmaz HUN",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "ISPARTA": [
+            {
+                "name": "Hasan Basri SÖNMEZ",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Hikmet Yalım HALICI",
+                "party": "CHP"
+            },
+            {
+                "name": "Mehmet Uğur GÖKGÖZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Osman ZABUN",
+                "party": "AK Parti"
+            }
+        ],
+        "İSTANBUL": [
+            {
+                "name": "Adem YILDIRIM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ahmet ŞIK",
+                "party": "TİP"
+            },
+            {
+                "name": "Ahmet Ersagun YÜCEL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ali GÖKÇEK",
+                "party": "CHP"
+            },
+            {
+                "name": "Ayşe Sibel YANIKÖMEROĞLU",
+                "party": "CHP"
+            },
+            {
+                "name": "Azmi EKİNCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Bayram ŞENOCAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Behiye EKER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Birol AYDIN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Burak AKBURAK",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Bülent KAYA",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Büşra PAKER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Celal ADAN",
+                "party": "MHP"
+            },
+            {
+                "name": "Celal FIRAT",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Cemal ENGİNYURT",
+                "party": "CHP"
+            },
+            {
+                "name": "Cengiz ÇİÇEK",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Cüneyt YÜKSEL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Çiçek OTLU",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Çiğdem KILIÇGÜN UÇAR",
+                "party": "DBP"
+            },
+            {
+                "name": "Derya AYAYDIN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Doğan BEKİN",
+                "party": "YENİDEN REFAH"
+            },
+            {
+                "name": "Doğan DEMİR",
+                "party": "CHP"
+            },
+            {
+                "name": "Edip Semih YALÇIN",
+                "party": "MHP"
+            },
+            {
+                "name": "Elif ESEN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Engin ALTAY",
+                "party": "CHP"
+            },
+            {
+                "name": "Erdoğan TOPRAK",
+                "party": "CHP"
+            },
+            {
+                "name": "Erkan BAŞ",
+                "party": "TİP"
+            },
+            {
+                "name": "Erkan KANDEMİR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ersin BEYAZ",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Evrim RIZVANOĞLU",
+                "party": "CHP"
+            },
+            {
+                "name": "Fethi AÇIKEL",
+                "party": "CHP"
+            },
+            {
+                "name": "Feti YILDIZ",
+                "party": "MHP"
+            },
+            {
+                "name": "Gamze AKKUŞ İLGEZDİ",
+                "party": "CHP"
+            },
+            {
+                "name": "Gökan ZEYBEK",
+                "party": "CHP"
+            },
+            {
+                "name": "Gökhan GÜNAYDIN",
+                "party": "CHP"
+            },
+            {
+                "name": "Halis DALKILIÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Halit YEREBAKAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Hasan KARAL",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Hasan TURAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Hulusi ŞENTÜRK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İlhan KESİCİ",
+                "party": "CHP"
+            },
+            {
+                "name": "İsa Mesih ŞAHİN",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "İskender BAYHAN",
+                "party": "EMEP"
+            },
+            {
+                "name": "İsmail ERDEM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İsmail Emrah KARAYEL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İsmail Faruk AKSU",
+                "party": "MHP"
+            },
+            {
+                "name": "İzzet Ulvi YÖNTER",
+                "party": "MHP"
+            },
+            {
+                "name": "Kadri Enis BERBEROĞLU",
+                "party": "CHP"
+            },
+            {
+                "name": "Keziban KONUKCU KOK",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Medeni YILMAZ",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Mehmet Önder AKSAKAL",
+                "party": "DSP"
+            },
+            {
+                "name": "Mehmet Satuk Buğra KAVUNCU",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Mehmet Selim ENSARİOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Muhammed Ali Fatih ERBAKAN",
+                "party": "YENİDEN REFAH"
+            },
+            {
+                "name": "Mustafa DEMİR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa KAYA",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Mustafa YENEROĞLU",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Mustafa Cihan PAÇACI",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Mustafa Hulki CEVİZOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Müşerref Pervin Tuba DURGUT",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Namık TAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Nilhan AYAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Nimet ÖZDEMİR",
+                "party": "CHP"
+            },
+            {
+                "name": "Numan KURTULMUŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Nurettin ALAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Oğuz ÜÇÜNCÜ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Oğuz Kaan SALICI",
+                "party": "CHP"
+            },
+            {
+                "name": "Özgül SAKİ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Özgür KARABAT",
+                "party": "CHP"
+            },
+            {
+                "name": "Özlem ZENGİN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Rabia İLHAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Rümeysa KADAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Saliha Sera KADIGİL",
+                "party": "TİP"
+            },
+            {
+                "name": "Seda GÖREN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Selim TEMURCİ",
+                "party": "BAĞIMSIZ"
+            },
+            {
+                "name": "Sena Nur ÇELİK KANAT",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Serkan BAYRAM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sevan SIVACIOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Seyithan İZSİZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Suat ÖZÇAĞDAŞ",
+                "party": "CHP"
+            },
+            {
+                "name": "Suat PAMUKÇU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Süleyman SOYLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Şamil AYRIM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Şengül KARSLI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Tuğba IŞIK ERCAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Turan Taşkın ÖZER",
+                "party": "CHP"
+            },
+            {
+                "name": "Türkan ELÇİ",
+                "party": "CHP"
+            },
+            {
+                "name": "Ümmügülşen ÖZTÜRK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yahya ÇELİK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yıldız KONAL SÜSLÜ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yunus EMRE",
+                "party": "CHP"
+            },
+            {
+                "name": "Yücel Arzen HACIOĞULLARI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yüksel Mansur KILINÇ",
+                "party": "CHP"
+            },
+            {
+                "name": "Zafer SIRAKAYA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Zekeriya YAPICIOĞLU",
+                "party": "HÜDA PAR"
+            },
+            {
+                "name": "Zeynel EMRE",
+                "party": "CHP"
+            }
+        ],
+        "İZMİR": [
+            {
+                "name": "Ahmet Tuncay ÖZKAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Burcugül ÇUBUK",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Ceyda BÖLÜNMEZ ÇANKIRI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Deniz YÜCEL",
+                "party": "CHP"
+            },
+            {
+                "name": "Dursun Müsavat DERVİŞOĞLU",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Ednan ARSLAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Eyyüp Kadir İNAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Fehmi Alpay ÖZALAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Gökçe GÖKÇEN",
+                "party": "CHP"
+            },
+            {
+                "name": "Haydar ALTINTAŞ",
+                "party": "DP"
+            },
+            {
+                "name": "Hüsmen KIRKPINAR",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "İbrahim AKIN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Mahir POLAT",
+                "party": "CHP"
+            },
+            {
+                "name": "Mahmut Atilla KAYA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Ali ÇELEBİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Muharrem KASAPOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Salih UZUN",
+                "party": "CHP"
+            },
+            {
+                "name": "Murat BAKAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Mustafa BİLİCİ",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Rahmi Aşkın TÜRELİ",
+                "party": "CHP"
+            },
+            {
+                "name": "Rıfat Turuntay NALBANTOĞLU",
+                "party": "CHP"
+            },
+            {
+                "name": "Seda KÂYA ÖSEN",
+                "party": "CHP"
+            },
+            {
+                "name": "Sevda ERDAN KILIÇ",
+                "party": "CHP"
+            },
+            {
+                "name": "Şebnem BURSALI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Tamer OSMANAĞAOĞLU",
+                "party": "MHP"
+            },
+            {
+                "name": "Ümit ÖZLALE",
+                "party": "CHP"
+            },
+            {
+                "name": "Yaşar KIRKPINAR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yüksel TAŞKIN",
+                "party": "CHP"
+            }
+        ],
+        "KAHRAMANMARAŞ": [
+            {
+                "name": "Ali ÖZTUNÇ",
+                "party": "CHP"
+            },
+            {
+                "name": "İrfan KARATUTLU",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Mehmet ŞAHİN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mevlüt KURT",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ömer Oruç Bilal DEBGİCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Tuba KÖKSAL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Vahit KİRİŞCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Zuhal KARAKOÇ",
+                "party": "MHP"
+            }
+        ],
+        "KARABÜK": [
+            {
+                "name": "Cem ŞAHİN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Cevdet AKAY",
+                "party": "CHP"
+            },
+            {
+                "name": "Durmuş Ali KESKİNKILIÇ",
+                "party": "AK Parti"
+            }
+        ],
+        "KARAMAN": [
+            {
+                "name": "İsmail Atakan ÜNVER",
+                "party": "CHP"
+            },
+            {
+                "name": "Osman SAĞLAM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Selman Oğuzhan ESER",
+                "party": "AK Parti"
+            }
+        ],
+        "KARS": [
+            {
+                "name": "Adem ÇALKIN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Gülüstan KILIÇ KOÇYİĞİT",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "İnan Akgün ALP",
+                "party": "CHP"
+            }
+        ],
+        "KASTAMONU": [
+            {
+                "name": "Fatma Serap EKMEKCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Halil ULUAY",
+                "party": "AK Parti"
+            }
+        ],
+        "KAYSERİ": [
+            {
+                "name": "Aşkın GENÇ",
+                "party": "CHP"
+            },
+            {
+                "name": "Ayşe BÖHÜRLER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Dursun ATAŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Hulusi AKAR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İsmail ÖZDEMİR",
+                "party": "MHP"
+            },
+            {
+                "name": "Mahmut ARIKAN",
+                "party": "SAADET Partisi"
+            },
+            {
+                "name": "Murat Cahid CINGI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa Baki ERSOY",
+                "party": "MHP"
+            },
+            {
+                "name": "Sayın Bayar ÖZSOY",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Şaban ÇOPUROĞLU",
+                "party": "AK Parti"
+            }
+        ],
+        "KIRIKKALE": [
+            {
+                "name": "Halil ÖZTÜRK",
+                "party": "MHP"
+            },
+            {
+                "name": "Mustafa KAPLAN",
+                "party": "AK Parti"
+            }
+        ],
+        "KIRKLARELİ": [
+            {
+                "name": "Ahmet Gökhan SARIÇAM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Fahri ÖZKAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Vecdi GÜNDOĞDU",
+                "party": "CHP"
+            }
+        ],
+        "KIRŞEHİR": [
+            {
+                "name": "Metin İLHAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Necmettin ERKAN",
+                "party": "AK Parti"
+            }
+        ],
+        "KİLİS": [
+            {
+                "name": "Ahmet Salih DAL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa DEMİR",
+                "party": "BAĞIMSIZ"
+            }
+        ],
+        "KOCAELİ": [
+            {
+                "name": "Cemil YAMAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Harun Özgür YILDIZLI",
+                "party": "CHP"
+            },
+            {
+                "name": "Lütfü TÜRKKAN",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Mehmet AŞILA",
+                "party": "YENİDEN REFAH"
+            },
+            {
+                "name": "Mehmet Akif YILMAZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mühip KANKO",
+                "party": "CHP"
+            },
+            {
+                "name": "Nail ÇİLER",
+                "party": "CHP"
+            },
+            {
+                "name": "Ömer Faruk GERGERLİOĞLU",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Radiye Sezer KATIRCIOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sadettin HÜLAGÜ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Saffet SANCAKLI",
+                "party": "MHP"
+            },
+            {
+                "name": "Sami ÇAKIR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Veysal TİPİOĞLU",
+                "party": "AK Parti"
+            }
+        ],
+        "KONYA": [
+            {
+                "name": "Abdullah AĞRALI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ali YÜKSEL",
+                "party": "YENİDEN REFAH"
+            },
+            {
+                "name": "Barış BEKTAŞ",
+                "party": "CHP"
+            },
+            {
+                "name": "Hasan EKİCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Konur Alp KOÇAK",
+                "party": "MHP"
+            },
+            {
+                "name": "Latif SELVİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet BAYKAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Meryem GÖKA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa KALAYCI",
+                "party": "MHP"
+            },
+            {
+                "name": "Mustafa Hakan ÖZER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Orhan ERDEM",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Selman ÖZBOYACI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Tahir AKYÜREK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ünal KARAMAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ziya ALTUNYALDIZ",
+                "party": "AK Parti"
+            }
+        ],
+        "KÜTAHYA": [
+            {
+                "name": "Adil BİÇER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ahmet ERBAŞ",
+                "party": "MHP"
+            },
+            {
+                "name": "Ali Fazıl KASAP",
+                "party": "CHP"
+            },
+            {
+                "name": "İsmail Çağlar BAYIRCI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet DEMİR",
+                "party": "AK Parti"
+            }
+        ],
+        "MALATYA": [
+            {
+                "name": "Abdurrahman BABACAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Bülent TÜFENKCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İhsan KOCA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İnanç Siraç Kara ÖLMEZTOPRAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Celal FENDOĞLU",
+                "party": "MHP"
+            },
+            {
+                "name": "Veli AĞBABA",
+                "party": "CHP"
+            }
+        ],
+        "MANİSA": [
+            {
+                "name": "Ahmet Mücahit ARINÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ahmet Vehbi BAKIRLIOĞLU",
+                "party": "CHP"
+            },
+            {
+                "name": "Bahadır Nahit YENİŞEHİRLİOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Bekir BAŞEVİRGEN",
+                "party": "CHP"
+            },
+            {
+                "name": "Erkan AKÇAY",
+                "party": "MHP"
+            },
+            {
+                "name": "Murat BAYBATUR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Özgür ÖZEL",
+                "party": "CHP"
+            },
+            {
+                "name": "Selma Aliye KAVAF",
+                "party": "CHP"
+            },
+            {
+                "name": "Şenol SUNAT",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Tamer AKKAL",
+                "party": "AK Parti"
+            }
+        ],
+        "MARDİN": [
+            {
+                "name": "Beritan GÜNEŞ ALTIN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Faruk KILIÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "George ASLAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Kamuran TANHAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Muhammed ADAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Salihe AYDENİZ",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "MERSİN": [
+            {
+                "name": "Ali BOZAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Ali KIRATLI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ali Mahir BAŞARIR",
+                "party": "CHP"
+            },
+            {
+                "name": "Burhanettin KOCAMAZ",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Faruk DİNÇ",
+                "party": "HÜDA PAR"
+            },
+            {
+                "name": "Gülcan KIŞ",
+                "party": "CHP"
+            },
+            {
+                "name": "Hasan Ufuk ÇAKIR",
+                "party": "CHP"
+            },
+            {
+                "name": "Havva Sibel SÖYLEMEZ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Levent UYSAL",
+                "party": "MHP"
+            },
+            {
+                "name": "Mehmet Emin EKMEN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Nureddin NEBATİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Perihan KOCA DOĞAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Talat DİNÇER",
+                "party": "CHP"
+            }
+        ],
+        "MUĞLA": [
+            {
+                "name": "Cumhur UZUN",
+                "party": "CHP"
+            },
+            {
+                "name": "Gizem ÖZCAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Kadem METE",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Metin ERGUN",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Selçuk ÖZDAĞ",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Süreyya ÖNEŞ DERİCİ",
+                "party": "CHP"
+            },
+            {
+                "name": "Yakup OTGÖZ",
+                "party": "AK Parti"
+            }
+        ],
+        "MUŞ": [
+            {
+                "name": "Mehmet Emin ŞİMŞEK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sezai TEMELLİ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Sümeyye BOZ ÇAKI",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "NEVŞEHİR": [
+            {
+                "name": "Emre ÇALIŞKAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Filiz KILIÇ",
+                "party": "MHP"
+            },
+            {
+                "name": "Süleyman ÖZGÜN",
+                "party": "AK Parti"
+            }
+        ],
+        "NİĞDE": [
+            {
+                "name": "Cevahir UZKURT",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Cumali İNCE",
+                "party": "MHP"
+            },
+            {
+                "name": "Ömer Fethi GÜRER",
+                "party": "CHP"
+            }
+        ],
+        "ORDU": [
+            {
+                "name": "İbrahim Ufuk KAYNAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mahmut ÖZER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa ADIGÜZEL",
+                "party": "CHP"
+            },
+            {
+                "name": "Mustafa HAMARAT",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Naci ŞANLITÜRK",
+                "party": "MHP"
+            },
+            {
+                "name": "Seyit TORUN",
+                "party": "CHP"
+            }
+        ],
+        "OSMANİYE": [
+            {
+                "name": "Asu KAYA",
+                "party": "CHP"
+            },
+            {
+                "name": "Derya YANIK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Devlet BAHÇELİ",
+                "party": "MHP"
+            },
+            {
+                "name": "Seydi GÜLSOY",
+                "party": "AK Parti"
+            }
+        ],
+        "RİZE": [
+            {
+                "name": "Harun MERTOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Muhammed AVCI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Tahsin OCAKLI",
+                "party": "CHP"
+            }
+        ],
+        "SAKARYA": [
+            {
+                "name": "Ali İNCİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ayça TAŞKENT",
+                "party": "CHP"
+            },
+            {
+                "name": "Çiğdem ERDOĞAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ertuğrul KOCACIK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Lütfi BAYRAKTAR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Muhammed Levent BÜLBÜL",
+                "party": "MHP"
+            },
+            {
+                "name": "Murat KAYA",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ümit DİKBAYIR",
+                "party": "CHP"
+            }
+        ],
+        "SAMSUN": [
+            {
+                "name": "Çiğdem KARAASLAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Erhan USTA",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Ersan AKSU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İlyas TOPSAKAL",
+                "party": "MHP"
+            },
+            {
+                "name": "Mehmet KARAMAN",
+                "party": "YENİ YOL"
+            },
+            {
+                "name": "Mehmet MUŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Murat ÇAN",
+                "party": "CHP"
+            },
+            {
+                "name": "Orhan KIRCALI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yusuf Ziya YILMAZ",
+                "party": "AK Parti"
+            }
+        ],
+        "SİİRT": [
+            {
+                "name": "Mervan GÜL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sabahat ERDOĞAN SARITAŞ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Tuncer BAKIRHAN",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "SİNOP": [
+            {
+                "name": "Barış KARADENİZ",
+                "party": "CHP"
+            },
+            {
+                "name": "Nazım MAVİŞ",
+                "party": "AK Parti"
+            }
+        ],
+        "SİVAS": [
+            {
+                "name": "Abdullah GÜLER",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ahmet ÖZYÜREK",
+                "party": "MHP"
+            },
+            {
+                "name": "Hakan AKSU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Rukiye TOY",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ulaş KARASU",
+                "party": "CHP"
+            }
+        ],
+        "ŞANLIURFA": [
+            {
+                "name": "Abdulkadir Emin ÖNEN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Abdürrahim DUSAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Bekir BOZDAĞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Cevahir Asuman YAZMACI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Dilan KUNT AYAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Ferit ŞENYAŞAR",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Hikmet BAŞAK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İbrahim EYYÜPOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İbrahim ÖZYAVUZ",
+                "party": "MHP"
+            },
+            {
+                "name": "Mahmut TANAL",
+                "party": "CHP"
+            },
+            {
+                "name": "Mehmet Ali CEVHERİ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mehmet Faruk PINARBAŞI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mithat SANCAR",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Ömer ÖCALAN",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "ŞIRNAK": [
+            {
+                "name": "Arslan TATAR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Ayşegül DOĞAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Mehmet Zeki İRMEZ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Nevroz UYSAL ASLAN",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "TEKİRDAĞ": [
+            {
+                "name": "Cem AVŞAR",
+                "party": "CHP"
+            },
+            {
+                "name": "Çiğdem KONCAGÜL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Faik ÖZTRAK",
+                "party": "CHP"
+            },
+            {
+                "name": "Gökhan DİKTAŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İlhami Özcan AYGUN",
+                "party": "CHP"
+            },
+            {
+                "name": "Mestan ÖZCAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Nurten YONTAR",
+                "party": "CHP"
+            },
+            {
+                "name": "Selcan TAŞCI",
+                "party": "İYİ Parti"
+            }
+        ],
+        "TOKAT": [
+            {
+                "name": "Cüneyt ALDEMİR",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Kadim DURMAZ",
+                "party": "CHP"
+            },
+            {
+                "name": "Mustafa ARSLAN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yusuf BEYAZIT",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yücel BULUT",
+                "party": "MHP"
+            }
+        ],
+        "TRABZON": [
+            {
+                "name": "Adil KARAİSMAİLOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mustafa ŞEN",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Sibel SUİÇMEZ",
+                "party": "CHP"
+            },
+            {
+                "name": "Vehbi KOÇ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Yavuz AYDIN",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Yılmaz BÜYÜKAYDIN",
+                "party": "AK Parti"
+            }
+        ],
+        "TUNCELİ": [
+            {
+                "name": "Ayten KORDU",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "UŞAK": [
+            {
+                "name": "Ali KARAOBA",
+                "party": "CHP"
+            },
+            {
+                "name": "Fahrettin TUĞRUL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İsmail GÜNEŞ",
+                "party": "AK Parti"
+            }
+        ],
+        "VAN": [
+            {
+                "name": "Burhan KAYATÜRK",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Gülcan KAÇMAZ SAYYİĞİT",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Gülderen VARLİ",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Kayhan TÜRKMENOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Mahmut DİNDAR",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Pervin BULDAN",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Sinan ÇİFTYÜREK",
+                "party": "DEM PARTİ"
+            },
+            {
+                "name": "Zülküf UÇAR",
+                "party": "DEM PARTİ"
+            }
+        ],
+        "YALOVA": [
+            {
+                "name": "Ahmet BÜYÜKGÜMÜŞ",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Meliha AKYOL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Tahsin BECAN",
+                "party": "CHP"
+            }
+        ],
+        "YOZGAT": [
+            {
+                "name": "Abdulkadir AKGÜL",
+                "party": "AK Parti"
+            },
+            {
+                "name": "İbrahim Ethem SEDEF",
+                "party": "MHP"
+            },
+            {
+                "name": "Lütfullah KAYALAR",
+                "party": "İYİ Parti"
+            },
+            {
+                "name": "Süleyman ŞAHAN",
+                "party": "AK Parti"
+            }
+        ],
+        "ZONGULDAK": [
+            {
+                "name": "Ahmet ÇOLAKOĞLU",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Deniz YAVUZYILMAZ",
+                "party": "CHP"
+            },
+            {
+                "name": "Eylem Ertuğ ERTUĞRUL",
+                "party": "CHP"
+            },
+            {
+                "name": "Muammer AVCI",
+                "party": "AK Parti"
+            },
+            {
+                "name": "Saffet BOZKURT",
+                "party": "AK Parti"
+            }
+        ]
+    }
+}

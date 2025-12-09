@@ -2,29 +2,20 @@
 
 import 'package:flutter/material.dart';
 import '../widgets/loading_animation.dart';
-import 'package:http/http.dart' as http;
-import 'package:webfeed_plus/webfeed_plus.dart';
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../providers/theme_provider.dart';
-import '../utils/logging.dart';
-
+import '../providers/news_provider.dart';
 import '../services/financial_data_service.dart';
 import '../models/article.dart';
-import '../services/image_extractor.dart';
 import '../widgets/category_selector.dart';
 import 'news_detail_screen.dart';
 import 'profile_screen.dart';
 import '../auth/login_screen.dart';
 import 'quiz_screen.dart';
-
-// FeedSource sınıfı
-class FeedSource {
-  final String category;
-  final String url;
-  FeedSource({required this.category, required this.url});
-}
+import 'mp_ranking_screen.dart';
+import 'party_rankings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,72 +25,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-  // drawer expansion is now controlled by ExpansionTile; helper below used for small summaries
   late TabController _tabController;
-  final List<FeedSource> _allFeeds = [
-    // Gündem Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "gundem", url: "https://www.haberturk.com/rss/gundem.xml"),
-    FeedSource(category: "gundem", url: "https://www.cumhuriyet.com.tr/rss/1.xml"),
-    FeedSource(category: "gundem", url: "https://www.aa.com.tr/tr/rss/default?cat=guncel"),
-    FeedSource(category: "gundem", url: "https://www.elipshaber.com/rss"),
-    FeedSource(category: "gundem", url: "https://feeds.bbci.co.uk/turkce/rss.xml"),
-    
-    // Ekonomi Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "ekonomi", url: "https://www.aa.com.tr/tr/rss/default?cat=ekonomi"),
-    FeedSource(category: "ekonomi", url: "https://www.cumhuriyet.com.tr/rss/2.xml"),
-    FeedSource(category: "ekonomi", url: "https://www.elipshaber.com/rss/ekonomi"),
-    FeedSource(category: "ekonomi", url: "https://ninjanews.io/feed/"),
-
-    // Teknoloji Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "teknoloji", url: "https://www.webtekno.com/rss.xml"),
-    FeedSource(category: "teknoloji", url: "https://www.haberturk.com/rss/teknoloji.xml"),
-    
-    // Spor Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "spor", url: "https://www.haberturk.com/rss/spor.xml"),
-    FeedSource(category: "spor", url: "https://www.cumhuriyet.com.tr/rss/4.xml"),
-    FeedSource(category: "spor", url: "https://www.aa.com.tr/tr/rss/default?cat=spor"),
-    
-    // Politika Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "politika", url: "https://www.cumhuriyet.com.tr/rss/3.xml"),
-    FeedSource(category: "politika", url: "https://www.trthaber.com/rss/politika.rss"),
-    FeedSource(category: "politika", url: "https://www.elipshaber.com/rss/politika"),
-    
-    // Sağlık Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "saglik", url: "https://www.elipshaber.com/rss/saglik"),
-    
-    // Eğitim Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "egitim", url: "https://www.elipshaber.com/rss/egitim"),
-    
-    // Dünya Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "dunya", url: "https://www.haberturk.com/rss/dunya.xml"),
-    FeedSource(category: "dunya", url: "https://www.trthaber.com/rss/dunya.rss"),
-    FeedSource(category: "dunya", url: "https://www.aa.com.tr/tr/rss/default?cat=dunya"),
-    FeedSource(category: "dunya", url: "https://www.elipshaber.com/rss/dunya"),
-    FeedSource(category: "dunya", url: "https://feeds.bbci.co.uk/turkce/rss.xml"),
-    
-    // Kültür Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "kultur", url: "https://www.haberturk.com/rss/kultur-sanat.xml"),
-    FeedSource(category: "kultur", url: "https://www.elipshaber.com/rss/kultur-sanat"),
-
-    // Özel Dosyalar Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "özel dosyalar", url: "https://feeds.bbci.co.uk/turkce/rss.xml"),
-    
-    // Köşe Yazıları Kategorisi - Çalışan RSS'ler
-    FeedSource(category: "kose yazilari", url: "https://www.sozcu.com.tr/rss/yazarlar.xml"),
-    FeedSource(category: "kose yazilari", url: "https://www.elipshaber.com/rss/makaleler"),
-
-  ];
-
+  
   late final List<String> _categories;
-  List<Article> _allArticles = [];
-  bool _isLoading = true;
   
   FinancialData? _financialData;
   bool _isFinancialDataLoading = true;
-  
-  // Generation counter to track fetch operations and prevent race conditions
-  // Image extraction workers check this to ensure they're working on current data
-  int _fetchGeneration = 0;
 
   @override
   void initState() {
@@ -115,19 +46,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       "egitim",
       "dunya",
       "kultur",
-      "özel dosyalar",
-      "kose yazilari",
     ];
     _tabController = TabController(length: _categories.length, vsync: this);
-    _initialLoad();
-  }
-
-  Future<void> _initialLoad() async {
-    // On first load, fetch only feeds for the visible tab so UI appears fast.
-    await Future.wait([
-      _fetchAllNews(initialOnly: true),
-      _fetchFinancialData(),
-    ]);
+    
+    // Listen to tab changes and fetch news for the selected category
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        final category = _categories[_tabController.index];
+        Provider.of<NewsProvider>(context, listen: false).fetchNews(category);
+      }
+    });
+    
+    // Fetch initial news and financial data
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<NewsProvider>(context, listen: false).fetchNews('gundem');
+      _fetchFinancialData();
+    });
   }
 
   @override
@@ -137,315 +71,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
   
   Future<void> _refreshData() async {
+    final newsProvider = Provider.of<NewsProvider>(context, listen: false);
+    final currentCategory = newsProvider.currentCategory;
     await Future.wait([
-      _fetchAllNews(),
+      newsProvider.fetchNews(currentCategory),
       _fetchFinancialData(),
     ]);
   }
 
-  Future<void> _fetchAllNews({bool initialOnly = false}) async {
-    // Increment generation counter for this fetch operation
-    // This ensures image extraction workers can detect if their data is stale
-    final currentGeneration = ++_fetchGeneration;
-    
-    List<Article> fetchedArticles = [];
-     Set<String> seenArticles = {}; // Duplicate kontrolü için
-     Map<String, int> categoryCounts = {}; // Kategori sayacı
-    
-  final feedsToProcess = initialOnly
-    ? _allFeeds.where((f) => f.category == _categories[_tabController.index]).toList()
-    : _allFeeds;
-
-  await Future.wait(feedsToProcess.map((feedSource) async {
-      try {
-        final response = await http.get(
-          Uri.parse(feedSource.url),
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': 'application/rss+xml, application/xml, text/xml, */*',
-          },
-        ).timeout(const Duration(seconds: 10));
-        
-        if (response.statusCode == 200) {
-          final decodedBody = utf8.decode(response.bodyBytes);
-          
-          // XML içeriğini temizle
-          final cleanBody = _cleanXmlContent(decodedBody);
-          
-          final feed = RssFeed.parse(cleanBody);
-          final sourceName = _extractSourceName(feed.title ?? feedSource.url);
-          
-          if (feed.items != null && feed.items!.isNotEmpty) {
-            for (var item in feed.items!) {
-              // Haber içeriğini analiz et ve kategori doğrula
-              final actualCategory = _determineCategory(item, feedSource.category);
-              
-              final article = Article.fromRssItem(item, sourceName, category: actualCategory);
-              
-              // Duplicate kontrolü - başlık ve link kombinasyonu
-              final articleKey = '${article.title?.toLowerCase().trim()}_${article.link?.toLowerCase().trim()}';
-              
-              // Sadece geçerli ve benzersiz haberleri ekle
-              if (_isValidArticle(article) && !seenArticles.contains(articleKey)) {
-                // Kategori sayısını kontrol et (maksimum 50 haber per kategori)
-                final currentCount = categoryCounts[actualCategory] ?? 0;
-                if (currentCount < 50) {
-                  seenArticles.add(articleKey);
-                  categoryCounts[actualCategory] = currentCount + 1;
-                  
-                  final titleForPrint = article.title ?? '';
-                  final shortTitle = titleForPrint.length > 30 ? titleForPrint.substring(0, 30) : titleForPrint;
-                  AppLog.d('Haber [$actualCategory]: $shortTitle...');
-                  
-                  fetchedArticles.add(article);
-                }
-              }
-            }
-          }
-          } else {
-          AppLog.d("HTTP Hatası: ${response.statusCode} - ${feedSource.url}");
-        }
-      } catch (e) {
-        AppLog.d("RSS Hatası: ${feedSource.url} - $e");
-      }
-    }));
-    
-    // Tarihe göre sırala (en yeni önce) ve önce içerikleri göster; görseller
-    // arka planda çıkarılıp geldikçe UI güncellenecek. Bu, başlangıç yüklenmesini
-    // hızlandırır çünkü tüm sayfaların taranması beklenmez.
-    fetchedArticles.sort((a, b) => b.pubDate?.compareTo(a.pubDate ?? DateTime(0)) ?? 0);
-
-    // Only update state if this is still the current generation (not superseded by a newer fetch)
-    if (mounted && currentGeneration == _fetchGeneration) {
-      setState(() {
-        _allArticles = fetchedArticles;
-        _isLoading = false;
-      });
-    } else {
-      // This fetch was superseded, skip updating state
-      AppLog.d('_fetchAllNews: skipping state update (generation $currentGeneration < current $_fetchGeneration)');
-      return;
-    }
-
-    // Eğer sadece initial load yapıldıysa, arka planda kalan feed'leri çek ve mevcut listeye ekle
-    if (initialOnly) {
-      // fire-and-forget background merge
-      Future(() async {
-        await _fetchAllNews(initialOnly: false);
-        // dedup ve sort zaten fetchAllNews içinde yapılacak; burada ek işleme gerek yok
-      });
-    }
-
-    // Arka plan görsel çıkarma - non-blocking. Görseller bulunduğunda tek tek
-    // ilgili öğeyi güncelle ve UI'ı yeniden render et.
-    // Uses generation counter to ensure workers only update if their fetch is still current
-    _startImageExtraction(fetchedArticles, currentGeneration);
-
-    AppLog.d('Toplam ${fetchedArticles.length} haber yüklendi');
-    AppLog.d('Kategori dağılımı: $categoryCounts');
-  }
-
-  // Start image extraction workers with generation tracking
-  // Workers only update articles if their generation is still current
-  void _startImageExtraction(List<Article> articles, int generation) {
-    (() async {
-      const int concurrency = 4;
-      final List<Article> queue = List<Article>.from(articles);
-
-      Future<void> worker() async {
-        while (true) {
-          Article? current;
-          if (queue.isEmpty) break;
-          current = queue.removeLast();
-
-          if ((current.imageUrl == null || current.imageUrl!.isEmpty) && current.link != null) {
-            try {
-              final extracted = await ImageExtractor.extractImage(current.link!);
-              if (extracted != null && mounted) {
-                // Check if this generation is still current before updating
-                if (generation != _fetchGeneration) {
-                  AppLog.d('ImageExtractor: skipping update (generation $generation < current $_fetchGeneration)');
-                  continue;
-                }
-                
-                final linkToFind = current.link!;
-                final idx = _allArticles.indexWhere((a) => a.link == linkToFind);
-                if (idx != -1) {
-                  // Double-check generation again before setState
-                  if (generation != _fetchGeneration) {
-                    AppLog.d('ImageExtractor: generation changed, skipping update');
-                    continue;
-                  }
-                  
-                  final existingArticle = _allArticles[idx];
-                  if (existingArticle.link == linkToFind) {
-                    if (existingArticle.imageUrl != extracted) {
-                      setState(() {
-                        // Final check: ensure generation is still current and article exists
-                        if (generation == _fetchGeneration) {
-                          final currentIdx = _allArticles.indexWhere((a) => a.link == linkToFind);
-                          if (currentIdx != -1 && _allArticles[currentIdx].link == linkToFind) {
-                            _allArticles[currentIdx] = _allArticles[currentIdx].copyWith(imageUrl: extracted);
-                          }
-                        }
-                      });
-                      AppLog.d('ImageExtractor: updated article image for $linkToFind');
-                    }
-                  }
-                }
-              }
-            } catch (e) {
-              AppLog.d('ImageExtractor: error for ${current.link} -> $e');
-            }
-          }
-        }
-      }
-
-      final workers = <Future>[];
-      for (int i = 0; i < concurrency; i++) {
-        workers.add(worker());
-      }
-      await Future.wait(workers);
-      AppLog.d('ImageExtractor: background extraction finished (generation $generation)');
-    })();
-  }
-
-  // XML içeriğini temizle
-  String _cleanXmlContent(String xmlContent) {
-    // BOM karakterlerini kaldır
-    String cleaned = xmlContent.replaceAll('\uFEFF', '');
-    
-    // Boş satırları ve fazla boşlukları temizle
-    cleaned = cleaned.replaceAll(RegExp(r'\s+'), ' ').trim();
-    
-    // XML header'ı kontrol et
-    if (!cleaned.startsWith('<?xml') && !cleaned.startsWith('<rss') && !cleaned.startsWith('<feed')) {
-      // XML header ekle
-      cleaned = '<?xml version="1.0" encoding="UTF-8"?>$cleaned';
-    }
-    
-    return cleaned;
-  }
-
-  // Kaynak adını çıkar
-  String _extractSourceName(String title) {
-    if (title.isEmpty) return 'Bilinmeyen';
-    
-    // Yaygın kaynak adlarını ayıkla
-    final commonSources = ['Habertürk', 'Sözcü', 'Cumhuriyet', 'AA', 'TRT Haber', 'Webtekno', 'Chip'];
-    
-    for (final source in commonSources) {
-      if (title.toLowerCase().contains(source.toLowerCase())) {
-        return source;
-      }
-    }
-    
-    // İlk kelimeyi al
-    return title.split(' ').first;
-  }
-
-  // Haber kategorisini belirle
-  String _determineCategory(RssItem item, String feedCategory) {
-    final title = item.title?.toLowerCase() ?? '';
-    final description = item.description?.toLowerCase() ?? '';
-    final content = '$title $description';
-    
-    // Spor anahtar kelimeleri
-    final sporKeywords = ['futbol', 'basketbol', 'voleybol', 'tenis', 'spor', 'maç', 'gol', 'takım', 'oyuncu', 'şampiyon', 'lig', 'turnuva', 'atletizm', 'yüzme', 'jimnastik'];
-    
-    // Politika anahtar kelimeleri
-    final politikaKeywords = ['seçim', 'milletvekili', 'başkan', 'bakan', 'hükümet', 'meclis', 'siyaset', 'parti', 'politik', 'demokrat', 'cumhuriyet', 'cumhurbaşkanı', 'başbakan'];
-    
-    // Ekonomi anahtar kelimeleri
-    final ekonomiKeywords = ['ekonomi', 'borsa', 'dolar', 'euro', 'enflasyon', 'faiz', 'yatırım', 'kredi', 'bankacılık', 'finans', 'para', 'maliye', 'vergi', 'ihracat', 'ithalat'];
-    
-    // Teknoloji anahtar kelimeleri
-    final teknolojiKeywords = ['teknoloji', 'yapay zeka', 'bilgisayar', 'telefon', 'internet', 'yazılım', 'donanım', 'apple', 'google', 'microsoft', 'android', 'ios', 'uygulama'];
-    
-    // Sağlık anahtar kelimeleri
-    final saglikKeywords = ['sağlık', 'hastane', 'doktor', 'hastalık', 'tedavi', 'ilaç', 'aşı', 'tıp', 'ameliyat', 'kanser', 'kalp', 'beyin', 'psikoloji'];
-    
-    // Eğitim anahtar kelimeleri
-    final egitimKeywords = ['eğitim', 'okul', 'üniversite', 'öğrenci', 'öğretmen', 'ders', 'sınav', 'mezun', 'öğrenim', 'bilim', 'araştırma', 'akademik'];
-    
-    // Kategori belirleme
-    if (sporKeywords.any((keyword) => content.contains(keyword))) {
-      return 'spor';
-    }
-    if (politikaKeywords.any((keyword) => content.contains(keyword))) {
-      return 'politika';
-    }
-    if (ekonomiKeywords.any((keyword) => content.contains(keyword))) {
-      return 'ekonomi';
-    }
-    if (teknolojiKeywords.any((keyword) => content.contains(keyword))) {
-      return 'teknoloji';
-    }
-    if (saglikKeywords.any((keyword) => content.contains(keyword))) {
-      return 'saglik';
-    }
-    if (egitimKeywords.any((keyword) => content.contains(keyword))) {
-      return 'egitim';
-    }
-
-    
-    // Eğer hiçbiri eşleşmezse, feed kategorisini kullan
-    return feedCategory;
-  }
-
-  // Geçerli haber kontrolü
-  bool _isValidArticle(Article article) {
-    // Başlık ve açıklama kontrolü
-    if (article.title == null || article.title!.trim().isEmpty) return false;
-    if (article.description == null || article.description!.trim().isEmpty) return false;
-    
-    // Minimum uzunluk kontrolü
-    if (article.title!.length < 10) return false;
-    if (article.description!.length < 20) return false;
-    
-    // Maksimum uzunluk kontrolü (çok uzun başlıklar spam olabilir)
-    if (article.title!.length > 200) return false;
-    if (article.description!.length > 1000) return false;
-    
-    // Spam ve geçersiz içerik kontrolü
-    final spamKeywords = [
-      'reklam', 'promosyon', 'kampanya', 'indirim', 'satış', 'fırsat',
-      'kazan', 'ödül', 'hediye', 'ücretsiz', 'bedava', 'bonus',
-      'poker', 'casino', 'bahis', 'lottery', 'şans oyunu'
-    ];
-    final titleLower = article.title!.toLowerCase();
-    final descLower = article.description!.toLowerCase();
-    
-    // Başlıkta spam kontrolü
-    if (spamKeywords.any((keyword) => titleLower.contains(keyword))) return false;
-    
-    // Açıklamada spam kontrolü
-    if (spamKeywords.any((keyword) => descLower.contains(keyword))) return false;
-    
-    // Tekrarlayan karakter kontrolü
-    if (_hasRepeatingCharacters(article.title!)) return false;
-    
-    // Link kontrolü
-    if (article.link == null || article.link!.trim().isEmpty) return false;
-    final uri = Uri.tryParse(article.link!);
-    if (uri == null || !uri.isAbsolute) return false;
-    
-    return true;
-  }
-
-  // Tekrarlayan karakter kontrolü
-  bool _hasRepeatingCharacters(String text) {
-    final chars = text.toLowerCase().split('');
-    for (int i = 0; i < chars.length - 3; i++) {
-      if (chars[i] == chars[i + 1] && 
-          chars[i] == chars[i + 2] && 
-          chars[i] == chars[i + 3]) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
   Future<void> _fetchFinancialData() async {
     if (!mounted) return;
     setState(() { _isFinancialDataLoading = true; });
@@ -467,10 +100,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     }
   }
 
-  List<Article> _getArticlesForCategory(String category) {
-    return _allArticles.where((article) => article.category == category).toList();
-  }
-  
   String _formatDate(DateTime? date) {
     if (date == null) return '';
     return DateFormat('dd MMMM yyyy, HH:mm', 'tr_TR').format(date);
@@ -559,6 +188,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ),
         ),
         actions: [
+          // Milletvekili Sıralaması butonu
+          IconButton(
+            tooltip: 'Siyasi Performans Sıralaması',
+            icon: const Icon(Icons.leaderboard_rounded),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MpRankingScreen()),
+              );
+            },
+          ),
           IconButton(
             tooltip: 'Tema Değiştir',
             icon: Icon(
@@ -579,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             },
           ),
         ],
-        bottom: _isLoading ? null : TabBar(
+        bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
           labelPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -610,166 +250,179 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               stops: const [0.0, 0.35, 1.0],
             ),
           ),
-          child: Column(
-          children: [
-            Expanded(
-              child: _isLoading
-                  ? Center(child: LoadingAnimation())
-                  : TabBarView(
-                      controller: _tabController,
-                      children: _categories.map((String categoryName) {
-                        final articles = _getArticlesForCategory(categoryName);
-                        if (articles.isEmpty && !_isLoading) {
-                          return const Center(child: Text("Bu kategoride haber bulunamadı."));
-                        }
-                        
-                        return RefreshIndicator(
-                          onRefresh: _refreshData,
-                          child: ListView.builder(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            itemCount: articles.length,
-                            itemBuilder: (context, index) {
-                              final article = articles[index];
-                              final formattedDate = _formatDate(article.pubDate);
-                              return Container(
-                                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  borderRadius: BorderRadius.circular(16),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.45),
-                                      blurRadius: 18,
-                                      offset: const Offset(0, 6),
-                                    ),
-                                  ],
-                                  border: Border.all(
-                                    color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.6),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(16),
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetailScreen(rssArticle: article)));
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          // Kategori ve Kaynak Bilgisi
-                                          Row(
-                                            children: [
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                                                      Theme.of(context).colorScheme.secondary.withOpacity(0.1),
-                                                    ],
-                                                  ),
-                                                  borderRadius: BorderRadius.circular(12),
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize: MainAxisSize.min,
+          child: Consumer<NewsProvider>(
+            builder: (context, newsProvider, child) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: newsProvider.isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : TabBarView(
+                            controller: _tabController,
+                            children: _categories.map((String categoryName) {
+                              final articles = newsProvider.currentCategory == categoryName 
+                                  ? newsProvider.articles 
+                                  : [];
+                              if (articles.isEmpty && !newsProvider.isLoading) {
+                                return const Center(child: Text("Bu kategoride haber bulunamadı."));
+                              }
+                              
+                              return RefreshIndicator(
+                                onRefresh: () => newsProvider.fetchNews(categoryName),
+                                child: ListView.builder(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  itemCount: articles.length,
+                                  itemBuilder: (context, index) {
+                                    final article = articles[index];
+                                    final formattedDate = _formatDate(article.pubDate);
+                                    return Container(
+                                      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context).colorScheme.surface,
+                                        borderRadius: BorderRadius.circular(16),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.45),
+                                            blurRadius: 18,
+                                            offset: const Offset(0, 6),
+                                          ),
+                                        ],
+                                        border: Border.all(
+                                          color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.6),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.circular(16),
+                                          onTap: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetailScreen(rssArticle: article)));
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                // Kategori ve Kaynak Bilgisi
+                                                Row(
                                                   children: [
-                                                    Icon(
-                                                      getCategoryIcon(article.category ?? 'diger'),
-                                                      size: 14,
-                                                      color: Theme.of(context).colorScheme.primary,
+                                                    Container(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                      decoration: BoxDecoration(
+                                                        gradient: LinearGradient(
+                                                          colors: [
+                                                            Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                                                            Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                                                          ],
+                                                        ),
+                                                        borderRadius: BorderRadius.circular(12),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          Icon(
+                                                            getCategoryIcon(article.category ?? 'diger'),
+                                                            size: 14,
+                                                            color: Theme.of(context).colorScheme.primary,
+                                                          ),
+                                                          const SizedBox(width: 4),
+                                                          Text(
+                                                            getCategoryDisplayName(article.category ?? 'diger'),
+                                                            style: TextStyle(
+                                                              color: Theme.of(context).colorScheme.primary,
+                                                              fontWeight: FontWeight.w600,
+                                                              fontSize: 12,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                    const SizedBox(width: 4),
-                                                    Text(
-                                                      getCategoryDisplayName(article.category ?? 'diger'),
-                                                      style: TextStyle(
-                                                        color: Theme.of(context).colorScheme.primary,
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 12,
+                                                    const Spacer(),
+                                                    Container(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                      decoration: BoxDecoration(
+                                                        color: Theme.of(context).colorScheme.surface.withOpacity(0.04),
+                                                        borderRadius: BorderRadius.circular(8),
+                                                      ),
+                                                      child: Text(
+                                                        article.sourceName ?? 'Bilinmeyen',
+                                                        style: TextStyle(
+                                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize: 11,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                              const Spacer(),
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                                decoration: BoxDecoration(
-                                                  color: Theme.of(context).colorScheme.surface.withOpacity(0.04),
-                                                  borderRadius: BorderRadius.circular(8),
-                                                ),
-                                                child: Text(
-                                                  article.sourceName ?? 'Bilinmeyen',
-                                                  style: TextStyle(
-                                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 11,
+                                                const SizedBox(height: 12),
+                                                
+                                                // Haber Başlığı
+                                                Text(
+                                                  article.title ?? 'Başlık bulunamadı',
+                                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                                    color: Theme.of(context).colorScheme.onSurface,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                    height: 1.3,
                                                   ),
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 12),
-                                          
-                                          // Haber Başlığı
-                                          Text(
-                                            article.title ?? 'Başlık bulunamadı',
-                                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                              color: Theme.of(context).colorScheme.onSurface,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              height: 1.3,
-                                            ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const SizedBox(height: 8),
-                                          
-                                          // Haber Açıklaması
-                                          if (article.description != null)
-                                            Text(
-                                              article.description!,
-                                              style: TextStyle(
-                                                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                                fontSize: 14,
-                                                height: 1.4,
-                                              ),
-                                              maxLines: 3,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          
-                                          const SizedBox(height: 8),
-                                          // Haber görseli (eğer varsa)
-                                          if (article.imageUrl != null && article.imageUrl!.isNotEmpty)
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(12),
-                                              child: SizedBox(
-                                                width: double.infinity,
-                                                height: 160,
-                                                child: Image.network(
-                                                  article.imageUrl!,
-                                                  fit: BoxFit.cover,
-                                                  loadingBuilder: (context, child, progress) {
-                                                    if (progress == null) return child;
-                                                    return Container(
-                                                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                                      child: const Center(child: CircularProgressIndicator()),
-                                                    );
-                                                  },
-                                                  errorBuilder: (context, error, stack) {
-                                                    return Container(
-                                                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                                      child: Center(
-                                                        child: Icon(Icons.broken_image, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                                const SizedBox(height: 8),
+                                                
+                                                // Haber Açıklaması
+                                                if (article.description != null)
+                                                  Text(
+                                                    article.description!,
+                                                    style: TextStyle(
+                                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                                      fontSize: 14,
+                                                      height: 1.4,
+                                                    ),
+                                                    maxLines: 3,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                
+                                                const SizedBox(height: 8),
+                                                // Haber görseli (eğer varsa)
+                                                if (article.imageUrl != null && article.imageUrl!.isNotEmpty)
+                                                  ClipRRect(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    child: SizedBox(
+                                                      width: double.infinity,
+                                                      height: 160,
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: article.imageUrl!,
+                                                        fit: BoxFit.cover,
+                                                        placeholder: (context, url) => Container(
+                                                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                                          child: const Center(child: CircularProgressIndicator()),
+                                                        ),
+                                                        errorWidget: (context, url, error) => Container(
+                                                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                                          child: Center(
+                                                            child: Icon(Icons.broken_image, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                                          ),
+                                                        ),
                                                       ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ),
+                                                    ),
+                                                  )
+                                                else
+                                                  Container(
+                                                    width: double.infinity,
+                                                    height: 160,
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                                      borderRadius: BorderRadius.circular(12),
+                                                    ),
+                                                    child: Icon(
+                                                      Icons.image_not_supported,
+                                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                                      size: 48,
+                                                    ),
+                                                  ),
 
                                           const SizedBox(height: 12),
                                           
@@ -830,8 +483,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         );
                       }).toList(),
                     ),
-            ),
-          ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -1041,6 +696,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 },
               ),
 
+              // Parti Bazlı Sıralama link
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(Icons.groups, color: theme.colorScheme.secondary),
+                title: Text('Parti Performansı', style: theme.textTheme.titleMedium),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const PartyRankingsScreen()));
+                },
+              ),
+
 
               // Currencies (ExpansionTile: title shows USD & EUR; expand to show all)
               Card(
@@ -1085,7 +751,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   itemBuilder: (context, index) {
                     final cat = _categories[index];
                     final display = _getCategoryDisplayName(cat);
-                    final count = _getArticlesForCategory(cat).length;
+                    final newsProvider = Provider.of<NewsProvider>(context, listen: false);
+                    final count = newsProvider.currentCategory == cat ? newsProvider.articles.length : 0;
                     return InkWell(
                       onTap: () {
                         Navigator.of(context).pop();

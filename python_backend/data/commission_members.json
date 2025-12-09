@@ -1,0 +1,2413 @@
+{
+  "Adalet Komisyonu": [
+    {
+      "name": "Cüneyt YÜKSEL",
+      "role": "BAŞKAN",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Orhan KIRCALI",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "Emine YAVUZ GÖZGEÇ",
+      "role": "SÖZCÜ",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Oğuzhan KAYA",
+      "role": "KATİP",
+      "constituency": "Çorum"
+    },
+    {
+      "name": "Hakan Şeref OLGUN",
+      "role": "ÜYE",
+      "constituency": "Afyonkarahisar"
+    },
+    {
+      "name": "İdris ŞAHİN",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Aliye COŞAR",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Süleyman BÜLBÜL",
+      "role": "ÜYE",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Ömer ÖZMEN",
+      "role": "ÜYE",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Nurettin ALAN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Şengül KARSLI",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Turan Taşkın ÖZER",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Selman Oğuzhan ESER",
+      "role": "ÜYE",
+      "constituency": "Karaman"
+    },
+    {
+      "name": "İsmail Atakan ÜNVER",
+      "role": "ÜYE",
+      "constituency": "Karaman"
+    },
+    {
+      "name": "İnan Akgün ALP",
+      "role": "ÜYE",
+      "constituency": "Kars"
+    },
+    {
+      "name": "Halil ULUAY",
+      "role": "ÜYE",
+      "constituency": "Kastamonu"
+    },
+    {
+      "name": "Halil ÖZTÜRK",
+      "role": "ÜYE",
+      "constituency": "Kırıkkale"
+    },
+    {
+      "name": "Bülent TÜFENKCİ",
+      "role": "ÜYE",
+      "constituency": "Malatya"
+    },
+    {
+      "name": "Gizem ÖZCAN",
+      "role": "ÜYE",
+      "constituency": "Muğla"
+    },
+    {
+      "name": "Cumhur UZUN",
+      "role": "ÜYE",
+      "constituency": "Muğla"
+    },
+    {
+      "name": "Dilan KUNT AYAN",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Nevroz UYSAL ASLAN",
+      "role": "ÜYE",
+      "constituency": "Şırnak"
+    },
+    {
+      "name": "Mustafa ARSLAN",
+      "role": "ÜYE",
+      "constituency": "Tokat"
+    },
+    {
+      "name": "Yücel BULUT",
+      "role": "ÜYE",
+      "constituency": "Tokat"
+    },
+    {
+      "name": "Fahrettin TUĞRUL",
+      "role": "ÜYE",
+      "constituency": "Uşak"
+    },
+    {
+      "name": "Zülküf UÇAR",
+      "role": "ÜYE",
+      "constituency": "Van"
+    },
+    {
+      "name": "Saffet BOZKURT",
+      "role": "ÜYE",
+      "constituency": "Zonguldak"
+    }
+  ],
+  "Anayasa Komisyonu": [
+    {
+      "name": "Serap YAZICI ÖZBUDUN",
+      "role": "BAŞKAN",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Murat ALPARSLAN",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Osman MESTEN",
+      "role": "SÖZCÜ",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Rabia İLHAN",
+      "role": "KATİP",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Haluk İPEK",
+      "role": "ÜYE",
+      "constituency": "Amasya"
+    },
+    {
+      "name": "Umut AKDOĞAN",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Sadullah ERGİN",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Mustafa KÖSE",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Uğur POYRAZ",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Bülent TEZCAN",
+      "role": "ÜYE",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Mehmet Rüştü TİRYAKİ",
+      "role": "ÜYE",
+      "constituency": "Batman"
+    },
+    {
+      "name": "Cahit ÖZKAN",
+      "role": "ÜYE",
+      "constituency": "Denizli"
+    },
+    {
+      "name": "Meral DANIŞ BEŞTAŞ",
+      "role": "ÜYE",
+      "constituency": "Erzurum"
+    },
+    {
+      "name": "Abdurrahim FIRAT",
+      "role": "ÜYE",
+      "constituency": "Erzurum"
+    },
+    {
+      "name": "Celalettin KÖSE",
+      "role": "ÜYE",
+      "constituency": "Gümüşhane"
+    },
+    {
+      "name": "Servet MULLAOĞLU",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Adem YEŞİLDAL",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Zeynel EMRE",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Feti YILDIZ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Sevda ERDAN KILIÇ",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Gökçe GÖKÇEN",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Cem ŞAHİN",
+      "role": "ÜYE",
+      "constituency": "Karabük"
+    },
+    {
+      "name": "Barış BEKTAŞ",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Mustafa HAMARAT",
+      "role": "ÜYE",
+      "constituency": "Ordu"
+    },
+    {
+      "name": "Muhammed Levent BÜLBÜL",
+      "role": "ÜYE",
+      "constituency": "Sakarya"
+    },
+    {
+      "name": "Mithat SANCAR",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Yusuf BEYAZIT",
+      "role": "ÜYE",
+      "constituency": "Tokat"
+    }
+  ],
+  "Avrupa Birliği Uyum Komisyonu": [
+    {
+      "name": "Burhan KAYATÜRK",
+      "role": "BAŞKAN",
+      "constituency": "Van"
+    },
+    {
+      "name": "Yüksel TAŞKIN",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Meryem GÖKA",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Zuhal KARAKOÇ",
+      "role": "SÖZCÜ",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Ayşegül DOĞAN",
+      "role": "KATİP",
+      "constituency": "Şırnak"
+    },
+    {
+      "name": "Özgür Erdem İNCESU",
+      "role": "ÜYE",
+      "constituency": "Ardahan"
+    },
+    {
+      "name": "Ceylan AKÇA CUPOLO",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Osman Cengiz ÇANDAR",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Jale Nur SÜLLÜ",
+      "role": "ÜYE",
+      "constituency": "Eskişehir"
+    },
+    {
+      "name": "Mesut BOZATLI",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Ali ŞAHİN",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Servet MULLAOĞLU",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Cantürk ALAGÖZ",
+      "role": "ÜYE",
+      "constituency": "Iğdır"
+    },
+    {
+      "name": "Doğan BEKİN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Müşerref Pervin Tuba DURGUT",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "İsmail Emrah KARAYEL",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mustafa KAYA",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mehmet Salih UZUN",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Murat Cahid CINGI",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Fahri ÖZKAN",
+      "role": "ÜYE",
+      "constituency": "Kırklareli"
+    },
+    {
+      "name": "Lütfü TÜRKKAN",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Konur Alp KOÇAK",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Abdurrahman BABACAN",
+      "role": "ÜYE",
+      "constituency": "Malatya"
+    },
+    {
+      "name": "Ahmet Mücahit ARINÇ",
+      "role": "ÜYE",
+      "constituency": "Manisa"
+    },
+    {
+      "name": "Emre ÇALIŞKAN",
+      "role": "ÜYE",
+      "constituency": "Nevşehir"
+    },
+    {
+      "name": "Çiğdem KARAASLAN",
+      "role": "ÜYE",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "Abdulkadir Emin ÖNEN",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    }
+  ],
+  "Bayındırlık İmar Ulaştırma ve Turizm Komisyonu": [
+    {
+      "name": "Adil KARAİSMAİLOĞLU",
+      "role": "BAŞKAN",
+      "constituency": "Trabzon"
+    },
+    {
+      "name": "Halil ELDEMİR",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Bilecik"
+    },
+    {
+      "name": "Hulusi ŞENTÜRK",
+      "role": "SÖZCÜ",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mervan GÜL",
+      "role": "KATİP",
+      "constituency": "Siirt"
+    },
+    {
+      "name": "Adnan BEKER",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Sururi ÇORABATIR",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Aykut KAYA",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Kaan KOÇ",
+      "role": "ÜYE",
+      "constituency": "Ardahan"
+    },
+    {
+      "name": "Seda SARIBAŞ",
+      "role": "ÜYE",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Hüseyin YILDIZ",
+      "role": "ÜYE",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Ferhat NASIROĞLU",
+      "role": "ÜYE",
+      "constituency": "Batman"
+    },
+    {
+      "name": "Mustafa OĞUZ",
+      "role": "ÜYE",
+      "constituency": "Burdur"
+    },
+    {
+      "name": "Mehmet ATMACA",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Ayhan GİDER",
+      "role": "ÜYE",
+      "constituency": "Çanakkale"
+    },
+    {
+      "name": "Semih IŞIKVER",
+      "role": "ÜYE",
+      "constituency": "Elazığ"
+    },
+    {
+      "name": "Ertuğrul Gazi KONAL",
+      "role": "ÜYE",
+      "constituency": "Giresun"
+    },
+    {
+      "name": "Onur DÜŞÜNMEZ",
+      "role": "ÜYE",
+      "constituency": "Hakkari"
+    },
+    {
+      "name": "Şamil AYRIM",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Ayşe Sibel YANIKÖMEROĞLU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "George ASLAN",
+      "role": "ÜYE",
+      "constituency": "Mardin"
+    },
+    {
+      "name": "Gülcan KIŞ",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Ali İNCİ",
+      "role": "ÜYE",
+      "constituency": "Sakarya"
+    },
+    {
+      "name": "Sabahat ERDOĞAN SARITAŞ",
+      "role": "ÜYE",
+      "constituency": "Siirt"
+    },
+    {
+      "name": "Cevahir Asuman YAZMACI",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Cem AVŞAR",
+      "role": "ÜYE",
+      "constituency": "Tekirdağ"
+    },
+    {
+      "name": "Yavuz AYDIN",
+      "role": "ÜYE",
+      "constituency": "Trabzon"
+    },
+    {
+      "name": "Vehbi KOÇ",
+      "role": "ÜYE",
+      "constituency": "Trabzon"
+    }
+  ],
+  "Çevre Komisyonu": [
+    {
+      "name": "Mehmet Galip ENSARİOĞLU",
+      "role": "BAŞKAN",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Muhammet Müfit AYDIN",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Ekrem Gökay YÜKSEL",
+      "role": "SÖZCÜ",
+      "constituency": "Balıkesir"
+    },
+    {
+      "name": "Sami ÇAKIR",
+      "role": "KATİP",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Deniz DEMİR",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Semra DİNÇER",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Sadir DURMAZ",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Emel GÖZÜKARA DURMAZ",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Hasan TOKTAŞ",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Sema SİLKİN ÜN",
+      "role": "ÜYE",
+      "constituency": "Denizli"
+    },
+    {
+      "name": "Gürsel EROL",
+      "role": "ÜYE",
+      "constituency": "Elazığ"
+    },
+    {
+      "name": "Abdulkadir ÖZEL",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Nilhan AYAN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Cemal ENGİNYURT",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Nimet ÖZDEMİR",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Evrim RIZVANOĞLU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "İbrahim AKIN",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Ömer Oruç Bilal DEBGİCİ",
+      "role": "ÜYE",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Vecdi GÜNDOĞDU",
+      "role": "ÜYE",
+      "constituency": "Kırklareli"
+    },
+    {
+      "name": "Tahir AKYÜREK",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "İnanç Siraç Kara ÖLMEZTOPRAK",
+      "role": "ÜYE",
+      "constituency": "Malatya"
+    },
+    {
+      "name": "Perihan KOCA DOĞAN",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Kadem METE",
+      "role": "ÜYE",
+      "constituency": "Muğla"
+    },
+    {
+      "name": "Mehmet Emin ŞİMŞEK",
+      "role": "ÜYE",
+      "constituency": "Muş"
+    },
+    {
+      "name": "Yusuf Ziya YILMAZ",
+      "role": "ÜYE",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "Gökhan DİKTAŞ",
+      "role": "ÜYE",
+      "constituency": "Tekirdağ"
+    },
+    {
+      "name": "Ayten KORDU",
+      "role": "ÜYE",
+      "constituency": "Tunceli"
+    }
+  ],
+  "Dışişleri Komisyonu": [
+    {
+      "name": "Fuat OKTAY",
+      "role": "BAŞKAN",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Mustafa CANBEY",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Balıkesir"
+    },
+    {
+      "name": "Ceyda BÖLÜNMEZ ÇANKIRI",
+      "role": "SÖZCÜ",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Derya BAKBAK",
+      "role": "KATİP",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Bilal BİLİCİ",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Ahmet Fethan BAYKOÇ",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Asuman ERDOĞAN",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Semra ÇAĞLAR GÖKALP",
+      "role": "ÜYE",
+      "constituency": "Bitlis"
+    },
+    {
+      "name": "Ceylan AKÇA CUPOLO",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Berdan ÖZTÜRK",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Talih ÖZCAN",
+      "role": "ÜYE",
+      "constituency": "Düzce"
+    },
+    {
+      "name": "Mahmut Rıdvan NAZIRLI",
+      "role": "ÜYE",
+      "constituency": "Elazığ"
+    },
+    {
+      "name": "Kamil AYDIN",
+      "role": "ÜYE",
+      "constituency": "Erzurum"
+    },
+    {
+      "name": "Utku ÇAKIRÖZER",
+      "role": "ÜYE",
+      "constituency": "Eskişehir"
+    },
+    {
+      "name": "Mehmet GÜZELMANSUR",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Derya AYAYDIN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Sena Nur ÇELİK KANAT",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Yunus EMRE",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Seda GÖREN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Hasan KARAL",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Oğuz Kaan SALICI",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Zafer SIRAKAYA",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Namık TAN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Oğuz ÜÇÜNCÜ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "İsmail ÖZDEMİR",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Ziya ALTUNYALDIZ",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Metin ERGUN",
+      "role": "ÜYE",
+      "constituency": "Muğla"
+    }
+  ],
+  "Dilekçe Komisyonu": [
+    {
+      "name": "Sunay KARAMIK",
+      "role": "BAŞKAN",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Ahmet Salih DAL",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Kilis"
+    },
+    {
+      "name": "Behiye EKER",
+      "role": "SÖZCÜ",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Yıldız KONAL SÜSLÜ",
+      "role": "KATİP",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mehmet TAYTAK",
+      "role": "ÜYE",
+      "constituency": "Afyonkarahisar"
+    },
+    {
+      "name": "Turan YALDIR",
+      "role": "ÜYE",
+      "constituency": "Aksaray"
+    },
+    {
+      "name": "Nurhayat ALTACA KAYIŞOĞLU",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Ahmet Baran YAZGAN",
+      "role": "ÜYE",
+      "constituency": "Edirne"
+    },
+    {
+      "name": "İbrahim ARSLAN",
+      "role": "ÜYE",
+      "constituency": "Eskişehir"
+    },
+    {
+      "name": "Ertuğrul KAYA",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Mehmet Selim ENSARİOĞLU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Ahmet Ersagun YÜCEL",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Ali BOZAN",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Abdürrahim DUSAK",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    }
+  ],
+  "Dijital Mecralar Komisyonu": [
+    {
+      "name": "Nazım ELMAS",
+      "role": "BAŞKAN",
+      "constituency": "Giresun"
+    },
+    {
+      "name": "Zeynep YILDIZ",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Büşra PAKER",
+      "role": "SÖZCÜ",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Levent UYSAL",
+      "role": "KATİP",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Lütfiye Selva ÇAM",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Okan KONURALP",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Hasan ÖZTÜRK",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Sevilay ÇELENK ÖZEN",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Mehmet Mustafa GÜRBAN",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Elif ESEN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Seyithan İZSİZ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Yüksel Mansur KILINÇ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Şebnem BURSALI",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Burcugül ÇUBUK",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Ahmet Tuncay ÖZKAN",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Ayşe BÖHÜRLER",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Muammer AVCI",
+      "role": "ÜYE",
+      "constituency": "Zonguldak"
+    }
+  ],
+  "İçişleri Komisyonu": [
+    {
+      "name": "Süleyman SOYLU",
+      "role": "BAŞKAN",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Ahmet ERBAŞ",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Kütahya"
+    },
+    {
+      "name": "Kemal ÇELİK",
+      "role": "SÖZCÜ",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "İsmail ERDEM",
+      "role": "KATİP",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Osman GÖKÇEK",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Ömer KARAKAŞ",
+      "role": "ÜYE",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Evrim KARAKOZ",
+      "role": "ÜYE",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Yaşar TÜZÜN",
+      "role": "ÜYE",
+      "constituency": "Bilecik"
+    },
+    {
+      "name": "Ömer Faruk HÜLAKÜ",
+      "role": "ÜYE",
+      "constituency": "Bingöl"
+    },
+    {
+      "name": "Turan BEDİRHANOĞLU",
+      "role": "ÜYE",
+      "constituency": "Bitlis"
+    },
+    {
+      "name": "Yusuf AHLATCI",
+      "role": "ÜYE",
+      "constituency": "Çorum"
+    },
+    {
+      "name": "Melih MERİÇ",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Onur DÜŞÜNMEZ",
+      "role": "ÜYE",
+      "constituency": "Hakkari"
+    },
+    {
+      "name": "Birol AYDIN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Azmi EKİNCİ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Çiçek OTLU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Erdoğan TOPRAK",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mehmet Salih UZUN",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Mevlüt KURT",
+      "role": "ÜYE",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Ali ÖZTUNÇ",
+      "role": "ÜYE",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Mehmet ŞAHİN",
+      "role": "ÜYE",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Şaban ÇOPUROĞLU",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Mehmet Celal FENDOĞLU",
+      "role": "ÜYE",
+      "constituency": "Malatya"
+    },
+    {
+      "name": "İhsan KOCA",
+      "role": "ÜYE",
+      "constituency": "Malatya"
+    },
+    {
+      "name": "Murat ÇAN",
+      "role": "ÜYE",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "Mehmet Faruk PINARBAŞI",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Arslan TATAR",
+      "role": "ÜYE",
+      "constituency": "Şırnak"
+    }
+  ],
+  "İnsan Hakları Komisyonu": [
+    {
+      "name": "Derya YANIK",
+      "role": "BAŞKAN",
+      "constituency": "Osmaniye"
+    },
+    {
+      "name": "Mustafa Sezgin TANRIKULU",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Harun MERTOĞLU",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Rize"
+    },
+    {
+      "name": "Naci ŞANLITÜRK",
+      "role": "SÖZCÜ",
+      "constituency": "Ordu"
+    },
+    {
+      "name": "Mustafa ALKAYIŞ",
+      "role": "ÜYE",
+      "constituency": "Adıyaman"
+    },
+    {
+      "name": "Atay USLU",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Serkan RAMANLI",
+      "role": "ÜYE",
+      "constituency": "Batman"
+    },
+    {
+      "name": "Ömer Faruk HÜLAKÜ",
+      "role": "ÜYE",
+      "constituency": "Bingöl"
+    },
+    {
+      "name": "Yüksel Selçuk TÜRKOĞLU",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Mustafa YAVUZ",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Gülizar BİÇER KARACA",
+      "role": "ÜYE",
+      "constituency": "Denizli"
+    },
+    {
+      "name": "Serhat EREN",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Mehmet Sait YAZ",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Musa KÜÇÜK",
+      "role": "ÜYE",
+      "constituency": "Gümüşhane"
+    },
+    {
+      "name": "Kadri Enis BERBEROĞLU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Suat PAMUKÇU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Adem YILDIRIM",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mahmut Atilla KAYA",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Rıfat Turuntay NALBANTOĞLU",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "İrfan KARATUTLU",
+      "role": "ÜYE",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Ahmet Gökhan SARIÇAM",
+      "role": "ÜYE",
+      "constituency": "Kırklareli"
+    },
+    {
+      "name": "Ahmet Salih DAL",
+      "role": "ÜYE",
+      "constituency": "Kilis"
+    },
+    {
+      "name": "Radiye Sezer KATIRCIOĞLU",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Beritan GÜNEŞ ALTIN",
+      "role": "ÜYE",
+      "constituency": "Mardin"
+    },
+    {
+      "name": "Mahmut TANAL",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Sibel SUİÇMEZ",
+      "role": "ÜYE",
+      "constituency": "Trabzon"
+    },
+    {
+      "name": "Meliha AKYOL",
+      "role": "ÜYE",
+      "constituency": "Yalova"
+    }
+  ],
+  "Kadın Erkek Fırsat Eşitliği Komisyonu": [
+    {
+      "name": "Çiğdem ERDOĞAN",
+      "role": "BAŞKAN",
+      "constituency": "Sakarya"
+    },
+    {
+      "name": "Gamze TAŞCIER",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Tuba VURAL ÇOKAL",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Pelin YILIK",
+      "role": "SÖZCÜ",
+      "constituency": "Çankırı"
+    },
+    {
+      "name": "Özgül SAKİ",
+      "role": "KATİP",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Ayşe Sibel ERSOY",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Ruken KİLERCİ",
+      "role": "ÜYE",
+      "constituency": "Ağrı"
+    },
+    {
+      "name": "Reşat KARAGÖZ",
+      "role": "ÜYE",
+      "constituency": "Amasya"
+    },
+    {
+      "name": "Aliye TİMİSİ ERSEVER",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Aliye COŞAR",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Ayhan SALMAN",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Yusuf AHLATCI",
+      "role": "ÜYE",
+      "constituency": "Çorum"
+    },
+    {
+      "name": "Suna KEPOLU ATAMAN",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Halide TÜRKOĞLU",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Fatma ÖNCÜ",
+      "role": "ÜYE",
+      "constituency": "Erzurum"
+    },
+    {
+      "name": "Nurettin ALAN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Türkan ELÇİ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Elif ESEN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Seda GÖREN",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Şebnem BURSALI",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Fatma Serap EKMEKCİ",
+      "role": "ÜYE",
+      "constituency": "Kastamonu"
+    },
+    {
+      "name": "Ayşe BÖHÜRLER",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Ali YÜKSEL",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Sümeyye BOZ ÇAKI",
+      "role": "ÜYE",
+      "constituency": "Muş"
+    },
+    {
+      "name": "Ayça TAŞKENT",
+      "role": "ÜYE",
+      "constituency": "Sakarya"
+    },
+    {
+      "name": "Çiğdem KONCAGÜL",
+      "role": "ÜYE",
+      "constituency": "Tekirdağ"
+    },
+    {
+      "name": "Selcan TAŞCI",
+      "role": "ÜYE",
+      "constituency": "Tekirdağ"
+    }
+  ],
+  "Kamu İktisadi Teşebbüsleri Komisyonu": [
+    {
+      "name": "Mustafa SAVAŞ",
+      "role": "BAŞKAN",
+      "constituency": "Aydın"
+    },
+    {
+      "name": "Yüksel COŞKUNYÜREK",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Bolu"
+    },
+    {
+      "name": "Mevlüt KARAKAYA",
+      "role": "SÖZCÜ",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Durmuş Ali KESKİNKILIÇ",
+      "role": "KATİP",
+      "constituency": "Karabük"
+    },
+    {
+      "name": "Orhan SÜMER",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Hüseyin ÖZHAN",
+      "role": "ÜYE",
+      "constituency": "Adıyaman"
+    },
+    {
+      "name": "İsmail OK",
+      "role": "ÜYE",
+      "constituency": "Balıkesir"
+    },
+    {
+      "name": "Ali Taylan ÖZTAYLAN",
+      "role": "ÜYE",
+      "constituency": "Balıkesir"
+    },
+    {
+      "name": "Hüseyin OLAN",
+      "role": "ÜYE",
+      "constituency": "Bitlis"
+    },
+    {
+      "name": "İzzet AKBULUT",
+      "role": "ÜYE",
+      "constituency": "Burdur"
+    },
+    {
+      "name": "Mehmet TAHTASIZ",
+      "role": "ÜYE",
+      "constituency": "Çorum"
+    },
+    {
+      "name": "Mehmet AKALIN",
+      "role": "ÜYE",
+      "constituency": "Edirne"
+    },
+    {
+      "name": "Fatma AKSAL",
+      "role": "ÜYE",
+      "constituency": "Edirne"
+    },
+    {
+      "name": "Süleyman KARAMAN",
+      "role": "ÜYE",
+      "constituency": "Erzincan"
+    },
+    {
+      "name": "Mustafa SARIGÜL",
+      "role": "ÜYE",
+      "constituency": "Erzincan"
+    },
+    {
+      "name": "Bünyamin BOZGEYİK",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Şahzade DEMİR",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Ali TEMÜR",
+      "role": "ÜYE",
+      "constituency": "Giresun"
+    },
+    {
+      "name": "Necmettin ÇALIŞKAN",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Lütfi KAŞIKÇI",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Osman ZABUN",
+      "role": "ÜYE",
+      "constituency": "Isparta"
+    },
+    {
+      "name": "Ali GÖKÇEK",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Özgür KARABAT",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mahir POLAT",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Dursun ATAŞ",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Sayın Bayar ÖZSOY",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Mehmet AŞILA",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Mehmet DEMİR",
+      "role": "ÜYE",
+      "constituency": "Kütahya"
+    },
+    {
+      "name": "Ali KIRATLI",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Mehmet Zeki İRMEZ",
+      "role": "ÜYE",
+      "constituency": "Şırnak"
+    },
+    {
+      "name": "Mahmut DİNDAR",
+      "role": "ÜYE",
+      "constituency": "Van"
+    },
+    {
+      "name": "Kayhan TÜRKMENOĞLU",
+      "role": "ÜYE",
+      "constituency": "Van"
+    },
+    {
+      "name": "Lütfullah KAYALAR",
+      "role": "ÜYE",
+      "constituency": "Yozgat"
+    },
+    {
+      "name": "İbrahim Ethem SEDEF",
+      "role": "ÜYE",
+      "constituency": "Yozgat"
+    },
+    {
+      "name": "Deniz YAVUZYILMAZ",
+      "role": "ÜYE",
+      "constituency": "Zonguldak"
+    }
+  ],
+  "Milli Eğitim Komisyonu": [
+    {
+      "name": "Ayşen GÜRCAN",
+      "role": "BAŞKAN",
+      "constituency": "Eskişehir"
+    },
+    {
+      "name": "İlyas TOPSAKAL",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "Nazım MAVİŞ",
+      "role": "SÖZCÜ",
+      "constituency": "Sinop"
+    },
+    {
+      "name": "Mehmet Emin ÖZ",
+      "role": "KATİP",
+      "constituency": "Erzurum"
+    },
+    {
+      "name": "Zehranur AYDEMİR",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "İsmet GÜNEŞHAN",
+      "role": "ÜYE",
+      "constituency": "Çanakkale"
+    },
+    {
+      "name": "Ercan ÖZTÜRK",
+      "role": "ÜYE",
+      "constituency": "Düzce"
+    },
+    {
+      "name": "Elvan IŞIK GEZMİŞ",
+      "role": "ÜYE",
+      "constituency": "Giresun"
+    },
+    {
+      "name": "Kemal KARAHAN",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Yılmaz HUN",
+      "role": "ÜYE",
+      "constituency": "Iğdır"
+    },
+    {
+      "name": "Hikmet Yalım HALICI",
+      "role": "ÜYE",
+      "constituency": "Isparta"
+    },
+    {
+      "name": "Fethi AÇIKEL",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Mustafa Hulki CEVİZOĞLU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Yücel Arzen HACIOĞULLARI",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Keziban KONUKCU KOK",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Suat ÖZÇAĞDAŞ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Saffet SANCAKLI",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Mehmet Akif YILMAZ",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Latif SELVİ",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Ali Fazıl KASAP",
+      "role": "ÜYE",
+      "constituency": "Kütahya"
+    },
+    {
+      "name": "Şenol SUNAT",
+      "role": "ÜYE",
+      "constituency": "Manisa"
+    },
+    {
+      "name": "Perihan KOCA DOĞAN",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Mustafa ADIGÜZEL",
+      "role": "ÜYE",
+      "constituency": "Ordu"
+    },
+    {
+      "name": "İbrahim Ufuk KAYNAK",
+      "role": "ÜYE",
+      "constituency": "Ordu"
+    },
+    {
+      "name": "Mehmet KARAMAN",
+      "role": "ÜYE",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "Rukiye TOY",
+      "role": "ÜYE",
+      "constituency": "Sivas"
+    },
+    {
+      "name": "Yılmaz BÜYÜKAYDIN",
+      "role": "ÜYE",
+      "constituency": "Trabzon"
+    }
+  ],
+  "Milli Savunma Komisyonu": [
+    {
+      "name": "Hulusi AKAR",
+      "role": "BAŞKAN",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Refik ÖZEN",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Zuhal KARAKOÇ",
+      "role": "SÖZCÜ",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Mehmet Ali ÇELEBİ",
+      "role": "KATİP",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Mustafa Nedim YAMALI",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "İbrahim Ethem TAŞ",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Uğur BAYRAKTUTAN",
+      "role": "ÜYE",
+      "constituency": "Artvin"
+    },
+    {
+      "name": "Feyzi BERDİBEK",
+      "role": "ÜYE",
+      "constituency": "Bingöl"
+    },
+    {
+      "name": "Ayhan SALMAN",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Özgür CEYLAN",
+      "role": "ÜYE",
+      "constituency": "Çanakkale"
+    },
+    {
+      "name": "Vezir Coşkun PARLAK",
+      "role": "ÜYE",
+      "constituency": "Hakkari"
+    },
+    {
+      "name": "Adnan Şefik ÇİRKİN",
+      "role": "ÜYE",
+      "constituency": "Hatay"
+    },
+    {
+      "name": "Mehmet Uğur GÖKGÖZ",
+      "role": "ÜYE",
+      "constituency": "Isparta"
+    },
+    {
+      "name": "Cengiz ÇİÇEK",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Medeni YILMAZ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Aşkın GENÇ",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Mustafa KAPLAN",
+      "role": "ÜYE",
+      "constituency": "Kırıkkale"
+    },
+    {
+      "name": "Metin İLHAN",
+      "role": "ÜYE",
+      "constituency": "Kırşehir"
+    },
+    {
+      "name": "Abdullah AĞRALI",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Ünal KARAMAN",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Konur Alp KOÇAK",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Seyit TORUN",
+      "role": "ÜYE",
+      "constituency": "Ordu"
+    },
+    {
+      "name": "Muhammed AVCI",
+      "role": "ÜYE",
+      "constituency": "Rize"
+    },
+    {
+      "name": "Mehmet Ali CEVHERİ",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Gülderen VARLİ",
+      "role": "ÜYE",
+      "constituency": "Van"
+    },
+    {
+      "name": "Tahsin BECAN",
+      "role": "ÜYE",
+      "constituency": "Yalova"
+    },
+    {
+      "name": "Eylem Ertuğ ERTUĞRUL",
+      "role": "ÜYE",
+      "constituency": "Zonguldak"
+    }
+  ],
+  "Plan ve Bütçe Komisyonu": [
+    {
+      "name": "Mehmet MUŞ",
+      "role": "BAŞKAN",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "İsmail Faruk AKSU",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Orhan ERDEM",
+      "role": "SÖZCÜ",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Nilgün ÖK",
+      "role": "KATİP",
+      "constituency": "Denizli"
+    },
+    {
+      "name": "Sadullah KISACIK",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Ayyüce TÜRKEŞ TAŞ",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Resul KURT",
+      "role": "ÜYE",
+      "constituency": "Adıyaman"
+    },
+    {
+      "name": "Hüseyin ALTINSOY",
+      "role": "ÜYE",
+      "constituency": "Aksaray"
+    },
+    {
+      "name": "Orhan YEGİN",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Cavit ARI",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Mustafa ERDEM",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Hakkı Saruhan OLUÇ",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Ahmet KILIÇ",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Adalet KAYA",
+      "role": "ÜYE",
+      "constituency": "Diyarbakır"
+    },
+    {
+      "name": "Ejder AÇIKKAPI",
+      "role": "ÜYE",
+      "constituency": "Elazığ"
+    },
+    {
+      "name": "Yaşar KIRKPINAR",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Ümit ÖZLALE",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Cevdet AKAY",
+      "role": "ÜYE",
+      "constituency": "Karabük"
+    },
+    {
+      "name": "Mustafa Baki ERSOY",
+      "role": "ÜYE",
+      "constituency": "Kayseri"
+    },
+    {
+      "name": "Necmettin ERKAN",
+      "role": "ÜYE",
+      "constituency": "Kırşehir"
+    },
+    {
+      "name": "Mustafa KALAYCI",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Veli AĞBABA",
+      "role": "ÜYE",
+      "constituency": "Malatya"
+    },
+    {
+      "name": "Ahmet Vehbi BAKIRLIOĞLU",
+      "role": "ÜYE",
+      "constituency": "Manisa"
+    },
+    {
+      "name": "Kamuran TANHAN",
+      "role": "ÜYE",
+      "constituency": "Mardin"
+    },
+    {
+      "name": "Seydi GÜLSOY",
+      "role": "ÜYE",
+      "constituency": "Osmaniye"
+    },
+    {
+      "name": "Tahsin OCAKLI",
+      "role": "ÜYE",
+      "constituency": "Rize"
+    },
+    {
+      "name": "Ertuğrul KOCACIK",
+      "role": "ÜYE",
+      "constituency": "Sakarya"
+    },
+    {
+      "name": "Ersan AKSU",
+      "role": "ÜYE",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "Erhan USTA",
+      "role": "ÜYE",
+      "constituency": "Samsun"
+    },
+    {
+      "name": "İsmail GÜNEŞ",
+      "role": "ÜYE",
+      "constituency": "Uşak"
+    },
+    {
+      "name": "Süleyman ŞAHAN",
+      "role": "ÜYE",
+      "constituency": "Yozgat"
+    }
+  ],
+  "Sağlık Komisyonu": [
+    {
+      "name": "Vedat BİLGİN",
+      "role": "BAŞKAN",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Orhan ATEŞ",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Bayburt"
+    },
+    {
+      "name": "Ümmügülşen ÖZTÜRK",
+      "role": "SÖZCÜ",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Pelin YILIK",
+      "role": "KATİP",
+      "constituency": "Çankırı"
+    },
+    {
+      "name": "Hasan ARSLAN",
+      "role": "ÜYE",
+      "constituency": "Afyonkarahisar"
+    },
+    {
+      "name": "Heval BOZDAĞ",
+      "role": "ÜYE",
+      "constituency": "Ağrı"
+    },
+    {
+      "name": "Ahmet Eşref FAKIBABA",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Aylin YAMAN",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Tuba VURAL ÇOKAL",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Serkan SARI",
+      "role": "ÜYE",
+      "constituency": "Balıkesir"
+    },
+    {
+      "name": "Zeki KORKUTATA",
+      "role": "ÜYE",
+      "constituency": "Bingöl"
+    },
+    {
+      "name": "Kayıhan PALA",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Fevzi ZIRHLIOĞLU",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Sema SİLKİN ÜN",
+      "role": "ÜYE",
+      "constituency": "Denizli"
+    },
+    {
+      "name": "Erol KELEŞ",
+      "role": "ÜYE",
+      "constituency": "Elazığ"
+    },
+    {
+      "name": "Gamze AKKUŞ İLGEZDİ",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Sevan SIVACIOĞLU",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Tuba KÖKSAL",
+      "role": "ÜYE",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Ömer Faruk GERGERLİOĞLU",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Sadettin HÜLAGÜ",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Mühip KANKO",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "İsmail Çağlar BAYIRCI",
+      "role": "ÜYE",
+      "constituency": "Kütahya"
+    },
+    {
+      "name": "Selma Aliye KAVAF",
+      "role": "ÜYE",
+      "constituency": "Manisa"
+    },
+    {
+      "name": "Sümeyye BOZ ÇAKI",
+      "role": "ÜYE",
+      "constituency": "Muş"
+    },
+    {
+      "name": "Hakan AKSU",
+      "role": "ÜYE",
+      "constituency": "Sivas"
+    },
+    {
+      "name": "Cüneyt ALDEMİR",
+      "role": "ÜYE",
+      "constituency": "Tokat"
+    },
+    {
+      "name": "Ali KARAOBA",
+      "role": "ÜYE",
+      "constituency": "Uşak"
+    }
+  ],
+  "Sanayi Komisyonu": [
+    {
+      "name": "Mustafa VARANK",
+      "role": "BAŞKAN",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Şahin TİN",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Denizli"
+    },
+    {
+      "name": "Cevahir UZKURT",
+      "role": "SÖZCÜ",
+      "constituency": "Niğde"
+    },
+    {
+      "name": "Adem ÇALKIN",
+      "role": "KATİP",
+      "constituency": "Kars"
+    },
+    {
+      "name": "Faruk AYTEK",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Mesut DOĞAN",
+      "role": "ÜYE",
+      "constituency": "Ankara"
+    },
+    {
+      "name": "Abdurrahman BAŞKAN",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Yusuf Ziya ALDATMAZ",
+      "role": "ÜYE",
+      "constituency": "Bartın"
+    },
+    {
+      "name": "Türker ATEŞ",
+      "role": "ÜYE",
+      "constituency": "Bolu"
+    },
+    {
+      "name": "Rıdvan UZ",
+      "role": "ÜYE",
+      "constituency": "Çanakkale"
+    },
+    {
+      "name": "Şeref ARPACI",
+      "role": "ÜYE",
+      "constituency": "Denizli"
+    },
+    {
+      "name": "İdris Nebi HATİPOĞLU",
+      "role": "ÜYE",
+      "constituency": "Eskişehir"
+    },
+    {
+      "name": "İrfan ÇELİKASLAN",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Mehmet Eyup ÖZKEÇECİ",
+      "role": "ÜYE",
+      "constituency": "Gaziantep"
+    },
+    {
+      "name": "Öznur BARTİN",
+      "role": "ÜYE",
+      "constituency": "Hakkari"
+    },
+    {
+      "name": "Celal FIRAT",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Bayram ŞENOCAK",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "İzzet Ulvi YÖNTER",
+      "role": "ÜYE",
+      "constituency": "İstanbul"
+    },
+    {
+      "name": "Ednan ARSLAN",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Seda KÂYA ÖSEN",
+      "role": "ÜYE",
+      "constituency": "İzmir"
+    },
+    {
+      "name": "Nail ÇİLER",
+      "role": "ÜYE",
+      "constituency": "Kocaeli"
+    },
+    {
+      "name": "Mustafa Hakan ÖZER",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Talat DİNÇER",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Ümit DİKBAYIR",
+      "role": "ÜYE",
+      "constituency": "Sakarya"
+    },
+    {
+      "name": "Ömer ÖCALAN",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Abdulkadir AKGÜL",
+      "role": "ÜYE",
+      "constituency": "Yozgat"
+    },
+    {
+      "name": "Ahmet ÇOLAKOĞLU",
+      "role": "ÜYE",
+      "constituency": "Zonguldak"
+    }
+  ],
+  "Tarım Komisyonu": [
+    {
+      "name": "Vahit KİRİŞCİ",
+      "role": "BAŞKAN",
+      "constituency": "Kahramanmaraş"
+    },
+    {
+      "name": "Muharrem VARLI",
+      "role": "BAŞKANVEKİLİ",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Adem KORKMAZ",
+      "role": "SÖZCÜ",
+      "constituency": "Burdur"
+    },
+    {
+      "name": "Ruken KİLERCİ",
+      "role": "KATİP",
+      "constituency": "Ağrı"
+    },
+    {
+      "name": "Ayhan BARUT",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Abdullah DOĞRU",
+      "role": "ÜYE",
+      "constituency": "Adana"
+    },
+    {
+      "name": "Nejla DEMİR",
+      "role": "ÜYE",
+      "constituency": "Ağrı"
+    },
+    {
+      "name": "Hasan ÇİLEZ",
+      "role": "ÜYE",
+      "constituency": "Amasya"
+    },
+    {
+      "name": "Hilmi DURGUN",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Şerafettin KILIÇ",
+      "role": "ÜYE",
+      "constituency": "Antalya"
+    },
+    {
+      "name": "Orhan SARIBAL",
+      "role": "ÜYE",
+      "constituency": "Bursa"
+    },
+    {
+      "name": "Mehmet BAYKAN",
+      "role": "ÜYE",
+      "constituency": "Konya"
+    },
+    {
+      "name": "Bekir BAŞEVİRGEN",
+      "role": "ÜYE",
+      "constituency": "Manisa"
+    },
+    {
+      "name": "Muhammed ADAK",
+      "role": "ÜYE",
+      "constituency": "Mardin"
+    },
+    {
+      "name": "Faruk KILIÇ",
+      "role": "ÜYE",
+      "constituency": "Mardin"
+    },
+    {
+      "name": "Hasan Ufuk ÇAKIR",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Burhanettin KOCAMAZ",
+      "role": "ÜYE",
+      "constituency": "Mersin"
+    },
+    {
+      "name": "Yakup OTGÖZ",
+      "role": "ÜYE",
+      "constituency": "Muğla"
+    },
+    {
+      "name": "Süleyman ÖZGÜN",
+      "role": "ÜYE",
+      "constituency": "Nevşehir"
+    },
+    {
+      "name": "Ömer Fethi GÜRER",
+      "role": "ÜYE",
+      "constituency": "Niğde"
+    },
+    {
+      "name": "Lütfi BAYRAKTAR",
+      "role": "ÜYE",
+      "constituency": "Sakarya"
+    },
+    {
+      "name": "Barış KARADENİZ",
+      "role": "ÜYE",
+      "constituency": "Sinop"
+    },
+    {
+      "name": "Hikmet BAŞAK",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "Ferit ŞENYAŞAR",
+      "role": "ÜYE",
+      "constituency": "Şanlıurfa"
+    },
+    {
+      "name": "İlhami Özcan AYGUN",
+      "role": "ÜYE",
+      "constituency": "Tekirdağ"
+    },
+    {
+      "name": "Mestan ÖZCAN",
+      "role": "ÜYE",
+      "constituency": "Tekirdağ"
+    },
+    {
+      "name": "Sinan ÇİFTYÜREK",
+      "role": "ÜYE",
+      "constituency": "Van"
+    }
+  ]
+}

@@ -117,6 +117,42 @@ class Article {
     );
   }
 
+  factory Article.fromCollectApi(Map<String, dynamic> json, String category) {
+    return Article(
+      title: json['name'] as String?,
+      description: json['description'] as String?,
+      link: json['url'] as String?,
+      sourceName: json['source'] as String?,
+      imageUrl: json['image'] as String?,
+      pubDate: DateTime.now(),
+      category: category,
+    );
+  }
+
+  /// NewsAPI.org cache'inden gelen haber verisi için factory
+  factory Article.fromNewsApiCache(Map<String, dynamic> json) {
+    DateTime? pubDate;
+    final publishedAt = json['publishedAt'];
+    if (publishedAt != null && publishedAt is String) {
+      try {
+        pubDate = DateTime.parse(publishedAt);
+      } catch (_) {
+        pubDate = DateTime.now();
+      }
+    }
+    
+    return Article(
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      link: json['url'] as String?,
+      sourceName: json['source'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      pubDate: pubDate,
+      category: json['category'] as String?,
+    );
+  }
+
+
   factory Article.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return Article(

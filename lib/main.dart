@@ -11,6 +11,7 @@ import 'screens/home_screen.dart';
 import 'auth/login_screen.dart';
 import 'firebase_options.dart';
 import 'providers/theme_provider.dart';
+import 'providers/news_provider.dart';
 
 // TEMA TANIMLAMALARI (Değişiklik yok)
 final Color primaryColor = Colors.teal;
@@ -51,9 +52,12 @@ Future<void> main() async {
   await initializeDateFormatting('tr_TR', null);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const MyApp(), // DEĞİŞİKLİK 3: Artık initFuture parametresi yok.
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => NewsProvider()),
+      ],
+      child: const MyApp(),
     ),
   );
 }

@@ -1,0 +1,30 @@
+# Python Backend için Bağımlılıklar
+# Milletvekili Puanlama Sistemi
+
+# Firebase Admin SDK - Firestore bağlantısı için
+firebase-admin>=6.0.0
+
+# Google Generative AI (Gemini) - AI analiz için
+google-generativeai>=0.3.0
+
+# Web Scraping
+beautifulsoup4>=4.12.0
+requests>=2.31.0
+lxml>=5.0.0
+playwright>=1.40.0
+
+# Retry mechanism
+tenacity>=8.2.0
+
+# Google News çekme
+GoogleNews>=1.6.10
+
+# Environment Variables
+python-dotenv>=1.0.0
+
+# Utility
+dataclasses-json>=0.6.0
+
+# Testing
+pytest>=8.0.0
+pytest-cov>=4.1.0

@@ -10,31 +10,40 @@ class AIService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   static const Duration _cacheTtl = Duration(hours: 12);
 
-  Future<String?> getAnalysis(String newsText, {String? cacheKey}) async {
+  Stream<String> getAnalysisStream(String newsText, {String? cacheKey}) async* {
     try {
       // .env yüklenmiş mi ve anahtar mevcut mu kontrol et
       final isEnvLoaded = dotenv.isInitialized;
       if (!isEnvLoaded) {
-        return "Analiz yapılamıyor: Ortam değişkenleri yüklenemedi (.env). Uygulamayı tamamen kapatıp yeniden başlatmayı deneyin.";
+        yield "Analiz yapılamıyor: Ortam değişkenleri yüklenemedi (.env). Uygulamayı tamamen kapatıp yeniden başlatmayı deneyin.";
+        return;
       }
       if (_apiKey == null || _apiKey!.isEmpty) {
-        return "Analiz yapılamıyor: API anahtarı yapılandırılmadı (GEMINI_API_KEY).";
+        yield "Analiz yapılamıyor: API anahtarı yapılandırılmadı (GEMINI_API_KEY).";
+        return;
       }
 
-  // Debug: anahtarın varlığını güvenli şekilde logla (anahtarı yazdırma!)
-  AppLog.d('AIService: GEMINI_API_KEY present=${_apiKey != null && _apiKey!.isNotEmpty}');
+      // Debug: anahtarın varlığını güvenli şekilde logla (anahtarı yazdırma!)
+      AppLog.d('AIService: GEMINI_API_KEY present=${_apiKey != null && _apiKey!.isNotEmpty}');
 
       // 1) Önbellekten dene
       if (cacheKey != null && cacheKey.isNotEmpty) {
         final cached = await _getCached(cacheKey);
         if (cached != null) {
-          return cached;
+          // Cached result'u karakter karakter yield et (typewriter effect için)
+          for (int i = 0; i < cached.length; i++) {
+            yield cached.substring(0, i + 1);
+            // Smooth typewriter effect için küçük bir delay
+            await Future.delayed(const Duration(milliseconds: 10));
+          }
+          return;
         }
       }
+
       // Modeli ve API anahtarını kullanarak servisi başlat
       final model = GenerativeModel(model: 'gemini-2.5-flash-lite', apiKey: _apiKey!);
-  // Yapay zekaya göndereceğimiz komut (prompt) - detaylı, yapılandırılmış versiyon (Seçenek 1)
-  final prompt = '''
+      // Yapay zekaya göndereceğimiz komut (prompt) - detaylı, yapılandırılmış versiyon
+      final prompt = '''
 Rol ve Hedef Kitle:
 Sen, uluslararası yatırımcılara ve diplomatik misyonlara danışmanlık yapan, Türkiye siyaseti ve ekonomisi üzerine uzmanlaşmış kıdemli bir risk analistisin. Hazırlayacağın analiz, karmaşık durumları netleştirmeyi ve stratejik karar alma süreçlerine ışık tutmayı amaçlamaktadır.
 
@@ -68,36 +77,31 @@ Haber Metni:
 $newsText
 ''';
 
-  // Maksimum karakter sınırlaması (uygulama tarafında garanti)
-  const int maxResponseChars = 3500;
-  final limitedPrompt = '$prompt\n\nLütfen çıktıyı en fazla $maxResponseChars karakter ile sınırla.';
-  final content = [Content.text(limitedPrompt)];
+      // Maksimum karakter sınırlaması (uygulama tarafında garanti)
+      const int maxResponseChars = 3500;
+      final limitedPrompt = '$prompt\n\nLütfen çıktıyı en fazla $maxResponseChars karakter ile sınırla.';
+      final content = [Content.text(limitedPrompt)];
 
-      // İsteği gönder ve cevabı bekle (retry/backoff ve timeout ile)
-      final response = await _generateWithRetry(model, content);
-      // Debug: response hakkında kısa bilgi
-      if (response == null) {
-        AppLog.d('AIService: generateWithRetry returned NULL response');
-      } else {
-        try {
-          final len = response.text?.length ?? 0;
-          AppLog.d('AIService: response received, text length=$len');
-        } catch (e) {
-          AppLog.d('AIService: error while inspecting response: $e');
+      // Stream'den gelen chunk'ları biriktir
+      String accumulatedText = '';
+
+      // Stream'i dinle ve chunk'ları yield et
+      await for (final response in model.generateContentStream(content)) {
+        final chunk = response.text;
+        if (chunk != null && chunk.isNotEmpty) {
+          accumulatedText += chunk;
+          yield accumulatedText;
         }
       }
 
-      final text = response?.text ?? "Analiz şu anda üretilemiyor. Lütfen daha sonra tekrar deneyin.";
-
-      // 2) Önbelleğe yaz
-      if (cacheKey != null && cacheKey.isNotEmpty) {
-        unawaited(_setCached(cacheKey, text));
+      // 2) Önbelleğe yaz (stream tamamlandıktan sonra)
+      if (cacheKey != null && cacheKey.isNotEmpty && accumulatedText.isNotEmpty) {
+        unawaited(_setCached(cacheKey, accumulatedText));
       }
-      return text;
     } catch (e) {
-      // Hata olursa konsola yazdır ve null döndür
+      // Hata olursa konsola yazdır ve hata mesajı yield et
       AppLog.e("Yapay zeka analizi sırasında hata oluştu: $e");
-      return "Analiz sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+      yield "Analiz sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
     }
   }
 

@@ -47,3 +47,17 @@ app.*.map.json
 .env
 .env.*
 !.env.example
+
+# Python Backend
+python_backend/venv/
+python_backend/__pycache__/
+python_backend/*/__pycache__/
+python_backend/*/*/__pycache__/
+python_backend/*.pyc
+python_backend/*.pyo
+python_backend/*.egg-info/
+python_backend/.pytest_cache/
+
+# Firebase Service Account Key - ÖNEMLİ: ASLA COMMIT ETMEYİN!
+serviceAccountKey.json
+**/serviceAccountKey.json
