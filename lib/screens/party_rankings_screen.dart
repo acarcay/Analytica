@@ -1,11 +1,7 @@
-// lib/screens/party_rankings_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/mp_model.dart';
 
-/// Parti bazlı milletvekili performans sıralaması.
-/// Her partinin en başarılı ve en başarısız vekillerini gösterir.
 class PartyRankingsScreen extends StatefulWidget {
   const PartyRankingsScreen({super.key});
 
@@ -17,15 +13,13 @@ class _PartyRankingsScreenState extends State<PartyRankingsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  // Parti listesi ve renkleri
   static const List<Map<String, dynamic>> _parties = [
-    {'name': 'AKP', 'color': Color(0xFFF7931E), 'icon': Icons.star},
-    {'name': 'CHP', 'color': Color(0xFFE30A17), 'icon': Icons.people},
-    {'name': 'MHP', 'color': Color(0xFFBB1E23), 'icon': Icons.flag},
-    {'name': 'DEM PARTİ', 'color': Color(0xFF8B5CF6), 'icon': Icons.nature_people},
-    {'name': 'İYİ Parti', 'color': Color(0xFF00AEEF), 'icon': Icons.brightness_5},
-    {'name': 'YENİ YOL', 'color': Color(0xFF22C55E), 'icon': Icons.trending_up},
-    {'name': 'Diğer', 'color': Color(0xFF6B7280), 'icon': Icons.more_horiz},
+    {'name': 'AKP', 'color': Color(0xFFF7931E)},
+    {'name': 'CHP', 'color': Color(0xFFE30A17)},
+    {'name': 'MHP', 'color': Color(0xFFBB1E23)},
+    {'name': 'DEM', 'color': Color(0xFF8B5CF6)}, // Shortened for cleaner UI
+    {'name': 'İYİ', 'color': Color(0xFF00AEEF)},
+    {'name': 'Diğer', 'color': Color(0xFF6B7280)},
   ];
 
   @override
@@ -43,34 +37,42 @@ class _PartyRankingsScreenState extends State<PartyRankingsScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text(
-          'Parti Bazlı Performans',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: const Text('Parti Sıralaması', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
+        backgroundColor: colorScheme.surface,
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
-          indicatorWeight: 3,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          tabAlignment: TabAlignment.start,
+          indicatorSize: TabBarIndicatorSize.label,
+          dividerColor: Colors.transparent,
           tabs: _parties.map((party) {
+            final color = party['color'] as Color;
             return Tab(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: party['color'] as Color,
-                      shape: BoxShape.circle,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: color.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircleAvatar(radius: 4, backgroundColor: color),
+                    const SizedBox(width: 8),
+                    Text(
+                      party['name'] as String,
+                      style: TextStyle(color: color, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  const SizedBox(width: 6),
-                  Text(party['name'] as String),
-                ],
+                  ],
+                ),
               ),
             );
           }).toList(),
@@ -89,254 +91,128 @@ class _PartyRankingsScreenState extends State<PartyRankingsScreen>
   }
 }
 
-/// Bir partinin en başarılı ve en başarısız vekillerini gösteren widget.
 class _PartyMpList extends StatelessWidget {
   final String partyName;
   final Color partyColor;
 
-  const _PartyMpList({
-    required this.partyName,
-    required this.partyColor,
-  });
+  const _PartyMpList({required this.partyName, required this.partyColor});
 
   Query<Map<String, dynamic>> _getQuery() {
     final collection = FirebaseFirestore.instance.collection('mps');
-    
     if (partyName == 'Diğer') {
-      // Diğer partiler için ana partileri hariç tut
-      return collection.where('party', whereNotIn: [
-        'AKP', 'CHP', 'MHP', 'DEM PARTİ', 'İYİ Parti', 'YENİ YOL'
-      ]);
+      return collection.where('party', whereNotIn: ['AKP', 'CHP', 'MHP', 'DEM PARTİ', 'İYİ Parti', 'YENİ YOL']);
     }
-    
-    return collection.where('party', isEqualTo: partyName);
+    // Handle specific mapping if needed, assuming simple equality for now or 'DEM' mapping
+    String queryName = partyName;
+    if (partyName == 'DEM') queryName = 'DEM PARTİ';
+    if (partyName == 'İYİ') queryName = 'İYİ Parti';
+
+    return collection.where('party', isEqualTo: queryName);
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return StreamBuilder<QuerySnapshot>(
       stream: _getQuery().snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+           return const Center(child: CircularProgressIndicator());
         }
-
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('Hata: ${snapshot.error}'),
-          );
-        }
-
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.person_off, size: 64, color: Colors.grey[400]),
-                const SizedBox(height: 16),
-                Text(
-                  '$partyName partisine ait vekil bulunamadı',
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          );
+           return Center(
+             child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Icon(Icons.person_off, size: 60, color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+                 const SizedBox(height: 16),
+                 Text("Milletvekili bulunamadı", style: TextStyle(color: theme.colorScheme.outline)),
+               ],
+             ),
+           );
         }
 
-        // Vekilleri parse et ve puana göre sırala
-        final mps = snapshot.data!.docs
-            .map((doc) => MpModel.fromFirestore(doc))
-            .toList();
-        
+        final mps = snapshot.data!.docs.map((doc) => MpModel.fromFirestore(doc)).toList();
+        // Sort by score locally since Firestore lacks complex secondary ordering without index
         mps.sort((a, b) => b.currentScore.compareTo(a.currentScore));
 
-        // En başarılı 5 ve en başarısız 5
-        final topMps = mps.take(5).toList();
-        final bottomMps = mps.length > 5 
-            ? mps.reversed.take(5).toList().reversed.toList()
-            : <MpModel>[];
+        final top5 = mps.take(5).toList();
+        final bottom5 = mps.length > 5 ? mps.reversed.take(5).toList() : <MpModel>[];
 
-        return SingleChildScrollView(
+        return ListView(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // İstatistik kartı
-              _buildStatsCard(context, mps),
+          children: [
+            _buildStatHeader(context, mps),
+            const SizedBox(height: 24),
+            
+            Text("En Başarılı 5", style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.green)),
+            const SizedBox(height: 12),
+            ...top5.map((mp) => _buildMpCard(context, mp, true)),
+
+            if (bottom5.isNotEmpty) ...[
               const SizedBox(height: 24),
-              
-              // En Başarılı Vekiller
-              _buildSectionTitle(
-                context, 
-                '🏆 En Başarılı Vekiller', 
-                Colors.green,
-              ),
+              Text("Gelişim Beklenenler", style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.orange)),
               const SizedBox(height: 12),
-              ...topMps.asMap().entries.map((entry) {
-                return _buildMpCard(
-                  context, 
-                  entry.value, 
-                  entry.key + 1, 
-                  isTop: true,
-                );
-              }),
-              
-              if (bottomMps.isNotEmpty) ...[
-                const SizedBox(height: 24),
-                
-                // En Başarısız Vekiller
-                _buildSectionTitle(
-                  context, 
-                  '⚠️ En Düşük Performans', 
-                  Colors.red,
-                ),
-                const SizedBox(height: 12),
-                ...bottomMps.asMap().entries.map((entry) {
-                  return _buildMpCard(
-                    context, 
-                    entry.value, 
-                    mps.length - bottomMps.length + entry.key + 1,
-                    isTop: false,
-                  );
-                }),
-              ],
+              ...bottom5.map((mp) => _buildMpCard(context, mp, false)),
             ],
-          ),
+          ],
         );
       },
     );
   }
 
-  Widget _buildStatsCard(BuildContext context, List<MpModel> mps) {
-    final totalMps = mps.length;
-    final avgScore = mps.isEmpty 
-        ? 0.0 
-        : mps.map((m) => m.currentScore).reduce((a, b) => a + b) / mps.length;
-    final passiveMps = mps.where((m) => m.currentScore < 10).length;
-
+  Widget _buildStatHeader(BuildContext context, List<MpModel> mps) {
+    if (mps.isEmpty) return const SizedBox.shrink();
+    final avg = mps.map((m) => m.currentScore).reduce((a, b) => a + b) / mps.length;
+    
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            partyColor.withOpacity(0.2),
-            partyColor.withOpacity(0.05),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: partyColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: partyColor.withOpacity(0.3)),
+        border: Border.all(color: partyColor.withValues(alpha: 0.2)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem('Vekil', totalMps.toString(), Icons.people),
-          _buildStatItem('Ort. Puan', avgScore.toStringAsFixed(1), Icons.score),
-          _buildStatItem('Pasif', passiveMps.toString(), Icons.warning_amber),
+          _statItem(context, "${mps.length}", "Vekil"),
+          _statItem(context, avg.toStringAsFixed(1), "Ort. Puan"),
         ],
       ),
     );
   }
 
-  Widget _buildStatItem(String label, String value, IconData icon) {
+  Widget _statItem(BuildContext context, String value, String label) {
     return Column(
       children: [
-        Icon(icon, color: partyColor, size: 28),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: partyColor,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[600],
-          ),
-        ),
+        Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: partyColor)),
+        Text(label, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 12)),
       ],
     );
   }
 
-  Widget _buildSectionTitle(BuildContext context, String title, Color color) {
-    return Row(
-      children: [
-        Container(
-          width: 4,
-          height: 24,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMpCard(BuildContext context, MpModel mp, int rank, {required bool isTop}) {
-    final theme = Theme.of(context);
-    final scoreColor = isTop ? Colors.green : Colors.orange;
-
+  Widget _buildMpCard(BuildContext context, MpModel mp, bool isTop) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+         color: colorScheme.surfaceContainerLow,
+         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: isTop 
-              ? Colors.green.withOpacity(0.2) 
-              : Colors.orange.withOpacity(0.2),
-          child: Text(
-            '#$rank',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: isTop ? Colors.green : Colors.orange,
-            ),
-          ),
+          backgroundColor: isTop ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
+          child: Icon(isTop ? Icons.trending_up : Icons.trending_down, color: isTop ? Colors.green : Colors.orange, size: 20),
         ),
-        title: Text(
-          mp.name,
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
-        subtitle: Text(
-          mp.constituency ?? mp.party,
-          style: TextStyle(color: Colors.grey[600], fontSize: 12),
-        ),
-        trailing: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: scoreColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: scoreColor.withOpacity(0.3)),
-          ),
-          child: Text(
-            mp.currentScore.toStringAsFixed(0),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: scoreColor,
-              fontSize: 16,
-            ),
+        title: Text(mp.name, style: const TextStyle(fontWeight: FontWeight.w600)),
+        subtitle: Text(mp.constituency ?? '', style: const TextStyle(fontSize: 12)),
+        trailing: Text(
+          mp.currentScore.toStringAsFixed(1),
+          style: TextStyle(
+            fontWeight: FontWeight.bold, 
+            fontSize: 16, 
+            color: isTop ? Colors.green : Colors.orange
           ),
         ),
       ),

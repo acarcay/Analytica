@@ -24,6 +24,7 @@ python-dotenv>=1.0.0
 
 # Utility
 dataclasses-json>=0.6.0
+feedparser>=6.0.10
 
 # Testing
 pytest>=8.0.0

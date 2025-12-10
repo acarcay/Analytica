@@ -4,7 +4,7 @@ import '../auth/login_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../services/auth_service.dart';
-import '../utils/logging.dart';
+
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
 import '../services/saved_articles_service.dart';
@@ -21,13 +21,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
-  // Mevcut kullanıcıyı almak için
   final User? user = FirebaseAuth.instance.currentUser;
   final SavedArticlesService _savedArticlesService = SavedArticlesService();
   late TabController _tabController;
   
   List<Article> _savedArticles = [];
-  Map<String, int> _categoryStats = {};
+
   bool _isLoading = false;
   final AuthService _authService = AuthService();
   String? _localPhotoPath;
@@ -46,23 +45,16 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   }
 
   Future<void> _loadSavedArticles() async {
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() { _isLoading = true; });
 
     try {
       final articles = await _savedArticlesService.getSavedArticles();
-      final stats = await _savedArticlesService.getCategoryStats();
-      
       setState(() {
         _savedArticles = articles;
-        _categoryStats = stats;
         _isLoading = false;
       });
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
+      setState(() { _isLoading = false; });
     }
   }
 
@@ -70,12 +62,13 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     if (article.id != null) {
       final success = await _savedArticlesService.removeArticle(article.id!);
       if (success) {
-        await _loadSavedArticles(); // Listeyi yenile
+        await _loadSavedArticles();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Haber kaydedilenlerden çıkarıldı!'),
-              backgroundColor: Colors.green,
+            SnackBar(
+              content: Text('Haber silindi'),
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
             ),
           );
         }
@@ -96,33 +89,15 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       if (url != null) {
         setState(() {});
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Profil fotoğrafı başarıyla yüklendi.'),
-            backgroundColor: Colors.green,
-          ),
-        );
-      } else {
-        AppLog.e('Profile photo upload failed for uid: $uid');
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Profil fotoğrafı yüklenemedi. Lütfen daha sonra tekrar deneyin.'),
-            backgroundColor: Colors.red,
-          ),
+          const SnackBar(content: Text('Profil fotoğrafı güncellendi'), behavior: SnackBarBehavior.floating),
         );
       }
     }
   }
 
-  Future<void> _setPredefinedAvatar(String assetUrl) async {
-    await FirebaseAuth.instance.currentUser?.updatePhotoURL(assetUrl);
-    if (mounted) setState(() {});
-  }
-
-  // Çıkış yapma fonksiyonu
   Future<void> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
-      // Çıkış yaptıktan sonra LoginScreen'e yönlendir ve geçmişi temizle
       if (mounted) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -130,10 +105,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         );
       }
     } catch (e) {
-      // Hata durumunda kullanıcıya bilgi ver
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Çıkış yaparken bir hata oluştu: $e")),
+          SnackBar(content: Text("Hata: $e")),
         );
       }
     }
@@ -141,308 +115,422 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.surfaceContainerHighest,
-                Theme.of(context).colorScheme.surface,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-        title: const Text('Profilim'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(text: 'Profil', icon: Icon(Icons.person)),
-            Tab(text: 'Kaydedilenler', icon: Icon(Icons.bookmark)),
-          ],
-        ),
-        actions: [
-          IconButton(
-            tooltip: 'Tema Değiştir',
-            icon: Icon(
-              Theme.of(context).brightness == Brightness.dark
-                  ? Icons.wb_sunny_rounded
-                  : Icons.nightlight_round,
-            ),
-            onPressed: () {
-              final provider = context.read<ThemeProvider>();
-              final isDark = Theme.of(context).brightness == Brightness.dark;
-              provider.setThemeMode(isDark ? ThemeMode.light : ThemeMode.dark);
-            },
-          ),
-        ],
-      ),
-      body: user == null
-          ? const Center(child: Text("Kullanıcı bilgileri alınamadı. Lütfen tekrar giriş yapın."))
-          : TabBarView(
-              controller: _tabController,
-              children: [
-                // Profil Tab
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 48,
-                          backgroundImage: user!.photoURL != null
-                              ? NetworkImage(user!.photoURL!)
-                              : (_localPhotoPath != null ? FileImage(File(_localPhotoPath!)) as ImageProvider : null),
-                          child: (user!.photoURL == null && _localPhotoPath == null)
-                              ? const Icon(Icons.person, size: 48)
-                              : null,
-                        ),
-                        const SizedBox(height: 12),
-                        Wrap(
-                          spacing: 8,
-                          children: [
-                            OutlinedButton.icon(
-                              onPressed: _pickAvatarFromGallery,
-                              icon: const Icon(Icons.photo),
-                              label: const Text('Galeriden Yükle'),
-                            ),
-                            OutlinedButton.icon(
-                              onPressed: () => _setPredefinedAvatar('https://i.pravatar.cc/150?img=3'),
-                              icon: const Icon(Icons.account_circle),
-                              label: const Text('Avatar 1'),
-                            ),
-                            OutlinedButton.icon(
-                              onPressed: () => _setPredefinedAvatar('https://i.pravatar.cc/150?img=5'),
-                              icon: const Icon(Icons.account_circle),
-                              label: const Text('Avatar 2'),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        
-                        // ANA KONTROL BURADA
-                        if (user!.isAnonymous) ...[
-                          const Text(
-                            'Misafir Kullanıcı',
-                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Uygulamayı misafir olarak kullanıyorsunuz.',
-                            style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Kullanıcı ID: ${user!.uid}',
-                            style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-                            textAlign: TextAlign.center,
-                          ),
-                        ] else ...[
-                          // Normal kullanıcı ise bilgilerini göster
-                          Text(
-                            user!.displayName ?? 'İsim Belirtilmemiş',
-                            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            user!.email ?? 'E-posta bulunamadı.',
-                            style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
-                          ),
-                        ],
+    if (user == null) {
+      return const Scaffold(body: Center(child: Text("Oturum açılmadı")));
+    }
 
-                        const SizedBox(height: 40),
-                        ElevatedButton.icon(
-                          icon: const Icon(Icons.logout),
-                          label: Text(user!.isAnonymous ? 'Giriş Yap / Kayıt Ol' : 'Çıkış Yap'),
-                          onPressed: _signOut,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                          ),
-                        ),
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Scaffold(
+      backgroundColor: colorScheme.surface,
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              expandedHeight: 280.0,
+              floating: false,
+              pinned: true,
+              backgroundColor: colorScheme.surface,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        colorScheme.primary.withValues(alpha: 0.05),
+                        colorScheme.surface,
                       ],
                     ),
                   ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 60), // Status bar padding
+                      // Avatar
+                      Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: colorScheme.surface,
+                                width: 4,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
+                            ),
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundColor: colorScheme.primaryContainer,
+                              backgroundImage: user!.photoURL != null
+                                  ? NetworkImage(user!.photoURL!)
+                                  : (_localPhotoPath != null ? FileImage(File(_localPhotoPath!)) as ImageProvider : null),
+                              child: (user!.photoURL == null && _localPhotoPath == null)
+                                  ? Icon(Icons.person, size: 50, color: colorScheme.onPrimaryContainer)
+                                  : null,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Material(
+                              color: colorScheme.primary,
+                              shape: const CircleBorder(),
+                              elevation: 2,
+                              child: InkWell(
+                                onTap: _pickAvatarFromGallery,
+                                customBorder: const CircleBorder(),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(Icons.camera_alt, size: 16, color: colorScheme.onPrimary),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      // Name & Email
+                      Text(
+                        user!.displayName ?? (user!.isAnonymous ? 'Misafir Kullanıcı' : 'İsimsiz'),
+                        style: textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        user!.email ?? 'Anonim Hesap',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                
-                // Kaydedilenler Tab
-                _buildSavedArticlesTab(),
+              ),
+              bottom: TabBar(
+                controller: _tabController,
+                labelColor: colorScheme.primary,
+                unselectedLabelColor: colorScheme.onSurfaceVariant,
+                indicatorColor: colorScheme.primary,
+                indicatorSize: TabBarIndicatorSize.label,
+                dividerColor: Colors.transparent,
+                tabs: const [
+                  Tab(text: "Hesap"),
+                  Tab(text: "Kaydedilenler"),
+                ],
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.logout_rounded),
+                  tooltip: 'Çıkış Yap',
+                  onPressed: _signOut,
+                ),
               ],
             ),
+          ];
+        },
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            // TAB 1: HESAP AYARLARI
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSectionTitle(context, 'Görünüm'),
+                  const SizedBox(height: 10),
+                  _buildSettingsCard(
+                    context,
+                    children: [
+                      _buildSettingsTile(
+                        context,
+                        icon: Theme.of(context).brightness == Brightness.dark 
+                            ? Icons.dark_mode 
+                            : Icons.light_mode,
+                        title: 'Karanlık Mod',
+                        trailing: Switch(
+                          value: Theme.of(context).brightness == Brightness.dark,
+                          onChanged: (value) {
+                             final provider = context.read<ThemeProvider>();
+                             provider.setThemeMode(value ? ThemeMode.dark : ThemeMode.light);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+                  _buildSectionTitle(context, 'Uygulama'),
+                  const SizedBox(height: 10),
+                  _buildSettingsCard(
+                    context,
+                    children: [
+                      _buildSettingsTile(
+                        context,
+                        icon: Icons.notifications_outlined,
+                        title: 'Bildirimler',
+                        showDivider: true,
+                        onTap: () {},
+                      ),
+                      _buildSettingsTile(
+                        context,
+                        icon: Icons.language,
+                        title: 'Dil / Language',
+                        subtitle: 'Türkçe',
+                        showDivider: true,
+                         onTap: () {},
+                      ),
+                      _buildSettingsTile(
+                        context,
+                        icon: Icons.privacy_tip_outlined,
+                        title: 'Gizlilik Politikası',
+                         onTap: () {},
+                      ),
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 24),
+                  if (user!.isAnonymous)
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.info_outline, color: colorScheme.onSecondaryContainer),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              "Hesabınızı kaybetmemek için kayıt olun.",
+                              style: TextStyle(color: colorScheme.onSecondaryContainer),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: _signOut, // Login ekranına atar
+                            child: const Text("Kayıt Ol"),
+                          )
+                        ],
+                      ),
+                    ),
+                    
+                  const SizedBox(height: 40),
+                  Center(
+                    child: Text(
+                      "v1.0.0",
+                      style: textTheme.bodySmall?.copyWith(color: colorScheme.outline),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+
+            // TAB 2: KAYDEDİLENLER
+            _isLoading 
+              ? Center(child: LoadingAnimation(width: 50, height: 50))
+              : _savedArticles.isEmpty 
+                  ? _buildEmptyState(context)
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: _savedArticles.length,
+                      itemBuilder: (context, index) {
+                        return _buildArticleCard(context, _savedArticles[index]);
+                      },
+                    ),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _buildSavedArticlesTab() {
-    if (_isLoading) {
-  return Center(child: LoadingAnimation(width: 48, height: 48));
-    }
-
-    if (_savedArticles.isEmpty) {
-      return const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.bookmark_border, size: 64, color: Colors.grey),
-            SizedBox(height: 16),
-            Text(
-              'Henüz kaydedilmiş haber yok',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Haberleri analiz ettikten sonra kaydedebilirsiniz',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-          ],
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4),
+      child: Text(
+        title.toUpperCase(),
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.2,
         ),
-      );
-    }
+      ),
+    );
+  }
 
+  Widget _buildSettingsCard(BuildContext context, {required List<Widget> children}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.4),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: children,
+      ),
+    );
+  }
+
+  Widget _buildSettingsTile(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    String? subtitle,
+    Widget? trailing,
+    bool showDivider = false,
+    VoidCallback? onTap,
+  }) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Column(
       children: [
-        // İstatistikler
-        Container(
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(12),
+        ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: colorScheme.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon, size: 20, color: colorScheme.primary),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'İstatistikler',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Text('Toplam Kaydedilen: ${_savedArticles.length}'),
-              const SizedBox(height: 8),
-              if (_categoryStats.isNotEmpty) ...[
-                const Text('Kategorilere Göre:', style: TextStyle(fontWeight: FontWeight.w600)),
-                const SizedBox(height: 4),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 4,
-                  children: _categoryStats.entries.map((entry) {
-                    return Chip(
-                      label: Text('${getCategoryDisplayName(entry.key)}: ${entry.value}'),
-                      avatar: Icon(getCategoryIcon(entry.key), size: 16),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ],
-          ),
+          title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
+          subtitle: subtitle != null ? Text(subtitle) : null,
+          trailing: trailing ?? const Icon(Icons.chevron_right, size: 20, color: Colors.grey),
+          onTap: onTap,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
-        
-        // Kaydedilen haberler listesi
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: _savedArticles.length,
-            itemBuilder: (context, index) {
-              final article = _savedArticles[index];
-              return Card(
-                margin: const EdgeInsets.only(bottom: 8),
-                child: ListTile(
-                  leading: Icon(getCategoryIcon(article.category ?? 'diger')),
-                  title: Text(
-                    article.title ?? 'Başlık yok',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (article.category != null)
-                        Text(
-                          getCategoryDisplayName(article.category!),
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      if (article.sourceName != null)
-                        Text(article.sourceName!),
-                      if (article.savedAt != null)
-                        Text(
-                          'Kaydedildi: ${_formatDate(article.savedAt!)}',
-                          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                        ),
-                    ],
-                  ),
-                  trailing: PopupMenuButton(
-                    itemBuilder: (context) => [
-                      const PopupMenuItem(
-                        value: 'view',
-                        child: Row(
-                          children: [
-                            Icon(Icons.visibility),
-                            SizedBox(width: 8),
-                            Text('Görüntüle'),
-                          ],
-                        ),
-                      ),
-                      const PopupMenuItem(
-                        value: 'remove',
-                        child: Row(
-                          children: [
-                            Icon(Icons.delete, color: Colors.red),
-                            SizedBox(width: 8),
-                            Text('Çıkar', style: TextStyle(color: Colors.red)),
-                          ],
-                        ),
-                      ),
-                    ],
-                    onSelected: (value) {
-                      if (value == 'view') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NewsDetailScreen(rssArticle: article),
-                          ),
-                        );
-                      } else if (value == 'remove') {
-                        _removeArticle(article);
-                      }
-                    },
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewsDetailScreen(rssArticle: article),
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
+        if (showDivider)
+          Divider(
+            height: 1, 
+            indent: 56, 
+            endIndent: 16, 
+            color: colorScheme.outlineVariant.withValues(alpha: 0.4)
           ),
-        ),
       ],
     );
   }
 
-  String _formatDate(DateTime date) {
-    final now = DateTime.now();
-    final difference = now.difference(date);
+  Widget _buildEmptyState(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.bookmark_outline, size: 80, color: Theme.of(context).colorScheme.outlineVariant),
+          const SizedBox(height: 16),
+          Text(
+            "Henüz Haber Kaydetmediniz",
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "Beğendiğiniz haberleri burada bulabilirsiniz.",
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+               color: Theme.of(context).colorScheme.outline,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-    if (difference.inDays == 0) {
-      return 'Bugün';
-    } else if (difference.inDays == 1) {
-      return 'Dün';
-    } else if (difference.inDays < 7) {
-      return '${difference.inDays} gün önce';
-    } else {
-      return '${date.day}/${date.month}/${date.year}';
-    }
+  Widget _buildArticleCard(BuildContext context, Article article) {
+    return Card(
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5)),
+      ),
+      margin: const EdgeInsets.only(bottom: 12),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewsDetailScreen(rssArticle: article),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              // Kategori Ikonu
+              Container(
+                 width: 48,
+                 height: 48,
+                 decoration: BoxDecoration(
+                   color: Theme.of(context).colorScheme.tertiaryContainer,
+                   borderRadius: BorderRadius.circular(12),
+                 ),
+                 child: Icon(
+                   getCategoryIcon(article.category ?? 'diger'),
+                   color: Theme.of(context).colorScheme.onTertiaryContainer,
+                 ),
+              ),
+              const SizedBox(width: 16),
+              // Icerik
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      article.title ?? 'Başlık Yok',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                         Text(
+                           article.sourceName ?? 'Bilinmeyen',
+                           style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.primary),
+                         ),
+                         const SizedBox(width: 8),
+                         Icon(Icons.circle, size: 4, color: Theme.of(context).colorScheme.outline),
+                         const SizedBox(width: 8),
+                         Text(
+                           article.category != null ? getCategoryDisplayName(article.category!) : '',
+                           style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.outline),
+                         ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              // Silme Butonu
+              IconButton(
+                icon: const Icon(Icons.bookmark_remove_outlined),
+                color: Theme.of(context).colorScheme.error,
+                onPressed: () => _removeArticle(article),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
