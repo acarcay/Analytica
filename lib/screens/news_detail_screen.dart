@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:async';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../services/ai_service.dart';
 import '../services/saved_articles_service.dart';
+import '../services/payment_service.dart';
 import '../models/article.dart';
 import '../widgets/category_selector.dart';
 import '../widgets/loading_animation.dart';
+import 'premium_screen.dart';
 
 class NewsDetailScreen extends StatefulWidget {
   final Article rssArticle;
@@ -47,7 +51,32 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
     }
   }
 
-  void _getAnalysis() {
+  void _getAnalysis() async {
+    // 1. Check Premium Status and Daily Limit
+    final paymentService = Provider.of<PaymentService>(context, listen: false);
+    if (!paymentService.isPremium) {
+      final prefs = await SharedPreferences.getInstance();
+      final todayStr = DateTime.now().toIso8601String().split('T')[0];
+      final lastDate = prefs.getString('last_analysis_date');
+      int dailyCount = prefs.getInt('daily_analysis_count') ?? 0;
+
+      if (lastDate != todayStr) {
+        // New day, reset
+        dailyCount = 0;
+        await prefs.setString('last_analysis_date', todayStr);
+        await prefs.setInt('daily_analysis_count', 0);
+      }
+
+      if (dailyCount >= 1) {
+        if (!mounted) return;
+        _showPremiumDialog();
+        return;
+      }
+
+      // Increment usage if proceeding
+      await prefs.setInt('daily_analysis_count', dailyCount + 1);
+    }
+
     _analysisSubscription?.cancel();
     setState(() {
       _isLoading = true;
@@ -72,6 +101,40 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
       onDone: () {
         if (mounted) setState(() { _isLoading = false; });
       },
+    );
+  }
+
+  void _showPremiumDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF1E1E2C),
+        title: const Row(
+          children: [
+            Icon(Icons.workspace_premium, color: Color(0xFFFFD700)),
+            SizedBox(width: 8),
+            Text("Ücretsiz Limit Doldu", style: TextStyle(color: Colors.white)),
+          ],
+        ),
+        content: const Text(
+          "Günlük ücretsiz yapay zeka analizi hakkınızı doldurdunuz. Sınırsız analiz için Premium'a geçin.",
+          style: TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Vazgeç", style: TextStyle(color: Colors.grey)),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const PremiumScreen()));
+            },
+            style: FilledButton.styleFrom(backgroundColor: const Color(0xFFFFD700), foregroundColor: Colors.black),
+            child: const Text("Premium'u İncele"),
+          ),
+        ],
+      ),
     );
   }
 

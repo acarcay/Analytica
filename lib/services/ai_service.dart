@@ -105,45 +105,6 @@ $newsText
     }
   }
 
-  Future<GenerateContentResponse?> _generateWithRetry(GenerativeModel model, List<Content> content) async {
-    const int maxAttempts = 3;
-    for (int attempt = 1; attempt <= maxAttempts; attempt++) {
-      try {
-        final resp = await model.generateContent(content).timeout(const Duration(seconds: 25));
-        return resp;
-      } on TimeoutException {
-  AppLog.d('AIService: generateContent attempt $attempt timed out');
-        if (attempt == maxAttempts) {
-    AppLog.d('AIService: generateWithRetry giving up after timeout attempts');
-          return null;
-        }
-      } on NotInitializedError {
-        // Paket tarafında zaman zaman bu hata gelebilir: API anahtarı veya istemci hazır değil
-  AppLog.d('AIService: NotInitializedError on attempt $attempt');
-        if (attempt == maxAttempts) {
-          AppLog.d('AIService: generateWithRetry giving up after NotInitializedError');
-          return null;
-        }
-      } catch (e) {
-  AppLog.d('AIService: generateContent attempt $attempt error: $e');
-        final message = e.toString().toLowerCase();
-        final isOverloaded = message.contains('503') || message.contains('unavailable') || message.contains('overloaded');
-        if (!isOverloaded && attempt == 1) {
-          // 503 dışındaki hatalarda tek deneme daha yapalım
-        }
-        if (attempt == maxAttempts) {
-          AppLog.d('AIService: generateWithRetry giving up after error: $e');
-          return null;
-        }
-      }
-
-      // Artan bekleme süresi (exponential backoff: 500ms, 1s)
-      final waitMs = 500 * attempt;
-      await Future.delayed(Duration(milliseconds: waitMs));
-    }
-  AppLog.d('AIService: generateWithRetry finished without success (all attempts exhausted)');
-    return null;
-  }
 
   // Firestore Cache Helpers
   Future<String?> _getCached(String cacheKey) async {

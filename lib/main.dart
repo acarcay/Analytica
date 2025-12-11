@@ -12,6 +12,7 @@ import 'auth/login_screen.dart';
 import 'firebase_options.dart';
 import 'providers/theme_provider.dart';
 import 'providers/news_provider.dart';
+import 'services/payment_service.dart';
 
 // TEMA TANIMLAMALARI (Değişiklik yok)
 final Color primaryColor = Colors.teal;
@@ -56,6 +57,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => NewsProvider()),
+        ChangeNotifierProvider(create: (context) => PaymentService()),
       ],
       child: const MyApp(),
     ),
