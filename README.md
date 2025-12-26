@@ -2,8 +2,6 @@
 
 **Analytica**, yapay zeka destekli bir siyasi analiz ve haber takip platformudur. Türkiye'deki milletvekillerinin performansını veri odaklı algoritmalarla analiz eder, meclis faaliyetlerini takip eder ve güncel haberleri kategorize ederek sunar.
 
-![Analytica Banner](assets/images/banner_placeholder.png)
-
 ## 🌟 Özellikler
 
 ### 🤖 AI Destekli Puanlama Sistemi
